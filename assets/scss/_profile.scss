@@ -1,0 +1,57 @@
+
+.profile_container {
+   display: flex;
+   // height: 300px;
+   padding: 3rem 2.5rem 0 2.5rem;
+
+   .left_cont {
+      flex: 0 0 20%;
+      height: inherit;
+      padding: 0 1rem 0.5rem 1rem;
+
+      .user_profile_box {
+         // border: 1px solid blue;
+         background-color: #fff;
+         box-shadow: $thin_boxshadow;
+         border-radius: 5px;
+         border: 1px solid transparentize(grey, 0.8);
+         padding: 1.5rem;
+         .user_avatar {
+            margin-bottom: 1rem;
+            & > span {
+               color: grey;
+               margin: auto;
+            }
+            .avatar {
+               height: 4rem;
+               width: 4rem;
+               border-radius: 50px;
+               overflow: hidden;
+               margin: auto;
+               & > img {
+                  height: inherit;
+                  width: auto;
+               }
+            }
+         }
+
+         .user_profile_tag {
+            & > p {
+               padding: 0.3rem 0;
+               & > span {
+                  border-radius: 50px;
+                  background-color: darken($smokewhite, 10%);
+                  color: grey;
+                  padding: 0.5rem 1rem;
+               }
+            }
+         }
+      }
+   }
+
+   .right_cont {
+      flex: 0 0 80%;
+      height: inherit; 
+      padding: 0 1rem 0.5rem 1rem;
+   }
+}

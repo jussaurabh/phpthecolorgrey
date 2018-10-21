@@ -1,0 +1,185 @@
+header {
+   height: $nav_height;
+   background-color: $primaryblack;
+   width: 100%;
+   display: flex;
+   position: fixed;
+   width: 100%;
+   z-index: 10;
+   
+   .logo {
+      color: $smokewhite;
+      height: inherit;
+      margin-left: 30px;
+      flex-grow: 1;
+      & > h5 > a {
+         color: $smokewhite;
+      }
+   }
+
+   .searchbox_container {
+      flex-grow: 4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      // border: 1px solid blue;
+      .searchbox {
+         $searchbox-height: $nav_height - 15px;
+         width: 400px;
+         height: $nav_height - 15px;
+         background-color: darken($primaryblack, 4%);
+         & > form {
+            display: flex;
+            .search-input-box {
+               flex-grow: 3;
+               padding-left: 1em;
+               input {
+                  color: #fff;
+                  &::placeholder {
+                     color: #686868;
+                     // font-family: Consolas;
+                  }
+               }
+            }
+            .search-btn {
+               padding-right: 1em;
+            }
+         }
+      }
+   }
+
+   .profileicon {
+      margin-right: 30px;
+      width: 70px;
+      flex-grow: 1;
+      height: inherit;
+      display: flex;
+      align-content: flex-end;
+      justify-content: flex-end;
+
+      .profilelogo,
+      .notifylogo {
+         line-height: $nav_height;
+         padding: 0 0.8em;
+         color: $secondaryblack;
+         position: relative;
+         // cursor: pointer;
+      }
+
+      .notifylogo > span {
+         cursor: pointer;
+      }
+
+      .userProfileImg {
+         height: 2rem;
+         width: 2rem;
+         border-radius: 50px;
+         overflow: hidden;
+         cursor: pointer;
+         & > img {
+            height: inherit;
+            width: auto;
+         }
+      }
+
+      .profile-dropdown {
+         position: absolute;
+         background-color: #fff;
+         padding: 1.5em;
+         border-radius: 5px;
+         top: $nav_height - 5px;
+         right: 0px;
+         box-shadow: $light_boxshadow;
+         width: 200px;
+         display: none;
+         .user-menu {
+            margin: 0;
+            & > li {
+               line-height: 30px;
+               & > hr {
+                  border: 1px solid #efefef;
+               }
+               & > a {
+                  color: lighten($secondaryblack, 10%);
+                  display: block;
+                  &:hover {
+                     color: black;
+                  }
+               }
+            }
+         }
+      }
+
+      .notify-dropdown {
+         $notify_dropdown_height: 30em;
+         position: absolute;
+         background-color: #fff;
+         padding: 1.5em;
+         border-radius: 5px;
+         top: $nav_height - 5px;
+         right: 0px;
+         box-shadow: $light_boxshadow;
+         width: 300px;
+         max-height: $notify_dropdown_height;
+         display: none;
+         .notify-head {
+            background-color: darken($smokewhite, 4%);
+            color: $secondaryblack;
+            margin: -1.5em -1.5em 0 -1.5em;
+            padding: 1.5em;
+            position: fixed;
+            width: inherit;
+            border-radius: 5px 5px 0 0;
+         }
+         .notify-body {
+            margin: 3em -1.5em 0 -1.5em;
+            overflow-y: scroll;
+            max-height: $notify_dropdown_height - 5em;
+            .notify-row {
+               display: flex;
+               padding: 0 1.5em 10px 1.5em;
+               .notify-avatar {
+                  height: $notifyAvatarSize;
+                  width: $notifyAvatarSize;
+                  border-radius: 50px;
+                  overflow: hidden;
+                  & > img {
+                     height: 100%;
+                     width: auto;
+                  }
+               }
+               .notify-username {
+                  width: 100%;
+                  color: black;
+                  line-height: $notifyAvatarSize;
+                  padding-left: 1em;
+                  & > p > span {
+                     float: right;
+                     color: darken($smokewhite, 50%);
+                  }
+               }
+            }
+            .notify-user-msg {
+               padding: 0 $notifyAvatarSize;
+               color: #000;
+               line-height: normal;
+            }
+         }
+      }
+   }
+}
+
+
+
+.open-dropdown {
+   display: block !important;
+}
+
+.notify-li {
+   padding: 15px 0;
+   border-bottom: 1px solid darken($smokewhite, 5%);
+   &:hover {
+      background-color: $smokewhite;
+   }
+}
+

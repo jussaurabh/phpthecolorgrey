@@ -1,0 +1,92 @@
+
+.quote-block-container {
+   display: flex;
+   flex-wrap: wrap;
+
+   .quoteBlock {
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: $thin_boxshadow;
+      padding: 1em;
+      height: auto;
+      margin: $gap/2;
+      flex: 0 0 calc(25% - #{$gap});
+      align-self: flex-start;
+      .quoteTags {
+         // border: 1px solid red;
+         color: grey;
+         line-height: 14px;
+      }
+      .quote {
+         // border: 1px solid green;
+         line-height: 19px;
+         & > p:first-child {
+            margin-bottom: 5px;
+         }
+         & > p:nth-child(2) {
+            color: grey;
+            margin-top: 0;
+         }
+      }
+      .quoteBlockFooter {
+         display: flex;
+         padding-top: 10px;
+         .quotedTime {
+            flex: 3;
+            color: grey;
+            & > p {
+               line-height: 0.9em;
+            }
+         }
+         .quoteActions {
+            flex: 1;
+            .quoteLikeBtn,
+            .quoteCommentBtn {
+               // border: 1px solid;
+               // float: right;
+               padding-left: 5px;
+               & > span {
+                  // border: 1px solid green;
+                  cursor: pointer;
+                  & > .material-icons {
+                     font-size: 18px;
+                  }
+               }
+            }
+         }
+      }
+   }
+
+}
+// .quote-block-container
+
+
+.quoteCategoryOption {
+   display: flex;
+   align-items: stretch;
+   padding: 3rem;
+
+   label {
+      margin-right: 10px;
+      & > input[type=radio]:checked ~ .quoteChip {
+         background-color: $primaryblack;
+         color: $smokewhite;
+      }   
+   }
+
+   .quoteChip {
+      background-color: darken($smokewhite, 10%);
+      color: grey;
+      border-radius: 50px;
+      padding: 0px 15px !important;
+      user-select: none;
+      font-size: 0.8rem !important;
+      &::before {
+         display: none;
+      }
+      &::after {
+         display: none;
+      }
+   }
+}
+// .quoteCategoryOption

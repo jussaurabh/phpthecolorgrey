@@ -1,0 +1,52 @@
+* {
+   font-family: Consolas;
+}
+
+body{
+   background-color: $smokewhite;  
+}
+
+
+body,
+.notify-body,
+.category_block {
+   &::-webkit-scrollbar {
+      width: 5px;
+
+   }
+
+   &::-webkit-scrollbar-track {
+      background-color: lighten(grey, 50%);
+   }
+
+   &::-webkit-scrollbar-thumb {
+      background-color: grey;
+   }
+}
+
+
+input[type]{
+   margin: 0px !important;
+   border-bottom: none !important;
+   &:focus {
+      border-bottom: none !important;
+   }
+   &::placeholder {
+      color: lighten(grey, 10%);
+   }
+}
+
+.no-margin{
+   margin: 0 !important;
+}
+
+main {
+   padding-top: $nav_height;
+}
+
+
+.lightgrey-hr {
+   border: 1px solid lighten(grey, 40%);
+}
+
+
