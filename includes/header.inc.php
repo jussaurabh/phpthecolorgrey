@@ -104,10 +104,9 @@
                   <li><hr/></li> -->
                   <?php 
                      if (isset($_SESSION['username'])) {
-                        echo "<li><a href=\"#\">" . $_SESSION['username'] . "</a></li>";
+                        echo "<li><a href=\"profile.php?author=" . $_SESSION['username'] ."\">" . $_SESSION['username'] . "</a></li>";
                         echo "<li><hr/></li>";
-                     }
-                  
+                     }                  
                   ?>
                   <li><a href="writequote.php">Write a quote</a></li>
                   <li><a href="#">Categories</a></li>

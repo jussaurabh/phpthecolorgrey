@@ -15,7 +15,7 @@ $errors = array();
 
 if (isset($_POST['quote_submit'])) {
 
-   $errors = Validate::quoteInput($_POST['quote_author'], $_POST['quote']);
+   $errors = Validate::quoteInput($_SESSION['username'], $_POST['quote']);
 
    $authorError = $errors['authorErr'];
    $quoteError = $errors['quoteErr'];
@@ -35,14 +35,16 @@ include "./includes/header.inc.php";
       <h5 class="center form_head">Write your quote</h5>
 
       <form action="" method="post">
-         <div class="inputbox">
+         <!-- <div class="inputbox">
             <input type="text" name="quote_author" placeholder="Author" styles="width: 400px; min-width: 300px;">
-         </div>
+         </div> -->
          <?php 
-            if ($authorError)
-               echo "<p class='registerError no-margin'> <small> $authorError </small> </p>"
-         ?>            
-         
+            // if ($authorError)
+            //    echo "<p class='registerError no-margin'> <small> $authorError </small> </p>"
+
+            echo "<h5>" . $_SESSION['username'] . "</h5>";
+         ?>     
+
          <div class="inputbox">
             <input type="text" name="quote" placeholder="Write a quote" styles="width: 400px; min-width: 300px;">
          </div>

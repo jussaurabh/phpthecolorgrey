@@ -33,7 +33,7 @@ include "./includes/header.inc.php";
             <div class="quote-block-container">
 
                <?php 
-                  foreach ($result as $data) {         
+                  foreach ($result['data'] as $data) {         
                ?>
 
                <div class="quoteBlock">
@@ -43,7 +43,7 @@ include "./includes/header.inc.php";
                   <div class="quote">
                      <?php 
                         echo "<p>" . $data['quote'] . "</p>";
-                        echo "<p><small>- " . $data['quote_author'] . "</small></p>";
+                        echo "<p><a href=\"profile.php?author=" . $data['quote_author'] ."\"><small>- " . $data['quote_author'] . "</small></a></p>";
                      ?>
                   </div>
                   <div class="quoteBlockFooter">

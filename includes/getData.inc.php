@@ -3,16 +3,23 @@
 require "./classes/Data.php";
 
 
-function getAllQuote($table) {
+function getAllQuote($table, $author=NULL) {
    $data = new Data;
    $rows = array();
-   $rows = $data->getAllData($table);
+   
+   if(isset($author))
+      $rows = $data->getAllData($table, $author);
+   else 
+      $rows = $data->getAllData($table);
+
    return $rows;
 }
 
 
 function getDateDiff($date) {
    $da[] = explode(' ', $date);
+
+   // $t1 = 
    
    $d1 = new DateTime($da[0][0]);
    $present = new DateTime('now');

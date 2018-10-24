@@ -1,8 +1,9 @@
 <?php 
 
-// require "./includes/session.inc.php";
+require "./includes/session.inc.php";
 
-// require "./includes/getData.inc.php";
+require "./includes/getData.inc.php";
+$result = getAllQuote('quote', $_GET['author']);
 
 include "./includes/header.inc.php";
 
@@ -29,7 +30,9 @@ include "./includes/header.inc.php";
             </div>
 
             <div class="username">
-               <p class="center">USername</p>
+               <?php  
+                  echo "<p class=\"center\">" . $_GET['author'] . "</p>";
+               ?>
             </div>
 
             <hr class="lightgrey-hr">
@@ -37,7 +40,11 @@ include "./includes/header.inc.php";
             <div class="user_profile_tag">
                <p class="center"><span> Followers 23 </span></p>
                <p class="center"><span> Following 12 </span></p>
-               <p class="center"><span> Quotes 33 </span></p>
+               <p class="center">
+               <span> Quotes 
+                  <?php echo $result['rowcount']; ?>
+               </span>
+               </p>
             </div>
          </div>
 
@@ -48,19 +55,26 @@ include "./includes/header.inc.php";
 
          <div class="quote-block-container">
 
-            <?php for ($i=0; $i < 10; $i++) { ?>
+            <?php 
+               foreach ($result['data'] as $data) {
+            ?>
 
             <div class="quoteBlock">
                <div class="quoteTags">
                   <p class="no-marign"><small>Tags - tag1, tag2, tag3 ....</small></p>
                </div>
                <div class="quote">
-                  <p>some quote qritten by users</p>
-                  <p><small>- Author name</small></p>
+                  <?php 
+                     echo "<p>" . $data['quote'] . "</p>";
+                     echo "<p><a href=\"profile.php?author=" . $data['quote_author'] . "\"><small>- " . $data['quote_author'] . "</small></a></p>";
+                  ?>
                </div>
                <div class="quoteBlockFooter">
                   <div class="quotedTime">
-                     <p class="no-margin"><small>1 day ago</small></p>
+                     <?php 
+                        $date = getDateDiff($data['quoted_datetime']);
+                        echo "<p class=\"no-margin\"><small>" . $date . " ago</small></p>"
+                     ?>
                   </div>
                   <div class="quoteActions valign-wrapper">
                      <div class="quoteLikeBtn valign-wrapper">

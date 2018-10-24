@@ -7,9 +7,6 @@ if (isset($_POST['login_submit'])) {
    $username = $_POST['username'];
    $password = $_POST['password'];
 
-   $loginError = NULL;
-   $_SESSION['login'] = false;
-
    $conn = Dbs::connect();
 
    $sql = "SELECT * FROM user WHERE username='$username' and password='$password'";
