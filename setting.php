@@ -1,6 +1,6 @@
 <?php 
 
-// require "./includes/session.inc.php";
+require "./includes/session.inc.php";
 
 
 include "./includes/header.inc.php";

@@ -10,7 +10,7 @@ class Data extends Dbs {
       $tabledata = array();
       $i = 0;
 
-      $conn = Dbs::connect();
+      $conn = $this->connect();
 
       if (isset($author)) {
          $sql = "SELECT * FROM " . $table . " WHERE quote_author='$author'";
@@ -30,6 +30,11 @@ class Data extends Dbs {
          $data = [
             'rowcount' => $rowcount,
             'data' => $tabledata
+         ];
+      }
+      else {
+         $data = [
+            'rowcount' => 0
          ];
       }
 

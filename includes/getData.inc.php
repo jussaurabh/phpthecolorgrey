@@ -26,11 +26,13 @@ function getDateDiff($date) {
    
    $diff = date_diff($present, $d1);
 
-   $days = $diff->format("%a days");
-   $months = $diff->format("%m months");
-   $years = $diff->format("%y year");
+   $days = $diff->format("%a days ago");
+   $months = $diff->format("%m months ago");
+   $years = $diff->format("%y year ago");
 
-   if (($days <= 31)) {
+   if ($days < 1) {
+      return "Today";
+   } else if (($days <= 31)) {
       return $days;  
    } else if ($months <= 12) {
       return $months;

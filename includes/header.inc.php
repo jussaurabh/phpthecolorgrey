@@ -30,7 +30,7 @@
          </h5>
       </div>
 
-      <div class="searchbox_container">
+      <!-- <div class="searchbox_container">
          <div class="searchbox">
             <form>
                <div class="search-input-box">
@@ -43,9 +43,17 @@
                </div>
             </form>
          </div>
-      </div>
+      </div> -->
 
       <div class="profileicon">
+         <div class="headerLogo valign-wrapper">
+            <span class="searchIcon center-align valign-wrapper">
+               <i class="material-icons center-align small">
+                  search
+               </i>
+            </span>
+         </div>  
+
          <div class="notifylogo valign-wrapper">
             <span class="notifyIcon center-align valign-wrapper">
                <i class="material-icons center-align small">notifications</i>
@@ -56,29 +64,39 @@
                   <h6 class="no-margin">Notifications</h6>
                </div>
                <div class="notify-body">
-                  <ul class="no-margin">
+                  <ul class="no-margin"> 
+
+                     <?php if (!isset($_SESSION['username'])) { ?>
+
+                     <div class="default-placeholder valign-wrapper">
+                        <span>No new notifications</span>
+                     </div>
+                     
+
                      <?php 
-                        for ($i=0; $i < 6; $i++) {
+                        } else {
+                           for ($i=0; $i < 6; $i++) {
                      ?>
-                        <li class="notify-li">
-                           <a href="#">
-                              <div class="notify-row">
-                                 <div class="notify-avatar valign-wrapper">
-                                    <img src="./assets/images/profile.jpg" alt="" class="center-align">
-                                 </div>
-                                 <div class="notify-username">
-                                    <p class="no-margin">
-                                       <b>Username</b>
-                                       <span><small>Tue 12:30Pm</small></span>
-                                    </p>
-                                 </div>
+                     <li class="notify-li">
+                        <a href="#">
+                           <div class="notify-row">
+                              <div class="notify-avatar valign-wrapper">
+                                 <img src="./assets/images/profile.jpg" alt="" class="center-align">
                               </div>
-                              <div class="notify-user-msg">
-                                 <p class="no-margin">Username liked your quote : "asdadad"</p>
+                              <div class="notify-username">
+                                 <p class="no-margin">
+                                    <b>Username</b>
+                                    <span><small>Tue 12:30Pm</small></span>
+                                 </p>
                               </div>
-                           </a>
-                        </li>
+                           </div>
+                           <div class="notify-user-msg">
+                              <p class="no-margin">Username liked your quote : "asdadad"</p>
+                           </div>
+                        </a>
+                     </li>
                      <?php
+                           }
                         }
                      ?>
                   </ul>
@@ -97,11 +115,6 @@
 
             <div class="profile-dropdown">
                <ul class="user-menu">
-                  <!-- <li>
-                     <a href="#">   
-                     </a>
-                  </li>
-                  <li><hr/></li> -->
                   <?php 
                      if (isset($_SESSION['username'])) {
                         echo "<li><a href=\"profile.php?author=" . $_SESSION['username'] ."\">" . $_SESSION['username'] . "</a></li>";
@@ -111,16 +124,36 @@
                   <li><a href="writequote.php">Write a quote</a></li>
                   <li><a href="#">Categories</a></li>
                   <?php
-                     if (!isset($_SESSION['username']))
-                        echo "<li><a href=\"login.php\">Login</a></li>"
+                     if (!isset($_SESSION['username'])) {
+                        echo "<li><a href=\"login.php\">Login</a></li>";
+                        echo "<li><a href=\"signup.php\">Signup</a></li>";
+                     }
                   ?>
                   <?php
-                     if (isset($_SESSION['username']))
-                        echo "<li><a href=\"logout.php\">Logout</a></li>"
+                     if (isset($_SESSION['username'])) {
+                        echo "<li><a href=\"setting.php\">Setting</a></li>";
+                        echo "<li><a href=\"logout.php\">Logout</a></li>";
+                     }
                   ?>
                </ul>
             </div>
 
          </div>
       </div>
+      <!-- .profileicon -->
+
+
+      <div class="search_container">
+         <div class="search_inputbox container">
+            <form>
+               <input type="text" placeholder="Search your favorite quote">
+            </form>
+            <div class="close_search_inputbox valign-wrapper">
+               <span class="valign-wrapper center-align">
+                  <i class="material-icons small center-align">clear</i>
+               </span>
+            </div>
+         </div>
+      </div>
+      <!-- .search_container -->
    </header>

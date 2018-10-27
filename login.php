@@ -6,6 +6,11 @@ if (isset($_SESSION['username'])) {
 }
 
 include "./classes/UserLogin.php";
+if (isset($_POST['login_submit'])) {
+   $loginError = NUll;
+   $userLogin = new UserLogin;
+   $loginError = $userLogin->login($_POST['username'], $_POST['password']);
+}
 
 include "./includes/header.inc.php";
 

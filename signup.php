@@ -6,18 +6,20 @@ if (isset($_SESSION['username'])) {
    exit(header("Location: index.php"));
 }
 
-require_once "./classes/Validate.php";
+require "./classes/Validate.php";
 
 $usernameError = $emailError = $passwordError = NULL;
 $signupError = array();
 
 if (isset($_POST['signup_submit'])) {
 
-   $signupError = Validate::signupInput($_POST['username'], $_POST['email'], $_POST['password']);
+   $validate = new Validate;
+
+   $signupError = $validate->signupInput($_POST['username'], $_POST['email'], $_POST['password']);
 
    $usernameError = $signupError['username'];
    $emailError = $signupError['email'];
-   $passwordError = $signupError['username'];
+   $passwordError = $signupError['password'];
 
 }
 

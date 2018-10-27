@@ -6180,24 +6180,6 @@ textarea.materialize-textarea[readonly="readonly"] + label {
   color: rgba(0, 0, 0, 0.42);
 }
 
-input:not([type]):focus:not([readonly]),
-input[type=text]:not(.browser-default):focus:not([readonly]),
-input[type=password]:not(.browser-default):focus:not([readonly]),
-input[type=email]:not(.browser-default):focus:not([readonly]),
-input[type=url]:not(.browser-default):focus:not([readonly]),
-input[type=time]:not(.browser-default):focus:not([readonly]),
-input[type=date]:not(.browser-default):focus:not([readonly]),
-input[type=datetime]:not(.browser-default):focus:not([readonly]),
-input[type=datetime-local]:not(.browser-default):focus:not([readonly]),
-input[type=tel]:not(.browser-default):focus:not([readonly]),
-input[type=number]:not(.browser-default):focus:not([readonly]),
-input[type=search]:not(.browser-default):focus:not([readonly]),
-textarea.materialize-textarea:focus:not([readonly]) {
-  border-bottom: 1px solid #26a69a;
-  -webkit-box-shadow: 0 1px 0 0 #26a69a;
-          box-shadow: 0 1px 0 0 #26a69a;
-}
-
 input:not([type]):focus:not([readonly]) + label,
 input[type=text]:not(.browser-default):focus:not([readonly]) + label,
 input[type=password]:not(.browser-default):focus:not([readonly]) + label,
@@ -9041,64 +9023,6 @@ header .logo > h5 > a {
   color: #f7f7f7;
 }
 
-header .searchbox_container {
-  -webkit-box-flex: 4;
-      -ms-flex-positive: 4;
-          flex-grow: 4;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-}
-
-header .searchbox_container .searchbox {
-  width: 400px;
-  height: 45px;
-  background-color: #171717;
-}
-
-header .searchbox_container .searchbox > form {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-header .searchbox_container .searchbox > form .search-input-box {
-  -webkit-box-flex: 3;
-      -ms-flex-positive: 3;
-          flex-grow: 3;
-  padding-left: 1em;
-}
-
-header .searchbox_container .searchbox > form .search-input-box input {
-  color: #fff;
-}
-
-header .searchbox_container .searchbox > form .search-input-box input::-webkit-input-placeholder {
-  color: #686868;
-}
-
-header .searchbox_container .searchbox > form .search-input-box input:-ms-input-placeholder {
-  color: #686868;
-}
-
-header .searchbox_container .searchbox > form .search-input-box input::-ms-input-placeholder {
-  color: #686868;
-}
-
-header .searchbox_container .searchbox > form .search-input-box input::placeholder {
-  color: #686868;
-}
-
-header .searchbox_container .searchbox > form .search-btn {
-  padding-right: 1em;
-}
-
 header .profileicon {
   margin-right: 30px;
   width: 70px;
@@ -9117,14 +9041,17 @@ header .profileicon {
 }
 
 header .profileicon .profilelogo,
-header .profileicon .notifylogo {
+header .profileicon .notifylogo,
+header .profileicon .headerLogo {
   line-height: 60px;
   padding: 0 0.8em;
   color: #484848;
   position: relative;
+  color: grey;
 }
 
-header .profileicon .notifylogo > span {
+header .profileicon .notifylogo > span,
+header .profileicon .headerLogo > span {
   cursor: pointer;
 }
 
@@ -9205,6 +9132,10 @@ header .profileicon .notify-dropdown .notify-body {
   max-height: 25em;
 }
 
+header .profileicon .notify-dropdown .notify-body > ul .default-placeholder {
+  height: 3em;
+}
+
 header .profileicon .notify-dropdown .notify-body .notify-row {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -9240,6 +9171,55 @@ header .profileicon .notify-dropdown .notify-body .notify-user-msg {
   padding: 0 2em;
   color: #000;
   line-height: normal;
+}
+
+header .search_container {
+  position: absolute;
+  background-color: #fff;
+  top: 0px;
+  left: 0px;
+  height: inherit;
+  width: 100%;
+  display: none;
+}
+
+header .search_container .search_inputbox {
+  height: 60px;
+  position: relative;
+}
+
+header .search_container .search_inputbox form > input[type=text] {
+  height: inherit;
+  width: 100%;
+  line-height: 60px;
+  font-family: Consolas;
+  font-size: 1.6em;
+}
+
+header .search_container .search_inputbox form > input[type=text]::-webkit-input-placeholder {
+  color: #b3b3b3;
+}
+
+header .search_container .search_inputbox form > input[type=text]:-ms-input-placeholder {
+  color: #b3b3b3;
+}
+
+header .search_container .search_inputbox form > input[type=text]::-ms-input-placeholder {
+  color: #b3b3b3;
+}
+
+header .search_container .search_inputbox form > input[type=text]::placeholder {
+  color: #b3b3b3;
+}
+
+header .search_container .search_inputbox .close_search_inputbox {
+  position: absolute;
+  background-color: #fff;
+  padding-left: 1em;
+  top: 0;
+  right: 0;
+  height: 60px;
+  color: #b3b3b3;
 }
 
 .open-dropdown {
@@ -9326,6 +9306,11 @@ main {
   border: 1px solid #e6e6e6;
 }
 
+.default-placeholder > span {
+  margin: auto;
+  color: grey;
+}
+
 .quote-block-container {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -9347,6 +9332,7 @@ main {
           flex: 0 0 calc(25% - 15px);
   -ms-flex-item-align: start;
       align-self: flex-start;
+  position: relative;
 }
 
 .quote-block-container .quoteBlock .quoteTags {
@@ -9391,19 +9377,53 @@ main {
           flex: 1;
 }
 
-.quote-block-container .quoteBlock .quoteBlockFooter .quoteActions .quoteLikeBtn,
-.quote-block-container .quoteBlock .quoteBlockFooter .quoteActions .quoteCommentBtn {
+.quote-block-container .quoteBlock .quoteBlockFooter .quoteActions .quoteBtns {
   padding-left: 5px;
 }
 
-.quote-block-container .quoteBlock .quoteBlockFooter .quoteActions .quoteLikeBtn > span,
-.quote-block-container .quoteBlock .quoteBlockFooter .quoteActions .quoteCommentBtn > span {
+.quote-block-container .quoteBlock .quoteBlockFooter .quoteActions .quoteBtns > span {
   cursor: pointer;
 }
 
-.quote-block-container .quoteBlock .quoteBlockFooter .quoteActions .quoteLikeBtn > span > .material-icons,
-.quote-block-container .quoteBlock .quoteBlockFooter .quoteActions .quoteCommentBtn > span > .material-icons {
+.quote-block-container .quoteBlock .quoteBlockFooter .quoteActions .quoteBtns > span > .material-icons {
   font-size: 18px;
+}
+
+.quote-block-container .quoteBlock .collection_opts {
+  position: absolute;
+  background-color: #fff;
+  border-radius: 5px;
+  top: 10px;
+  padding: 0 0.5em;
+  right: -139px;
+  z-index: 1;
+  -webkit-box-shadow: 0px 0px 12px -5px rgba(0, 0, 0, 0.51);
+          box-shadow: 0px 0px 12px -5px rgba(0, 0, 0, 0.51);
+  border: 1px solid rgba(192, 192, 192, 0.38);
+  display: none;
+}
+
+.quote-block-container .quoteBlock .collection_opts ul > li {
+  padding: 0 0.5em;
+  font-size: 0.8em;
+  display: block;
+}
+
+.quote-block-container .quoteBlock .collection_opts .divider {
+  margin: 0.2em 0;
+}
+
+.quote-block-container .quoteBlock .collection_opts .collections > label {
+  display: block;
+  padding: 0.2em 0;
+}
+
+.quote-block-container .quoteBlock .collection_opts .collections > label:hover {
+  background-color: #f7f7f7;
+}
+
+.quote-block-container .quoteBlock .collection_opts .collections > label::before {
+  font-family: "Material-Icons";
 }
 
 .quoteCategoryOption {
@@ -9653,5 +9673,9 @@ main {
           flex: 0 0 80%;
   height: inherit;
   padding: 0 1rem 0.5rem 1rem;
+}
+
+.profile_container .right_cont .quote-block-container .default-placeholder {
+  height: 80vh;
 }
 /*# sourceMappingURL=style.css.map */

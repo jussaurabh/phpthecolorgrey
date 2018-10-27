@@ -9,10 +9,12 @@ class InsertData extends Dbs {
 
       $sql = "INSERT INTO user(uid, username, email, password) VALUES ('$uid', '$username', '$email', '$password')";
 
-      $conn = Dbs::connect();
+      $conn = $this->connect();
 
-      if ($conn->query($sql) === FALSE)
-         echo "Error " . $sql . " " . $conn->error;
+      if ($conn->query($sql) === FALSE) {
+         $err = "Error " . $sql . " " . $conn->error;
+         return $err;
+      }
       else
          header('Location: login.php');
 
@@ -25,14 +27,14 @@ class InsertData extends Dbs {
 
       $quote_id = time('now');
 
-      $sql = "INSERT INTO quote(quote_id, uid, quote_author, quote) VALUES (\"$quote_id\", \"$uid\", \"$author\", \"$quote\")";
+      $sql = "INSERT INTO quote(quote_id, uid, quote_author, quote) VALUES ('$quote_id', '$uid', '$author', '$quote')";
 
-      $conn = Dbs::connect();
+      $conn = $this->connect();
 
       if ($conn->query($sql) === FALSE)
          echo "Error " . $sql . " " . $conn->error;
       else
-         header('Location: index.php');
+         header('Location: profile.php?author=' . $author);
 
 
       $conn->close();

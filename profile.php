@@ -55,7 +55,14 @@ include "./includes/header.inc.php";
 
          <div class="quote-block-container">
 
+            <?php if (!isset($result['data'])) { ?>
+
+            <div class="default-placeholder valign-wrapper">
+               <span class="center-align">No Quotes writen yet</span>
+            </div>
+
             <?php 
+            } else {
                foreach ($result['data'] as $data) {
             ?>
 
@@ -73,7 +80,7 @@ include "./includes/header.inc.php";
                   <div class="quotedTime">
                      <?php 
                         $date = getDateDiff($data['quoted_datetime']);
-                        echo "<p class=\"no-margin\"><small>" . $date . " ago</small></p>"
+                        echo "<p class=\"no-margin\"><small>" . $date . "</small></p>"
                      ?>
                   </div>
                   <div class="quoteActions valign-wrapper">
@@ -89,7 +96,10 @@ include "./includes/header.inc.php";
             </div>
             <!-- .quoteBlock -->
 
-            <?php } ?>
+            <?php 
+               }
+            }
+             ?>
 
          </div>
          <!-- .quote-block-container -->

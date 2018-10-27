@@ -13,7 +13,7 @@ define("AUTHOR_MAX_LENGTH", 15);
 class Validate extends InsertData {
 
 
-   public static function signupInput($username, $email, $password) {
+   public function signupInput($username, $email, $password) {
 
       $errors = array();
    
@@ -47,20 +47,18 @@ class Validate extends InsertData {
 
 
 
-      if (!isset($usernameError) && !isset($emailError) && !isset($passwordError)) {
-         $insertData = new InsertData;
-         // $insertData->insertUser($_POST['username'], $_POST['email'], $_POST['password']);
-         $insertData->insertUser($username, $email, $password);
+      if (isset($usernameError) || isset($emailError) || isset($passwordError)) {
+         return $errors;
       }
       else {
-         return $errors;
+         $this->insertUser($username, $email, $password);
       }
 
 
    }
 
 
-   public static function quoteInput($author, $quote) {
+   public function quoteInput($author, $quote) {
 
       $errors = array();
    
@@ -85,9 +83,7 @@ class Validate extends InsertData {
       );
 
       if (!isset($authorError) && !isset($quoteError)) {
-         $insertData = new InsertData;
-         // $insertData->insertUser($_POST['username'], $_POST['email'], $_POST['password']);
-         $insertData->insertQuote($_SESSION['uid'], $author, $quote);
+         $this->insertQuote($_SESSION['uid'], $author, $quote);
       }
       else {
          return $errors;
@@ -96,6 +92,14 @@ class Validate extends InsertData {
    }
 
 }
+
+
+// $v = new Validate;
+// $e = array();
+// $e = $v->signupInput('bobby', 'bobby@gmail.com', 'bobthebuilder');
+
+// if(isset($e))
+//    var_dump($e);
 
 
 ?>

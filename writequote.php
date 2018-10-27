@@ -15,7 +15,9 @@ $errors = array();
 
 if (isset($_POST['quote_submit'])) {
 
-   $errors = Validate::quoteInput($_SESSION['username'], $_POST['quote']);
+   $validate = new Validate;
+
+   $errors = $validate->quoteInput($_SESSION['username'], $_POST['quote']);
 
    $authorError = $errors['authorErr'];
    $quoteError = $errors['quoteErr'];

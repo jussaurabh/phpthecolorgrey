@@ -51,23 +51,56 @@ include "./includes/header.inc.php";
                         <!-- <p class="no-margin"><small>- AUthor Name</small></p> -->
                         <?php 
                            $date = getDateDiff($data['quoted_datetime']);
-                           echo "<p class=\"no-margin\"><small>" . $date . " ago</small></p>"
+                           echo "<p class=\"no-margin\"><small>" . $date . "</small></p>"
                         ?>
                      </div>
                      <div class="quoteActions valign-wrapper">
-                        <!-- <div class="quoteCommentBtn valign-wrapper">
-                           <span class="center-align valign-wrapper">
+                        <div class="quoteBtns valign-wrapper">
+                           <span class="center-align valign-wrapper tooltipped" data-position="bottom" data-tooltip="Comments">
                               <i class="material-icons center-align">comment</i>
                            </span>
-                        </div> -->
-                        <div class="quoteLikeBtn valign-wrapper">
+                        </div>
+                        <div class="quoteBtns valign-wrapper">
                            <span class="center-align valign-wrapper">
                               <i class="material-icons center-align">favorite_border</i>
                            </span>
                         </div>
+                        <div class="quoteBtns valign-wrapper tooltipped" data-position="bottom" data-tooltip="Add to collection">
+                           <span class="center-align valign-wrapper collection_btn">
+                              <i class="material-icons center-align">add_box</i>
+                           </span>
+                        </div>
                      </div>
                   </div>
+
+                  <div class="collection_opts">
+                     <form action="">
+                        <ul>
+                           <li class="collections">
+                              <span>
+                                 Create Container
+                              </span>
+                           </li>
+                           <li class="divider"><hr></li>
+                           <li class="collections">
+                              <label for="a">
+                                 <input type="checkbox" id="a">
+                                 Collection name
+                              </label>
+                           </li>
+                           <li class="collections">
+                              <label for="b">
+                                 <input type="checkbox" id="b">
+                                 Collection name
+                              </label>
+                           </li>
+                        </ul>
+                     </form>
+                  </div>
+                  <!-- .collection_opts -->
+
                </div>
+               <!-- .quoteBlock -->
 
                <?php } ?>
 

@@ -53,5 +53,11 @@
       flex: 0 0 80%;
       height: inherit; 
       padding: 0 1rem 0.5rem 1rem;
+
+      .quote-block-container {
+         .default-placeholder {
+            height: 80vh;            
+         }
+      }
    }
 }
