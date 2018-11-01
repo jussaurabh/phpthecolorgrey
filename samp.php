@@ -34,6 +34,8 @@ function get($table, $name=NULL) {
 set('mytablename'); 
 
 
+
+
 $now = strtotime('now');
 $time = strtotime('12:2:60');
 
@@ -42,17 +44,15 @@ $newtime = date('h:m:s', $time);
 var_dump($newtime);
 echo "<br> newtime: " . $newtime . " nowtime: " . $nowtime;
 
-$da = new DateTime('now');
-echo "<br>" . $da->format('Y - m - d');
+$da = new DateTime();
+echo "<br>" . $da->format('Y - m - d h:m:s');
+
+echo date('Y - m - d h:i:s', 1540670879);
+
 
 
 // echo $_SESSION['num']++;
 
 ?>
 
-
-<form method="post">
-   <input type="submit" name="addbtn" value="increment">
-   <?php echo $_SESSION['num']++ ?>
-</form>
 

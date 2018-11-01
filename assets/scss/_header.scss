@@ -84,34 +84,6 @@ header {
          }
       }
 
-      .profile-dropdown {
-         position: absolute;
-         background-color: #fff;
-         padding: 1.5em;
-         border-radius: 5px;
-         top: $nav_height - 5px;
-         right: 0px;
-         box-shadow: $light_boxshadow;
-         width: 200px;
-         display: none;
-         .user-menu {
-            margin: 0;
-            & > li {
-               line-height: 30px;
-               & > hr {
-                  border: 1px solid #efefef;
-               }
-               & > a {
-                  color: lighten($secondaryblack, 10%);
-                  display: block;
-                  &:hover {
-                     color: black;
-                  }
-               }
-            }
-         }
-      }
-
       .notify-dropdown {
          $notify_dropdown_height: 30em;
          position: absolute;
@@ -176,11 +148,12 @@ header {
    .search_container {
       position: absolute;
       background-color: #fff;
-      top: 0px;
+      top: -60px;
       left: 0px;
       height: inherit;
       width: 100%;
-      display: none;
+      transition: all 0.4s cubic-bezier(0.42, 0, 0, 0.9);
+      opacity: 0;
       .search_inputbox {
          height: $nav_height;
          position: relative;
@@ -202,6 +175,10 @@ header {
             right: 0;
             height: $nav_height;
             color: lighten(grey, 20%);
+            cursor: pointer;
+            :hover {
+               color: dimgray;
+            }
          }
       }
    }
@@ -222,3 +199,36 @@ header {
    }
 }
 
+.open_searchbox {
+   top: 0px !important;
+   opacity: 1 !important;
+   transition: all 0.4s cubic-bezier(0.42, 0, 0, 0.9);
+}
+
+.dropdown {
+   position: absolute;
+   background-color: #fff;
+   padding: 1.5em;
+   border-radius: 5px;
+   top: $nav_height - 5px;
+   right: 0px;
+   box-shadow: $light_boxshadow;
+   width: 200px;
+   display: none;
+   .dropdown_list {
+      margin: 0;
+      & > li {
+         line-height: 30px;
+         & > hr {
+            border: 1px solid #efefef;
+         }
+         & > a {
+            color: lighten($secondaryblack, 10%);
+            display: block;
+            &:hover {
+               color: black;
+            }
+         }
+      }
+   }
+}

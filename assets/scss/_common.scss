@@ -1,4 +1,5 @@
-* {
+*,
+input {
    font-family: Consolas;
 }
 
@@ -9,7 +10,8 @@ body{
 
 body,
 .notify-body,
-.category_block {
+.category_block,
+.comment_container {
    &::-webkit-scrollbar {
       width: 5px;
 

@@ -47,7 +47,7 @@
 
       <div class="profileicon">
          <div class="headerLogo valign-wrapper">
-            <span class="searchIcon center-align valign-wrapper">
+            <span class="searchIcon center-align valign-wrapper search_btn">
                <i class="material-icons center-align small">
                   search
                </i>
@@ -113,8 +113,8 @@
                <img src="./assets/images/profile.jpg" alt="profile image" class="center-align">
             </div>
 
-            <div class="profile-dropdown">
-               <ul class="user-menu">
+            <div class="dropdown" id="profile_dropdown">
+               <ul class="dropdown_list">
                   <?php 
                      if (isset($_SESSION['username'])) {
                         echo "<li><a href=\"profile.php?author=" . $_SESSION['username'] ."\">" . $_SESSION['username'] . "</a></li>";
@@ -137,6 +137,7 @@
                   ?>
                </ul>
             </div>
+            <!-- .dropdown -->
 
          </div>
       </div>
@@ -149,7 +150,7 @@
                <input type="text" placeholder="Search your favorite quote">
             </form>
             <div class="close_search_inputbox valign-wrapper">
-               <span class="valign-wrapper center-align">
+               <span class="valign-wrapper center-align close_searchbox">
                   <i class="material-icons small center-align">clear</i>
                </span>
             </div>

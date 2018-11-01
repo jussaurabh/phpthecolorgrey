@@ -49,8 +49,9 @@
       }
    }
 
-   .right_cont {
-      flex: 0 0 80%;
+   .mid_cont {
+      // flex: 0 0 80%;
+      flex: auto;
       height: inherit; 
       padding: 0 1rem 0.5rem 1rem;
 
@@ -58,6 +59,78 @@
          .default-placeholder {
             height: 80vh;            
          }
+         & > .quoteBlock {
+            flex: 0 0 calc(33.33% - #{$gap});
+         }
+      }
+   }
+
+
+   .right_cont {
+      border: 1px solid red;
+      height: 400px;
+      flex: 0 0 20%;
+      padding: 0 1rem 0.5rem 1rem;
+   }
+
+
+   
+}
+
+
+.lightbox {
+   position: fixed;
+   height: calc(100% - #{$nav_height});
+   width: 100%;
+   top: 0;
+   left: 0;
+   margin-top: $nav_height;
+   background-color: transparentize($primaryblack, 0.84);
+   display: none;
+}
+.comment_container {
+   position: fixed;
+   top: 0;
+   right: -($cmnt_width + 3%);
+   background-color: #fff;
+   width: $cmnt_width; 
+   height: calc(100% - #{$nav_height});
+   margin-top: $nav_height;
+   box-shadow: -4px 0px 20px -4px rgba(0, 0, 0, 0.23);
+   padding: 1.5em 1em;
+   transition: all 0.4s ease-in-out;
+   overflow-x: scroll;
+
+   .cmnt_close {
+      border: 1px solid red;
+   }
+
+   .cmnt_on {
+      .cmnt_author {
+         justify-content: space-between;
+         color: grey;
+      }
+   }
+
+   .cmnt_form {
+      .form_block {
+         .inputbox {
+            width: 100%;
+            & > input[type=text] {
+               width: auto;
+               line-height: 1.6em;
+            }
+         }
+         .inputbtn {
+            width: auto;
+
+         }
       }
    }
 }
+
+.open_cmnt_container {
+   right: 0 !important;
+   transition: all 0.4s ease-in-out;
+}
+

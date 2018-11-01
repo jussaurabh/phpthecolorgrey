@@ -56,7 +56,7 @@ include "./includes/header.inc.php";
                      </div>
                      <div class="quoteActions valign-wrapper">
                         <div class="quoteBtns valign-wrapper">
-                           <span class="center-align valign-wrapper tooltipped" data-position="bottom" data-tooltip="Comments">
+                           <span class="center-align valign-wrapper cmnt_open_btn">
                               <i class="material-icons center-align">comment</i>
                            </span>
                         </div>
@@ -65,39 +65,15 @@ include "./includes/header.inc.php";
                               <i class="material-icons center-align">favorite_border</i>
                            </span>
                         </div>
-                        <div class="quoteBtns valign-wrapper tooltipped" data-position="bottom" data-tooltip="Add to collection">
+                        <div class="quoteBtns valign-wrapper">
                            <span class="center-align valign-wrapper collection_btn">
                               <i class="material-icons center-align">add_box</i>
                            </span>
                         </div>
                      </div>
+                     <!-- .quoteActions -->
                   </div>
-
-                  <div class="collection_opts">
-                     <form action="">
-                        <ul>
-                           <li class="collections">
-                              <span>
-                                 Create Container
-                              </span>
-                           </li>
-                           <li class="divider"><hr></li>
-                           <li class="collections">
-                              <label for="a">
-                                 <input type="checkbox" id="a">
-                                 Collection name
-                              </label>
-                           </li>
-                           <li class="collections">
-                              <label for="b">
-                                 <input type="checkbox" id="b">
-                                 Collection name
-                              </label>
-                           </li>
-                        </ul>
-                     </form>
-                  </div>
-                  <!-- .collection_opts -->
+                  <!-- .quoteBlockFooter -->
 
                </div>
                <!-- .quoteBlock -->
@@ -115,8 +91,37 @@ include "./includes/header.inc.php";
    </main>
 
 
+
+   <div class="dropdown collection_dropdown">
+      <div class="dropdown_create_btn valign-wrapper">
+         <span class="center-align valign-wrapper"><i class="material-icons">playlist_add</i></span>
+         <span style="padding-left: 0.5em;">Create Collection</span>
+      </div>
+      <form class="create_collection_form">
+         <div class="inputbox">
+            <input type="text" placeholder="Create Collection">
+         </div>
+
+         <!-- <ul class="dropdown_list">
+            <li>
+               <label for="happy">
+                  <input type="checkbox" name="happy" id="happy">
+                  <span>Happy</span>
+               </label>
+            </li>
+         </ul> -->
+         <div class="dropdown_collection_btn">
+            <span id="collection_cancel_btn">Cancel</span>
+            <button id="collection_add_btn">Add</button>
+         </div>
+      </form>
+   </div>
+   <!-- .collection_dropdown -->
+
+
 <?php 
 
+   include "./includes/comment.inc.php";
    include "./includes/categories.inc.php";
    include "./includes/footer.inc.php";
 

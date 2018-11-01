@@ -9,7 +9,7 @@
       box-shadow: $thin_boxshadow;
       padding: 1em;
       height: auto;
-      margin: $gap/2;
+      margin: 0 $gap/2 $gap $gap/2;
       flex: 0 0 calc(25% - #{$gap});
       align-self: flex-start;
       position: relative;
@@ -126,3 +126,99 @@
    }
 }
 // .quoteCategoryOption
+
+
+.collection_dropdown {
+   border: 1px solid #f1f1f1;
+   padding: 1em;
+   max-width: 220px;
+   // top: 311px; left: 412px; display: block;
+   .dropdown_create_btn {
+      margin: 0 -9px 0.5em -9px;
+      padding: 0px 7px;
+      border-radius: 4px;
+      cursor: pointer;
+      &:hover {
+         background-color: darken($smokewhite, 10%);
+      }
+   }
+   .create_collection_form {
+      & > .inputbox {
+         padding: 5px 6px;
+         border: 1px solid #dedddd;
+         border-radius: 5px;
+         display: none;
+         & > input[type=text] {
+            height: 1.5em;
+            font-size: 0.9em;
+         }
+      }
+      .dropdown_collection_btn {
+         display: flex;
+         justify-content: space-between;
+         margin-top: 0.5em;
+         & > span#collection_cancel_btn {
+            padding: 5px 8px;
+            cursor: pointer;
+            border-radius: 5px;
+            &:hover {
+               background-color: darken($smokewhite, 10%);
+            }
+         }
+         & > button {
+            border: none;
+            background-color: transparent;
+            border-radius: 5px;
+            padding: 5px 8px;
+            cursor: pointer;
+            font-family: Consolas;
+            &:hover {
+               background-color: darken($smokewhite, 10%);
+            }
+         }
+      }
+   }
+}
+.dropdown_list {
+   & > li {
+      font-size: 16px;
+      line-height: 21px;
+      // padding-left: 1.6em;
+      // position: relative;
+      & > label {
+         font-size: inherit;
+         display: block;
+         & > span {
+            color: grey;
+            padding-left: 1.6em;
+            position: relative;
+            // &::before {
+               // font-family: 'Material Icons';
+               // content: '\e5ca'; // checked icon
+               // content: '\e061';
+               // font-size: 17px;
+               // color: darken($smokewhite, 15%);
+               // position: absolute;
+               // left: 0;
+               // border: 1px solid darken($smokewhite, 15%) !important;
+            // }
+         }
+         // padding-left: 1.6em;
+         // position: relative;
+         // display: block;
+         // &:hover {
+         //    color: $primaryblack;
+         // }
+         // &::before {
+         //    font-family: 'Material Icons';
+         //    // content: '\e5ca'; // checked icon
+         //    content: '\e061';
+         //    font-size: 17px;
+         //    color: $smokewhite;
+         //    position: absolute;
+         //    left: 0;
+         // }
+      }
+   }
+}
+

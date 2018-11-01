@@ -51,7 +51,7 @@ include "./includes/header.inc.php";
       </div>
       <!-- .left_cont -->
 
-      <div class="right_cont">
+      <div class="mid_cont">
 
          <div class="quote-block-container">
 
@@ -84,14 +84,23 @@ include "./includes/header.inc.php";
                      ?>
                   </div>
                   <div class="quoteActions valign-wrapper">
-                     <div class="quoteLikeBtn valign-wrapper">
+                     <div class="quoteBtns valign-wrapper">
                         <span class="center-align valign-wrapper">
-                           <i class="material-icons center-align">
-                              favorite_border
-                           </i>
+                           <i class="material-icons center-align">comment</i>
+                        </span>
+                     </div>
+                     <div class="quoteBtns valign-wrapper">
+                        <span class="center-align valign-wrapper">
+                           <i class="material-icons center-align">favorite_border</i>
+                        </span>
+                     </div>
+                     <div class="quoteBtns valign-wrapper">
+                        <span class="center-align valign-wrapper collection_btn">
+                           <i class="material-icons center-align">add_box</i>
                         </span>
                      </div>
                   </div>
+                  <!-- .quoteActions -->
                </div>
             </div>
             <!-- .quoteBlock -->
@@ -105,17 +114,27 @@ include "./includes/header.inc.php";
          <!-- .quote-block-container -->
 
       </div>
+      <!-- .mid_cont -->
+
+
+      <div class="right_cont">
+
+      </div>
       <!-- .right_cont -->
 
    </div>
+   <!-- .profile_container -->
 
 
 </main>
 
 
 
+
+
 <?php 
 
+include "./includes/comment.inc.php";
 include "./includes/categories.inc.php";
 include "./includes/footer.inc.php";
 
