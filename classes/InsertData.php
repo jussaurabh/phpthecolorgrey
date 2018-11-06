@@ -5,7 +5,7 @@ require "Dbs.php";
 class InsertData extends Dbs {
 
    protected function insertUser($username, $email, $password) {
-      $uid = time('now');
+      $uid = rand();
 
       $sql = "INSERT INTO user(uid, username, email, password) VALUES ('$uid', '$username', '$email', '$password')";
 
@@ -25,7 +25,7 @@ class InsertData extends Dbs {
 
    protected function insertQuote($uid, $author, $quote) {
 
-      $quote_id = time('now');
+      $quote_id = rand();
 
       $sql = "INSERT INTO quote(quote_id, uid, quote_author, quote) VALUES ('$quote_id', '$uid', '$author', '$quote')";
 
@@ -39,6 +39,18 @@ class InsertData extends Dbs {
 
       $conn->close();
 
+   }
+
+
+   protected function insertCollection($coll_name, $uid) {
+      $coll_id = rand();
+
+      $sql = "INSERT INTO user_collection VALUES ('$coll_id', '$coll_name', '$uid')";
+
+      $conn = $this->connect();
+      $conn->query($sql);
+
+      $conn->close();
    }
 
 }

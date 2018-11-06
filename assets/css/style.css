@@ -9008,6 +9008,8 @@ header {
   position: fixed;
   width: 100%;
   z-index: 10;
+  -webkit-box-shadow: 0px 3px 23px -9px rgba(0, 0, 0, 0.52);
+          box-shadow: 0px 3px 23px -9px rgba(0, 0, 0, 0.52);
 }
 
 header .logo {
@@ -9329,6 +9331,10 @@ main {
   color: grey;
 }
 
+.coll_err {
+  background-color: #ff4646 !important;
+}
+
 .quote-block-container {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -9500,6 +9506,10 @@ main {
   background-color: #dedede;
 }
 
+.collection_dropdown .create_collection_form > .error_mssg {
+  margin-bottom: 10px !important;
+}
+
 .collection_dropdown .create_collection_form > .inputbox {
   padding: 5px 6px;
   border: 1px solid #dedddd;
@@ -9543,6 +9553,10 @@ main {
 
 .collection_dropdown .create_collection_form .dropdown_collection_btn > button:hover {
   background-color: #dedede;
+}
+
+.collection_dropdown .create_collection_form .dropdown_collection_btn > button#collection_add_btn {
+  display: none;
 }
 
 .dropdown_list > li {
@@ -9751,6 +9765,16 @@ main {
   width: auto;
 }
 
+.profile_container .left_cont .user_profile_box .about_author {
+  border: 1px solid #dedede;
+  border-radius: 5px;
+  padding: 0.7em;
+  text-align: justify;
+  margin: 1em -0.5em 0 -0.5em;
+  font-size: 14px;
+  line-height: 1.4em;
+}
+
 .profile_container .left_cont .user_profile_box .user_profile_tag > p {
   padding: 0.3rem 0;
 }
@@ -9772,6 +9796,7 @@ main {
 
 .profile_container .mid_cont .quote-block-container .default-placeholder {
   height: 80vh;
+  margin: auto;
 }
 
 .profile_container .mid_cont .quote-block-container > .quoteBlock {
@@ -9781,12 +9806,62 @@ main {
 }
 
 .profile_container .right_cont {
-  border: 1px solid red;
   height: 400px;
   -webkit-box-flex: 0;
       -ms-flex: 0 0 20%;
           flex: 0 0 20%;
   padding: 0 1rem 0.5rem 1rem;
+}
+
+.profile_container .right_cont .collection_list_cont .collection_list_box {
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 1em;
+  -webkit-box-shadow: 0px 0px 12px -5px rgba(0, 0, 0, 0.73);
+          box-shadow: 0px 0px 12px -5px rgba(0, 0, 0, 0.73);
+}
+
+.profile_container .right_cont .collection_list_cont .collection_list_box .collection_list_head {
+  background-color: #ededed;
+  padding: 1em;
+  margin: -1em -1em 1em -1em;
+}
+
+.profile_container .right_cont .collection_list_cont .collection_list_box .collection_list {
+  position: relative;
+  border-radius: 5px;
+}
+
+.profile_container .right_cont .collection_list_cont .collection_list_box .collection_list:hover {
+  background-color: whitesmoke;
+}
+
+.profile_container .right_cont .collection_list_cont .collection_list_box .collection_list:hover > button.delete_coll_btn {
+  display: block;
+}
+
+.profile_container .right_cont .collection_list_cont .collection_list_box .collection_list .user_collection > a {
+  display: block;
+  padding: 0.4em 0.5em;
+  color: #000;
+}
+
+.profile_container .right_cont .collection_list_cont .collection_list_box .collection_list > button.delete_coll_btn {
+  display: none;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  padding: 0.2em;
+  background-color: transparent;
+  border-radius: 50px;
+  border: none;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  cursor: pointer;
+}
+
+.profile_container .right_cont .collection_list_cont .collection_list_box .collection_list > button.delete_coll_btn:hover {
+  background-color: whitesmoke;
 }
 
 .lightbox {
@@ -9801,13 +9876,15 @@ main {
 }
 
 .comment_container {
-  position: fixed;
+  display: none;
+  position: absolute;
   top: 0;
-  right: -26%;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
   background-color: #fff;
   width: 23%;
-  height: calc(100% - 60px);
-  margin-top: 60px;
+  height: 100%;
   -webkit-box-shadow: -4px 0px 20px -4px rgba(0, 0, 0, 0.23);
           box-shadow: -4px 0px 20px -4px rgba(0, 0, 0, 0.23);
   padding: 1.5em 1em;
@@ -9816,8 +9893,20 @@ main {
   overflow-x: scroll;
 }
 
-.comment_container .cmnt_close {
-  border: 1px solid red;
+.comment_container > .close_lightbox {
+  padding: 0.1em;
+  border: none;
+  background-color: transparent;
+  position: absolute;
+  top: 10px;
+  border-radius: 50px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.comment_container > .close_lightbox:hover {
+  color: #fff;
+  background-color: #212121;
 }
 
 .comment_container .cmnt_on .cmnt_author {
@@ -9840,9 +9929,42 @@ main {
   width: auto;
 }
 
-.open_cmnt_container {
-  right: 0 !important;
-  -webkit-transition: all 0.4s ease-in-out;
-  transition: all 0.4s ease-in-out;
+.confirmation_box {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 1.3em;
+  max-width: 300px;
+  margin: 0 15px;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+.confirmation_box .confirmation_msg {
+  margin-bottom: 1.5em;
+}
+
+.confirmation_box .confirmation_btns {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.confirmation_box .confirmation_btns > button {
+  border: none;
+  background-color: transparent;
+  border-radius: 5px;
+  padding: 5px 10px;
+}
+
+.confirmation_box .confirmation_btns > button:hover {
+  background-color: lightgrey;
 }
 /*# sourceMappingURL=style.css.map */

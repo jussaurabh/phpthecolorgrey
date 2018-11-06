@@ -42,12 +42,49 @@ $(document).ready(function () {
       $('.collection_dropdown').fadeOut(1);
       $('.dropdown_create_btn').fadeIn(1);
       $('.create_collection_form > .inputbox').fadeOut(1);
+      $('.dropdown_collection_btn > #collection_add_btn').fadeOut(1);
+      $('.dropdown_list input[type=checkbox]').prop("checked", false);
    });
 
    $('.dropdown_create_btn').click(function () {
       $(this).fadeOut(1);
-      $('.create_collection_form > .inputbox').fadeIn(1);
+      $('.create_collection_form > .inputbox').fadeIn(1).children().focus();
+      $('.dropdown_collection_btn > #collection_add_btn').fadeIn(1);
    });
+
+
+
+   // Add Collection
+   $('form.create_collection_form').on('submit', function (e) {
+      e.preventDefault();
+
+      var collection_name = $('#coll_name').val();
+
+      $.post(
+         "includes/add_collections.inc.php",
+         { collection_name: collection_name },
+         function (res) {
+            M.toast({ html: res });
+         }
+      );
+
+      // $.ajax({
+      //    type: "POST",
+      //    data: { collection_name: collection_name },
+      //    url: "includes/add_collections.inc.php",
+      //    success: function (response) {
+      //       M.toast({ html: "Quote is added to " + response });
+      //    },
+      //    error: function (err) {
+      //       console.log(err);
+      //       M.toast({
+      //          html: err,
+      //          classes: 'coll_err'
+      //       });
+      //    }
+      // });
+   });
+
 
 
    $('.search_btn').click(function () {
@@ -63,11 +100,20 @@ $(document).ready(function () {
 
    $('.quoteBtns > span.cmnt_open_btn').click(function () {
       $('.lightbox').fadeIn();
-      $('.comment_container').toggleClass('open_cmnt_container');
+      $('.comment_container').fadeIn();
    });
-   $('.lightbox').click(function () {
-      $(this).fadeOut();
-      $('.comment_container').toggleClass('open_cmnt_container');
-   })
+
+   $('.delete_coll_btn').click(function () {
+      $('.lightbox').fadeIn();
+      $('.confirmation_box').fadeIn();
+   });
+   $('.close_lightbox').click(function () {
+      $('.lightbox').fadeOut();
+      $('.lightbox > *').fadeOut();
+   });
+   // $('.lightbox').click(function () {
+   //    $(this).fadeOut();
+   //    $('.comment_container').removeClass('open_cmnt_container');
+   // })
 
 })

@@ -6,6 +6,7 @@ header {
    position: fixed;
    width: 100%;
    z-index: 10;
+   box-shadow: 0px 3px 23px -9px rgba(0, 0, 0, 0.52);
    
    .logo {
       color: $smokewhite;
@@ -16,36 +17,6 @@ header {
          color: $smokewhite;
       }
    }
-
-   // .searchbox_container {
-   //    flex-grow: 4;
-   //    display: flex;
-   //    align-items: center;
-   //    justify-content: center;
-   //    .searchbox {
-   //       $searchbox-height: $nav_height - 15px;
-   //       width: 400px;
-   //       height: $nav_height - 15px;
-   //       background-color: darken($primaryblack, 4%);
-   //       & > form {
-   //          display: flex;
-   //          .search-input-box {
-   //             flex-grow: 3;
-   //             padding-left: 1em;
-   //             input {
-   //                color: #fff;
-   //                &::placeholder {
-   //                   color: #686868;
-   //                   // font-family: Consolas;
-   //                }
-   //             }
-   //          }
-   //          .search-btn {
-   //             padding-right: 1em;
-   //          }
-   //       }
-   //    }
-   // }
 
    .profileicon {
       margin-right: 30px;

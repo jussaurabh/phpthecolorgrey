@@ -3,7 +3,11 @@
 require "./includes/session.inc.php";
 
 require "./includes/getData.inc.php";
-$result = getAllQuote('quote');
+// $result = getAllQuote('quote');
+$result = getAllQuote(array(
+            'search' => array(),
+            'from' => 'quote'
+         ));
 
 include "./includes/header.inc.php";
 
@@ -33,7 +37,7 @@ include "./includes/header.inc.php";
             <div class="quote-block-container">
 
                <?php 
-                  foreach ($result['data'] as $data) {         
+                  foreach ($result['data'] as $data):        
                ?>
 
                <div class="quoteBlock">
@@ -48,7 +52,6 @@ include "./includes/header.inc.php";
                   </div>
                   <div class="quoteBlockFooter">
                      <div class="quotedTime">
-                        <!-- <p class="no-margin"><small>- AUthor Name</small></p> -->
                         <?php 
                            $date = getDateDiff($data['quoted_datetime']);
                            echo "<p class=\"no-margin\"><small>" . $date . "</small></p>"
@@ -66,7 +69,7 @@ include "./includes/header.inc.php";
                            </span>
                         </div>
                         <div class="quoteBtns valign-wrapper">
-                           <span class="center-align valign-wrapper collection_btn">
+                           <span class="center-align valign-wrapper collection_btn" data-qtid="<?php echo $data['quote_id']; ?>">
                               <i class="material-icons center-align">add_box</i>
                            </span>
                         </div>
@@ -78,7 +81,7 @@ include "./includes/header.inc.php";
                </div>
                <!-- .quoteBlock -->
 
-               <?php } ?>
+               <?php endforeach; ?>
 
 
             </div>
@@ -91,37 +94,9 @@ include "./includes/header.inc.php";
    </main>
 
 
-
-   <div class="dropdown collection_dropdown">
-      <div class="dropdown_create_btn valign-wrapper">
-         <span class="center-align valign-wrapper"><i class="material-icons">playlist_add</i></span>
-         <span style="padding-left: 0.5em;">Create Collection</span>
-      </div>
-      <form class="create_collection_form">
-         <div class="inputbox">
-            <input type="text" placeholder="Create Collection">
-         </div>
-
-         <!-- <ul class="dropdown_list">
-            <li>
-               <label for="happy">
-                  <input type="checkbox" name="happy" id="happy">
-                  <span>Happy</span>
-               </label>
-            </li>
-         </ul> -->
-         <div class="dropdown_collection_btn">
-            <span id="collection_cancel_btn">Cancel</span>
-            <button id="collection_add_btn">Add</button>
-         </div>
-      </form>
-   </div>
-   <!-- .collection_dropdown -->
-
-
 <?php 
 
-   include "./includes/comment.inc.php";
+   include "./includes/popup_module.inc.php";
    include "./includes/categories.inc.php";
    include "./includes/footer.inc.php";
 

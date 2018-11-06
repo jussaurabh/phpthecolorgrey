@@ -91,15 +91,16 @@ class Validate extends InsertData {
 
    }
 
+
+   public function createCollection($coll_name, $user_id) {
+      $this->insertCollection($coll_name, $user_id);
+
+      return "Quote added to " . $coll_name;
+   }
+
 }
 
 
-// $v = new Validate;
-// $e = array();
-// $e = $v->signupInput('bobby', 'bobby@gmail.com', 'bobthebuilder');
-
-// if(isset($e))
-//    var_dump($e);
 
 
 ?>

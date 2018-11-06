@@ -66,7 +66,7 @@
                <div class="notify-body">
                   <ul class="no-margin"> 
 
-                     <?php if (!isset($_SESSION['username'])) { ?>
+                     <?php if (!isset($_SESSION['username'])): ?>
 
                      <div class="default-placeholder valign-wrapper">
                         <span>No new notifications</span>
@@ -74,8 +74,8 @@
                      
 
                      <?php 
-                        } else {
-                           for ($i=0; $i < 6; $i++) {
+                        else:
+                           for ($i=0; $i < 6; $i++):
                      ?>
                      <li class="notify-li">
                         <a href="#">
@@ -96,8 +96,8 @@
                         </a>
                      </li>
                      <?php
-                           }
-                        }
+                           endfor;
+                        endif;
                      ?>
                   </ul>
                </div>

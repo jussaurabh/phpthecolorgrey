@@ -14,7 +14,7 @@
          background-color: #fff;
          box-shadow: $thin_boxshadow;
          border-radius: 5px;
-         border: 1px solid transparentize(grey, 0.8);
+         border: 1px solid transparentize(grey, 0.8); 
          padding: 1.5rem;
          .user_avatar {
             margin-bottom: 1rem;
@@ -33,6 +33,16 @@
                   width: auto;
                }
             }
+         }
+
+         .about_author {
+            border: 1px solid darken($smokewhite, 10%);
+            border-radius: 5px;
+            padding: 0.7em;
+            text-align: justify;
+            margin: 1em -0.5em 0 -0.5em;
+            font-size: 14px;
+            line-height: 1.4em;
          }
 
          .user_profile_tag {
@@ -57,7 +67,8 @@
 
       .quote-block-container {
          .default-placeholder {
-            height: 80vh;            
+            height: 80vh;   
+            margin: auto;         
          }
          & > .quoteBlock {
             flex: 0 0 calc(33.33% - #{$gap});
@@ -67,10 +78,60 @@
 
 
    .right_cont {
-      border: 1px solid red;
       height: 400px;
       flex: 0 0 20%;
       padding: 0 1rem 0.5rem 1rem;
+
+      .collection_list_cont {
+         .collection_list_box {
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 1em;
+            box-shadow: $thin_boxshadow;
+            
+            .collection_list_head {
+               background-color: lighten(lightgrey, 10%);
+               padding: 1em;
+               margin: -1em -1em 1em -1em;
+            }
+
+            .collection_list {
+               position: relative;
+               // margin-bottom: 1em;
+               border-radius: 5px;
+               &:hover {
+                  background-color: whitesmoke;
+               }
+               &:hover > button.delete_coll_btn {
+                  display: block;
+               }
+               .user_collection {
+                  // box-shadow: $thin_boxshadow;
+                  // background-color: #fff;
+                  & > a {
+                     display: block;
+                     padding: 0.4em 0.5em;
+                     color: #000; 
+                  }
+               }
+               & > button.delete_coll_btn {
+                  display: none;
+                  position: absolute;
+                  top: 50%;
+                  right: 0;
+                  padding: 0.2em;
+                  background-color: transparent;
+                  border-radius: 50px;
+                  border: none;
+                  transform: translate(-50%, -50%);
+                  cursor: pointer;
+                  &:hover {
+                     background-color: whitesmoke;
+                  }
+               }
+            }
+         }
+      }
    }
 
 
@@ -78,59 +139,5 @@
 }
 
 
-.lightbox {
-   position: fixed;
-   height: calc(100% - #{$nav_height});
-   width: 100%;
-   top: 0;
-   left: 0;
-   margin-top: $nav_height;
-   background-color: transparentize($primaryblack, 0.84);
-   display: none;
-}
-.comment_container {
-   position: fixed;
-   top: 0;
-   right: -($cmnt_width + 3%);
-   background-color: #fff;
-   width: $cmnt_width; 
-   height: calc(100% - #{$nav_height});
-   margin-top: $nav_height;
-   box-shadow: -4px 0px 20px -4px rgba(0, 0, 0, 0.23);
-   padding: 1.5em 1em;
-   transition: all 0.4s ease-in-out;
-   overflow-x: scroll;
 
-   .cmnt_close {
-      border: 1px solid red;
-   }
-
-   .cmnt_on {
-      .cmnt_author {
-         justify-content: space-between;
-         color: grey;
-      }
-   }
-
-   .cmnt_form {
-      .form_block {
-         .inputbox {
-            width: 100%;
-            & > input[type=text] {
-               width: auto;
-               line-height: 1.6em;
-            }
-         }
-         .inputbtn {
-            width: auto;
-
-         }
-      }
-   }
-}
-
-.open_cmnt_container {
-   right: 0 !important;
-   transition: all 0.4s ease-in-out;
-}
 

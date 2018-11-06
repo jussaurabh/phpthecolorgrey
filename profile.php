@@ -46,7 +46,12 @@ include "./includes/header.inc.php";
                </span>
                </p>
             </div>
+
+            <div class="about_author">
+               <p class="no-margin">Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe, distinctio eos. Animi officiis ipsam sequi id, quis ipsa veniam odio ducimus aliquam dignissimos laboriosam eius at in eaque asperiores repellat!</p>
+            </div>
          </div>
+         <!-- .user_profile_box -->
 
       </div>
       <!-- .left_cont -->
@@ -55,15 +60,15 @@ include "./includes/header.inc.php";
 
          <div class="quote-block-container">
 
-            <?php if (!isset($result['data'])) { ?>
+            <?php if (!isset($result['data'])): ?>
 
             <div class="default-placeholder valign-wrapper">
                <span class="center-align">No Quotes writen yet</span>
             </div>
 
             <?php 
-            } else {
-               foreach ($result['data'] as $data) {
+            else:
+               foreach ($result['data'] as $data):
             ?>
 
             <div class="quoteBlock">
@@ -85,13 +90,14 @@ include "./includes/header.inc.php";
                   </div>
                   <div class="quoteActions valign-wrapper">
                      <div class="quoteBtns valign-wrapper">
-                        <span class="center-align valign-wrapper">
+                        <span class="center-align valign-wrapper cmnt_open_btn">
                            <i class="material-icons center-align">comment</i>
                         </span>
                      </div>
                      <div class="quoteBtns valign-wrapper">
                         <span class="center-align valign-wrapper">
                            <i class="material-icons center-align">favorite_border</i>
+                           21
                         </span>
                      </div>
                      <div class="quoteBtns valign-wrapper">
@@ -106,9 +112,9 @@ include "./includes/header.inc.php";
             <!-- .quoteBlock -->
 
             <?php 
-               }
-            }
-             ?>
+               endforeach;
+            endif;
+            ?>
 
          </div>
          <!-- .quote-block-container -->
@@ -118,6 +124,37 @@ include "./includes/header.inc.php";
 
 
       <div class="right_cont">
+
+         <div class="collection_list_cont">
+
+            <div class="collection_list_box">
+               
+               <div class="collection_list_head">
+                  <h5 class="no-margin">Collections</h5>
+               </div>
+
+               <div class="collection_list">
+                  <div class="user_collection">
+                     <a href="collection.php?author=someauthor&collection=mycollection">colle 1</a>
+                  </div>
+                  <button class="valign-wrapper delete_coll_btn" title="delete collection">
+                     <i class="material-icons tiny center-align">close</i>
+                  </button>
+               </div>
+               <div class="collection_list">
+                  <div class="user_collection">
+                     <a href="collection.php?author=someauthor&collection=mycollection">colle 2</a>
+                  </div>
+                  <button class="valign-wrapper delete_coll_btn" title="delete collection">
+                     <i class="material-icons tiny center-align">close</i>
+                  </button>
+               </div>
+               
+            </div>
+            <!-- .collection_list_box -->
+
+         </div>
+         <!-- .collection_list_cont -->
 
       </div>
       <!-- .right_cont -->
@@ -134,7 +171,8 @@ include "./includes/header.inc.php";
 
 <?php 
 
-include "./includes/comment.inc.php";
+include "./includes/popup_module.inc.php";
+// include "./includes/comment.inc.php";
 include "./includes/categories.inc.php";
 include "./includes/footer.inc.php";
 

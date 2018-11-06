@@ -143,6 +143,9 @@
       }
    }
    .create_collection_form {
+      & > .error_mssg {
+         margin-bottom: 10px !important;
+      }
       & > .inputbox {
          padding: 5px 6px;
          border: 1px solid #dedddd;
@@ -176,6 +179,7 @@
                background-color: darken($smokewhite, 10%);
             }
          }
+         & > button#collection_add_btn { display: none; }
       }
    }
 }
@@ -192,32 +196,7 @@
             color: grey;
             padding-left: 1.6em;
             position: relative;
-            // &::before {
-               // font-family: 'Material Icons';
-               // content: '\e5ca'; // checked icon
-               // content: '\e061';
-               // font-size: 17px;
-               // color: darken($smokewhite, 15%);
-               // position: absolute;
-               // left: 0;
-               // border: 1px solid darken($smokewhite, 15%) !important;
-            // }
          }
-         // padding-left: 1.6em;
-         // position: relative;
-         // display: block;
-         // &:hover {
-         //    color: $primaryblack;
-         // }
-         // &::before {
-         //    font-family: 'Material Icons';
-         //    // content: '\e5ca'; // checked icon
-         //    content: '\e061';
-         //    font-size: 17px;
-         //    color: $smokewhite;
-         //    position: absolute;
-         //    left: 0;
-         // }
       }
    }
 }

@@ -1,0 +1,104 @@
+.lightbox {
+   position: fixed;
+   height: calc(100% - #{$nav_height});
+   width: 100%;
+   top: 0;
+   left: 0;
+   margin-top: $nav_height;
+   background-color: transparentize($primaryblack, 0.84);
+   display: none;
+}
+
+
+// Comment Container Section
+
+.comment_container {
+   display: none;
+   // position: fixed;
+   position: absolute;
+   top: 0;
+   left: 50%;
+   transform: translateX(-50%);
+   // right: -($cmnt_width + 3%);
+   background-color: #fff;
+   width: $cmnt_width; 
+   // height: calc(100% - #{$nav_height});
+   height: 100%;
+   // margin-top: $nav_height;
+   box-shadow: -4px 0px 20px -4px rgba(0, 0, 0, 0.23);
+   padding: 1.5em 1em;
+   transition: all 0.4s ease-in-out;
+   overflow-x: scroll;
+
+   & > .close_lightbox {
+      padding: 0.1em;
+      border: none;
+      background-color: transparent;
+      position: absolute;
+      top: 10px;
+      border-radius: 50px;
+      right: 10px;
+      cursor: pointer;
+      &:hover {
+         color: #fff;
+         background-color: $primaryblack
+      }
+   }
+
+   .cmnt_on {
+      .cmnt_author {
+         justify-content: space-between;
+         color: grey;
+      }
+   }
+
+   .cmnt_form {
+      .form_block {
+         .inputbox {
+            width: 100%;
+            & > input[type=text] {
+               width: auto;
+               line-height: 1.6em;
+            }
+         }
+         .inputbtn {
+            width: auto;
+
+         }
+      }
+   }
+}
+
+
+
+
+// Confirmation Container Section
+.confirmation_box {
+   display: none;
+   position: absolute;
+   background-color: #fff;
+   border-radius: 10px;
+   padding: 1.3em;
+   max-width: 300px;
+   margin: 0 15px;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   z-index: 1;
+   .confirmation_msg {
+      margin-bottom: 1.5em;
+   }
+   .confirmation_btns {
+      display: flex;
+      justify-content: space-between;
+      & > button {
+         border: none;
+         background-color: transparent;
+         border-radius: 5px;
+         padding: 5px 10px;
+         &:hover {
+            background-color: lightgrey;
+         }
+      }
+   }
+}
