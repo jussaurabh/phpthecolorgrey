@@ -142,10 +142,7 @@
          background-color: darken($smokewhite, 10%);
       }
    }
-   .create_collection_form {
-      & > .error_mssg {
-         margin-bottom: 10px !important;
-      }
+   .create_collection_form { 
       & > .inputbox {
          padding: 5px 6px;
          border: 1px solid #dedddd;
@@ -200,4 +197,37 @@
       }
    }
 }
+
+.create_coll_form {
+   & > .inputbox {
+      padding: 5px 6px;
+      border: 1px solid #dedddd;
+      border-radius: 5px;
+      // display: none;
+      & > input[type=text] {
+         height: 1.5em;
+         font-size: 0.9em;
+      }
+   }
+   & > .create_coll_btn {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 0.5em;
+      & > button {
+         border: none;
+         background-color: transparent;
+         border-radius: 5px;
+         padding: 5px 8px;
+         cursor: pointer;
+         font-family: Consolas;
+         &:hover {
+            background-color: darken($smokewhite, 10%);
+         }
+      }
+      // & > button#collection_add_btn { display: none; }
+   }
+}
+
+
+
 

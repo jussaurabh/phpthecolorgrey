@@ -2,12 +2,17 @@
 
 require "./includes/session.inc.php";
 
-require "./includes/getData.inc.php";
-// $result = getAllQuote('quote');
-$result = getAllQuote(array(
-            'search' => array(),
-            'from' => 'quote'
-         ));
+require_once "./includes/function.inc.php";
+
+$result = getAll("SELECT * FROM quote");
+
+if (isset($_SESSION['uid'])) {
+   $user_collections = getAll("SELECT * FROM user_collection WHERE uid='" . $_SESSION['uid'] . "'");
+}
+
+
+
+
 
 include "./includes/header.inc.php";
 

@@ -9265,27 +9265,18 @@ input {
 }
 
 body {
-  background-color: #f7f7f7;
+  background-color: #f5f5f5;
 }
 
-body::-webkit-scrollbar,
-.notify-body::-webkit-scrollbar,
-.category_block::-webkit-scrollbar,
-.comment_container::-webkit-scrollbar {
+*::-webkit-scrollbar {
   width: 5px;
 }
 
-body::-webkit-scrollbar-track,
-.notify-body::-webkit-scrollbar-track,
-.category_block::-webkit-scrollbar-track,
-.comment_container::-webkit-scrollbar-track {
+*::-webkit-scrollbar-track {
   background-color: white;
 }
 
-body::-webkit-scrollbar-thumb,
-.notify-body::-webkit-scrollbar-thumb,
-.category_block::-webkit-scrollbar-thumb,
-.comment_container::-webkit-scrollbar-thumb {
+*::-webkit-scrollbar-thumb {
   background-color: grey;
 }
 
@@ -9506,10 +9497,6 @@ main {
   background-color: #dedede;
 }
 
-.collection_dropdown .create_collection_form > .error_mssg {
-  margin-bottom: 10px !important;
-}
-
 .collection_dropdown .create_collection_form > .inputbox {
   padding: 5px 6px;
   border: 1px solid #dedddd;
@@ -9573,6 +9560,40 @@ main {
   color: grey;
   padding-left: 1.6em;
   position: relative;
+}
+
+.create_coll_form > .inputbox {
+  padding: 5px 6px;
+  border: 1px solid #dedddd;
+  border-radius: 5px;
+}
+
+.create_coll_form > .inputbox > input[type=text] {
+  height: 1.5em;
+  font-size: 0.9em;
+}
+
+.create_coll_form > .create_coll_btn {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-top: 0.5em;
+}
+
+.create_coll_form > .create_coll_btn > button {
+  border: none;
+  background-color: transparent;
+  border-radius: 5px;
+  padding: 5px 8px;
+  cursor: pointer;
+  font-family: Consolas;
+}
+
+.create_coll_form > .create_coll_btn > button:hover {
+  background-color: #dedede;
 }
 
 .form_container {
@@ -9916,17 +9937,88 @@ main {
   color: grey;
 }
 
-.comment_container .cmnt_form .form_block .inputbox {
+.comment_container .cmnt_form .comment_form_block {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.comment_container .cmnt_form .comment_form_block .inputbox {
   width: 100%;
+  padding: 0 15px;
+  margin-right: 10px;
+  height: 2em;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
 }
 
-.comment_container .cmnt_form .form_block .inputbox > input[type=text] {
-  width: auto;
-  line-height: 1.6em;
+.comment_container .cmnt_form .comment_form_block .inputbox > input[type=text] {
+  width: inherit;
+  height: auto !important;
+  line-height: 2em;
 }
 
-.comment_container .cmnt_form .form_block .inputbtn {
+.comment_container .cmnt_form .comment_form_block .inputbtn {
   width: auto;
+  margin: 1.2em 0 0 0;
+  height: 2em;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+.comment_container .cmnt_form .comment_form_block .inputbtn > button {
+  border: none;
+  background-color: transparent;
+  color: #fff;
+  width: 2em;
+}
+
+.comment_container .user_comment_section {
+  margin-top: 1.5em;
+  max-height: 70%;
+  overflow-y: scroll;
+}
+
+.comment_container .user_comment_section .user_comment {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding-bottom: 1em;
+  margin-bottom: 1em;
+  border-bottom: 1px solid #d4d4d4;
+}
+
+.comment_container .user_comment_section .user_comment .user_cmnt_right .user_avatar {
+  height: 2em;
+  width: 2em;
+  border-radius: 50px;
+  overflow: hidden;
+}
+
+.comment_container .user_comment_section .user_comment .user_cmnt_right .user_avatar > img {
+  height: 100%;
+  width: auto;
+}
+
+.comment_container .user_comment_section .user_comment .cmnt_wrapper {
+  padding-left: 10px;
+}
+
+.comment_container .user_comment_section .user_comment .cmnt_wrapper .cmnt {
+  line-height: 1.3em;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.comment_container .user_comment_section .user_comment .cmnt_wrapper .cmnt_user > p {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 .confirmation_box {

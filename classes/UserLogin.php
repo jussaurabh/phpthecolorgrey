@@ -5,12 +5,10 @@ require "Dbs.php";
 class UserLogin extends Dbs {
    
    public function login($username, $password) {
-      // $username = $_POST['username'];
-      // $password = $_POST['password'];
    
       $conn = $this->connect();
    
-      $sql = "SELECT * FROM user WHERE username='$username' and password='$password'";
+      $sql = "SELECT * FROM user WHERE username='$username' AND password='$password'";
    
       $result = $conn->query($sql);
    

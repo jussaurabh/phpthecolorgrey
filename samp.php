@@ -34,32 +34,36 @@ function set($table, $name=NULL) {
 
 // echo date('Y - m - d h:i:s', 1540670879);
 
-function met ($query) {
-   get($query);
-}
 
 
-
-function get($query) {
-   $select_opts = $from_tbls = $join = $where = "";
-
-   // met($query);
+function createQuery($query) {
+   $select_opts = $delete_opts = $from_tbls = $join = $where = "";
 
    echo sizeof($query);
 
-   if (count($query['select']) > 0) {
-      foreach ($query['select'] as $cols) {
-         $select_opts .= $cols . ",";
+   if (array_key_exists('select', $query)) {
+       if (count($query['select']) > 0) {
+         foreach ($query['select'] as $cols) {
+            $select_opts .= $cols . ",";
+         }
+         $select_opts = substr($select_opts, 0, strlen($select_opts)-1);
       }
-      $select_opts = substr($select_opts, 0, strlen($select_opts)-1);
+      else {
+         $select_opts = "*";
+      }
    }
-   else {
-      $select_opts = "*";
+
+
+   if (array_key_exists('delete', $query)) {
+      $delete_opts = $query['delete'];
    }
    
-   if (count($query['from']) > 0){
-      foreach ($query['from'] as $tbls) {
-         $from_tbls .= $tbls;
+   
+   if (array_key_exists('from', $query)) {
+      if (count($query['from']) > 0){
+         foreach ($query['from'] as $tbls) {
+            $from_tbls .= $tbls;
+         }
       }
    }
 
@@ -81,32 +85,69 @@ function get($query) {
    }
    
 
-   $sql = "SELECT " . $select_opts . " FROM " . $from_tbls . $join . $where;
-      
-   echo "<h3>" . $sql . "</h3>";
+   if (!empty($select_opts)) {
+      if (!empty($where) && !empty($join))
+         $sql = "SELECT " . $select_opts . " FROM " . $from_tbls . $join . $where;
+      elseif (!empty($where))
+         $sql = "SELECT " . $select_opts . " FROM " . $from_tbls . $where;
+      elseif (!empty($join))
+         $sql = "SELECT " . $select_opts . " FROM " . $from_tbls . $join;
+      else 
+         $sql = "SELECT " . $select_opts . " FROM " . $from_tbls;
+   }
+
+   if (!empty($delete_opts)) {
+      $sql = "DELETE FROM " . $delete_opts . $where;
+   }
+
+   
+   return $sql; 
    
 }
 
-met(array(
-   'select' => array(
-      'user_collection.coll_name', 
-      'quote.quote',
-      'quote.quote_author'
-   ),
-   'from' => array('user_collection'),
-   'where' => array(
-      'user_collection.collection_name=mycol',
-      'AND',
-      'user_collection.uid=1539925346'
-   ),
-   'join' => array(
-      'quote_collection' => 'user_collection.collection_id=quote_collection.coll_id',
-      'quote' => 'quote_collection.quote_id=quote.quote_id'
-   ),
+// createQuery(array(
+//    'select' => array(
+//       'user_collection.coll_name', 
+//       'quote.quote',
+//       'quote.quote_author'
+//    ),
+//    'from' => array('user_collection'),
+//    'where' => array(
+//       'user_collection.collection_name="mycol"',
+//       'AND',
+//       'user_collection.uid="1539925346"'
+//    ),
+//    'join' => array(
+//       'quote_collection' => 'user_collection.collection_id=quote_collection.coll_id',
+//       'quote' => 'quote_collection.quote_id=quote.quote_id'
+//    ),
    
-)); 
+// )); 
 
-// echo $_SESSION['num']++;
+$del = createQuery(array(
+   'delete' => 'user_collection',
+   'where' => array(
+      'coll_name="dle_id"',
+      'AND',
+      'uid="13123"'
+   )
+
+));
+
+
+echo $del;
+
+
+
+echo "<br>" . $_SERVER['REQUEST_URI'];
+
+$temp = explode('/', $_SERVER['REQUEST_URI']);
+$an = explode('?', $temp[2]);
+
+print_r($temp);
+print_r($an);
+
+echo "<br>" . $_SERVER['QUERY_STRING'];
 
 ?>
 

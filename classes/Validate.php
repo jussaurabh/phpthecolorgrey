@@ -92,10 +92,15 @@ class Validate extends InsertData {
    }
 
 
-   public function createCollection($coll_name, $user_id) {
-      $this->insertCollection($coll_name, $user_id);
+   public function insertCollection($values) {
+      $flag = $this->insert_to_collection($values);
 
-      return "Quote added to " . $coll_name;
+      if ($flag == 1)
+         return "Quote added to " . $values['coll_name'];
+      else 
+         return "Collection already exists";
+
+      
    }
 
 }

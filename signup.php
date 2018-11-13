@@ -8,20 +8,20 @@ if (isset($_SESSION['username'])) {
 
 require "./classes/Validate.php";
 
-$usernameError = $emailError = $passwordError = NULL;
-$signupError = array();
+// $usernameError = $emailError = $passwordError = NULL;
+// $signupError = array();
 
-if (isset($_POST['signup_submit'])) {
+// if (isset($_POST['signup_submit'])) {
 
-   $validate = new Validate;
+//    $validate = new Validate;
 
-   $signupError = $validate->signupInput($_POST['username'], $_POST['email'], $_POST['password']);
+//    $signupError = $validate->signupInput($_POST['username'], $_POST['email'], $_POST['password']);
 
-   $usernameError = $signupError['username'];
-   $emailError = $signupError['email'];
-   $passwordError = $signupError['password'];
+//    $usernameError = $signupError['username'];
+//    $emailError = $signupError['email'];
+//    $passwordError = $signupError['password'];
 
-}
+// }
 
 
 include "./includes/header.inc.php";
@@ -35,30 +35,33 @@ include "./includes/header.inc.php";
       <div class="form_block center">
          <h5 class="center form_head">Signup</h5>
 
-         <form action="" method="post">
+         <form action="" method="post" name="check_user_form" class="user_signup_form">
             <div class="inputbox">
-               <input type="text" name="username" placeholder="Username">
+               <input type="text" name="username" placeholder="Username" id="sgn_username">
             </div>
             <?php 
-               if ($usernameError)
-                  echo "<p class='registerError no-margin'> <small> $usernameError </small> </p>"
+            //    if ($usernameError)
+            //       echo "<p class='registerError no-margin'> <small> $usernameError </small> </p>"
             ?>            
+            <p class="registerError no-margin" id="check-username"><small></small></p>
             
             <div class="inputbox">
-               <input type="email" name="email" placeholder="Email">
+               <input type="email" name="email" placeholder="Email" id="sgn_email">
             </div>
             <?php 
-               if ($emailError)
-                  echo "<p class='registerError no-margin'> <small> $emailError </small> </p>"
+            //    if ($emailError)
+            //       echo "<p class='registerError no-margin'> <small> $emailError </small> </p>"
             ?>            
+            <p class="registerError no-margin" id="check-email"><small></small></p>
 
             <div class="inputbox">
                <input type="text" name="password" placeholder="Password">
             </div>
             <?php 
-               if ($passwordError)
-                  echo "<p class='registerError no-margin'> <small> $passwordError </small> </p>"
-            ?>            
+            //    if ($passwordError)
+            //       echo "<p class='registerError no-margin'> <small> $passwordError </small> </p>"
+            ?>   
+            <p class="registerError no-margin" id="check-password"><small></small></p>
 
             <div class="inputbtn">
                <input type="submit" name="signup_submit" value="Signup">

@@ -13,18 +13,14 @@
 // Comment Container Section
 
 .comment_container {
-   display: none;
-   // position: fixed;
+   display: none; 
    position: absolute;
    top: 0;
    left: 50%;
    transform: translateX(-50%);
-   // right: -($cmnt_width + 3%);
    background-color: #fff;
    width: $cmnt_width; 
-   // height: calc(100% - #{$nav_height});
    height: 100%;
-   // margin-top: $nav_height;
    box-shadow: -4px 0px 20px -4px rgba(0, 0, 0, 0.23);
    padding: 1.5em 1em;
    transition: all 0.4s ease-in-out;
@@ -53,18 +49,70 @@
    }
 
    .cmnt_form {
-      .form_block {
+      .comment_form_block {
+         display: flex;
          .inputbox {
             width: 100%;
+            padding: 0 15px;
+            margin-right: 10px;
+            height: 2em;
+            display: inline-flex;
             & > input[type=text] {
-               width: auto;
-               line-height: 1.6em;
+               width: inherit;
+               height: auto !important;
+               line-height: 2em;
             }
          }
          .inputbtn {
             width: auto;
-
+            margin: 1.2em 0 0 0;
+            height: 2em;
+            display: inline-flex;
+            & > button {
+               border: none;
+               background-color: transparent;
+               color: #fff;
+               width: 2em;
+            }
          }
+      }
+   }
+
+   .user_comment_section {
+      margin-top: 1.5em;
+      max-height: 70%;
+      overflow-y: scroll;
+      .user_comment {
+         display: flex; 
+         padding-bottom: 1em;
+         margin-bottom: 1em;
+         border-bottom: 1px solid darken(whitesmoke, 13%);
+         .user_cmnt_right {
+            // border: 1px solid blue;
+            .user_avatar  {
+               height: 2em;
+               width: 2em;
+               border-radius: 50px;
+               overflow: hidden;
+               & > img {
+                  height: 100%;
+                  width: auto;
+               }
+            }
+         }    
+         .cmnt_wrapper {
+            // border: 1px solid green;
+            padding-left: 10px;
+            .cmnt {
+               line-height: 1.3em;
+               font-size: 14px;
+               margin-top: 10px;
+            }
+            .cmnt_user > p {
+               display: flex;
+               justify-content: space-between;
+            }
+         }     
       }
    }
 }
@@ -101,4 +149,6 @@
          }
       }
    }
+
+   
 }

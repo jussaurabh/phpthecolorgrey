@@ -42,15 +42,30 @@ class InsertData extends Dbs {
    }
 
 
-   protected function insertCollection($coll_name, $uid) {
-      $coll_id = rand();
-
-      $sql = "INSERT INTO user_collection VALUES ('$coll_id', '$coll_name', '$uid')";
+   protected function insert_to_collection($values) {
+      $usr_coll_id = rand();
+      $qt_coll_id = rand();
 
       $conn = $this->connect();
-      $conn->query($sql);
 
-      $conn->close();
+      $chk_collection = "SELECT collection_name, uid FROM user_collection WHERE collection_name='" . $values['coll_name'] . "' AND uid='" . $values['uid'] . "'";
+
+      if ($conn->query($chk_collection)->num_rows > 0) {
+         $conn->close();
+         return 0;
+      } 
+      else {
+         $sql = "INSERT INTO user_collection VALUES ('$usr_coll_id', '$values[coll_name]', '$values[uid]')";
+         $conn->query($sql);
+
+         $sql = "INSERT INTO quote_collection VALUES ('$qt_coll_id', '$usr_coll_id', '$values[select_qt_id]')";
+         $conn->query($sql);
+
+         $conn->close();
+
+         return 1;
+      }
+
    }
 
 }

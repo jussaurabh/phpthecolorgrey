@@ -1,47 +1,13 @@
 
-
-<!-- Collection Dropdown Section -->
-<div class="dropdown collection_dropdown">
-	<div class="dropdown_create_btn valign-wrapper">
-		<span class="center-align valign-wrapper"><i class="material-icons">playlist_add</i></span>
-		<span style="padding-left: 0.5em;">Create Collection</span>
-	</div>
-	<form action="includes/add_collections.inc.php" method="post" class="create_collection_form" id="dropdown_coll_form">
-		<div class="inputbox">
-			<input type="text" name="collection_name" placeholder="Create Collection" id="coll_name">
-		</div>
-
-		<ul class="dropdown_list collection_dropdown_list"></ul>
-
-		<div class="dropdown_collection_btn">
-			<span id="collection_cancel_btn">Cancel</span>
-			<button type="submit" id="collection_add_btn">Add</button>
-		</div>
-	</form>
-</div>
-<!-- .collection_dropdown -->
+<?php 
 
 
 
 
-
-<div class="lightbox">
-
-
-	<!-- Confirmation Container Section -->
-	<div class="confirmation_box">
-		<div class="confirmation_msg">
-			<p class="no-margin">The quote which are inside this collection will be also deleted.</p>
-		</div>
-		<div class="confirmation_btns">
-			<button class="close_lightbox">Cancel</button>
-			<button id="delete_collection">Delete</button>
-		</div>
-	</div>
-	<!-- .confirmation_box -->
+?>
 
 
-	<!-- Comment Container Section -->
+<!-- Comment Container Section -->
 <div class="comment_container">
 
 	<button class="close_lightbox valign-wrapper">
@@ -62,12 +28,12 @@
 	<!-- .cmnt_on -->
 
 	<div class="cmnt_form">
-		<form action="./getComment.php" method="post" name="cmnt_form" class="comment_form_block">
+		<form class="form_block">
 			<div class="inputbox">
-				<input type="text" name="comment" placeholder="comment">
+				<input type="text" placeholder="comment">
 			</div>
 			<div class="inputbtn">
-				<button type="submit" class="valign-wrapper" id="submit_cmnt_btn">
+				<button type="submit" class="valign-wrapper">
 					<i class="material-icons tiny centr-align">send</i>
 				</button>
 			</div>
@@ -126,11 +92,3 @@
 
 </div>
 <!-- .comment_container -->
-	
-
-
-
-</div>
-<!-- .lightbox -->
-
-

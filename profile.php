@@ -2,8 +2,13 @@
 
 require "./includes/session.inc.php";
 
-require "./includes/getData.inc.php";
-$result = getAllQuote('quote', $_GET['author']);
+require_once "./includes/function.inc.php";
+
+$user_quotes = getAll("SELECT * FROM quote WHERE quote_author='" . $_GET['author'] . "'");
+
+if (isset($_SESSION['uid'])) {
+   $user_collections = getAll("SELECT * FROM user_collection WHERE uid='" . $_SESSION['uid'] . "'");
+}
 
 include "./includes/header.inc.php";
 
@@ -11,7 +16,7 @@ include "./includes/header.inc.php";
 
 
 
-<main>
+<main id="user_profile_page">
 
 
    <div class="container-fluid profile_container"> 
@@ -42,7 +47,7 @@ include "./includes/header.inc.php";
                <p class="center"><span> Following 12 </span></p>
                <p class="center">
                <span> Quotes 
-                  <?php echo $result['rowcount']; ?>
+                  <?php echo $user_quotes['rowcount']; ?>
                </span>
                </p>
             </div>
@@ -60,7 +65,7 @@ include "./includes/header.inc.php";
 
          <div class="quote-block-container">
 
-            <?php if (!isset($result['data'])): ?>
+            <?php if (!isset($user_quotes['data'])): ?>
 
             <div class="default-placeholder valign-wrapper">
                <span class="center-align">No Quotes writen yet</span>
@@ -68,7 +73,7 @@ include "./includes/header.inc.php";
 
             <?php 
             else:
-               foreach ($result['data'] as $data):
+               foreach ($user_quotes['data'] as $data):
             ?>
 
             <div class="quoteBlock">
@@ -101,13 +106,14 @@ include "./includes/header.inc.php";
                         </span>
                      </div>
                      <div class="quoteBtns valign-wrapper">
-                        <span class="center-align valign-wrapper collection_btn">
+                        <span class="center-align valign-wrapper collection_btn" data-qtid="<?= $data['quote_id'];?>">
                            <i class="material-icons center-align">add_box</i>
                         </span>
                      </div>
                   </div>
                   <!-- .quoteActions -->
                </div>
+               <!-- .quoteBlockFooter -->
             </div>
             <!-- .quoteBlock -->
 
@@ -125,6 +131,8 @@ include "./includes/header.inc.php";
 
       <div class="right_cont">
 
+         <?php if (isset($_SESSION['username']) && $_SESSION['username'] == $_GET['author']): ?>
+
          <div class="collection_list_cont">
 
             <div class="collection_list_box">
@@ -133,28 +141,54 @@ include "./includes/header.inc.php";
                   <h5 class="no-margin">Collections</h5>
                </div>
 
-               <div class="collection_list">
-                  <div class="user_collection">
-                     <a href="collection.php?author=someauthor&collection=mycollection">colle 1</a>
+               <div class="user_profile_collection_list">
+                  <!-- .collection_list here -->
+                  <?php
+                  if (isset($user_collections['data'])):
+                     foreach ($user_collections['data'] as $collections): 
+                  ?>
+
+                  <div class="collection_list">
+                     <div class="user_collection">
+                        <?=  
+                           "<a href='collection.php?author=" . $_SESSION['username'] . "&collection=" . $collections['collection_name'] . "'>" . $collections['collection_name'] . "</a>";
+                        ?>
+                     </div>
+                     <button class="valign-wrapper delete_coll_btn" data-delete-collection="<?= $collections['collection_name'] ?>" title="delete collection">
+                        <i class="material-icons tiny center-align">close</i>
+                     </button>
                   </div>
-                  <button class="valign-wrapper delete_coll_btn" title="delete collection">
-                     <i class="material-icons tiny center-align">close</i>
-                  </button>
-               </div>
-               <div class="collection_list">
-                  <div class="user_collection">
-                     <a href="collection.php?author=someauthor&collection=mycollection">colle 2</a>
+
+                  <?php 
+                     endforeach; 
+                  else:
+                  ?>
+
+                  <div class="make_collection_box">
+                     <form action="" method="post" name="create_coll_form" class="create_coll_form">
+                        <div class="inputbox">
+                           <input type="text" name="create_collection" placeholder="Create your Collection">
+                        </div>
+                        <div class="create_coll_btn">
+                           <button type="submit" id="coll_add_btn">Create</button>
+                        </div>
+                     </form>
                   </div>
-                  <button class="valign-wrapper delete_coll_btn" title="delete collection">
-                     <i class="material-icons tiny center-align">close</i>
-                  </button>
+
+                  <?php
+                  endif;
+                  ?> 
+
                </div>
+               <!-- #user_profile_collection_list -->
                
             </div>
             <!-- .collection_list_box -->
 
          </div>
          <!-- .collection_list_cont -->
+
+         <?php endif; ?>
 
       </div>
       <!-- .right_cont -->
@@ -172,7 +206,6 @@ include "./includes/header.inc.php";
 <?php 
 
 include "./includes/popup_module.inc.php";
-// include "./includes/comment.inc.php";
 include "./includes/categories.inc.php";
 include "./includes/footer.inc.php";
 

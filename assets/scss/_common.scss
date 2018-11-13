@@ -4,14 +4,10 @@ input {
 }
 
 body{
-   background-color: $smokewhite;  
+   background-color: #f5f5f5;  
 }
 
-
-body,
-.notify-body,
-.category_block,
-.comment_container {
+* {
    &::-webkit-scrollbar {
       width: 5px;
 
