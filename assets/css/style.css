@@ -9347,7 +9347,6 @@ main {
           flex: 0 0 calc(25% - 15px);
   -ms-flex-item-align: start;
       align-self: flex-start;
-  position: relative;
 }
 
 .quote-block-container .quoteBlock .quoteTags {
@@ -9581,6 +9580,16 @@ main {
       -ms-flex-pack: justify;
           justify-content: space-between;
   margin-top: 0.5em;
+}
+
+.create_coll_form > .create_coll_btn > span#make_coll_cancel_btn {
+  padding: 5px 8px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.create_coll_form > .create_coll_btn > span#make_coll_cancel_btn:hover {
+  background-color: #dedede;
 }
 
 .create_coll_form > .create_coll_btn > button {
@@ -9848,6 +9857,21 @@ main {
   margin: -1em -1em 1em -1em;
 }
 
+.profile_container .right_cont .collection_list_cont .collection_list_box .open_make_coll_box {
+  margin: 0 -9px 0.5em -9px;
+  padding: 0px 7px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.profile_container .right_cont .collection_list_cont .collection_list_box .open_make_coll_box:hover {
+  background-color: #dedede;
+}
+
+.profile_container .right_cont .collection_list_cont .collection_list_box .make_collection_box {
+  display: none;
+}
+
 .profile_container .right_cont .collection_list_cont .collection_list_box .collection_list {
   position: relative;
   border-radius: 5px;
@@ -9904,7 +9928,7 @@ main {
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
   background-color: #fff;
-  width: 23%;
+  width: 300px;
   height: 100%;
   -webkit-box-shadow: -4px 0px 20px -4px rgba(0, 0, 0, 0.23);
           box-shadow: -4px 0px 20px -4px rgba(0, 0, 0, 0.23);
@@ -9941,6 +9965,7 @@ main {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  margin: 1.2em 0 0 0;
 }
 
 .comment_container .cmnt_form .comment_form_block .inputbox {
@@ -9951,6 +9976,10 @@ main {
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
+  background-color: #fff;
+  -webkit-box-shadow: 0px 0px 12px -5px rgba(0, 0, 0, 0.73);
+          box-shadow: 0px 0px 12px -5px rgba(0, 0, 0, 0.73);
+  border-radius: 50px;
 }
 
 .comment_container .cmnt_form .comment_form_block .inputbox > input[type=text] {
@@ -9961,24 +9990,21 @@ main {
 
 .comment_container .cmnt_form .comment_form_block .inputbtn {
   width: auto;
-  margin: 1.2em 0 0 0;
   height: 2em;
-  display: -webkit-inline-box;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
 }
 
 .comment_container .cmnt_form .comment_form_block .inputbtn > button {
   border: none;
-  background-color: transparent;
-  color: #fff;
+  background-color: #212121;
+  border-radius: 50px;
   width: 2em;
+  height: inherit;
+  color: #fff;
 }
 
 .comment_container .user_comment_section {
   margin-top: 1.5em;
   max-height: 70%;
-  overflow-y: scroll;
 }
 
 .comment_container .user_comment_section .user_comment {
@@ -10019,6 +10045,16 @@ main {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+}
+
+.comment_container .user_comment_section .user_comment .cmnt_wrapper .cmnt_user > p > span:nth-child(1) {
+  color: grey;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.comment_container .user_comment_section .user_comment .cmnt_wrapper .cmnt_user > p > span:nth-child(1):hover {
+  color: #000;
 }
 
 .confirmation_box {

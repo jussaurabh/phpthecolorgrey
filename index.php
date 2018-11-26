@@ -64,7 +64,11 @@ include "./includes/header.inc.php";
                      </div>
                      <div class="quoteActions valign-wrapper">
                         <div class="quoteBtns valign-wrapper">
-                           <span class="center-align valign-wrapper cmnt_open_btn">
+                           <span 
+                              class="center-align valign-wrapper cmnt_open_btn"
+                              data-cmnt-qt="<?= $data['quote']; ?>"
+                              data-cmnt-qtauthor="<?= $data['quote_author'] ?>"
+                              data-cmnt-qtdatetime="<?= $date ?>">
                               <i class="material-icons center-align">comment</i>
                            </span>
                         </div>
@@ -74,7 +78,9 @@ include "./includes/header.inc.php";
                            </span>
                         </div>
                         <div class="quoteBtns valign-wrapper">
-                           <span class="center-align valign-wrapper collection_btn" data-qtid="<?php echo $data['quote_id']; ?>">
+                           <span 
+                              class="center-align valign-wrapper collection_btn" 
+                              data-qtid="<?= $data['quote_id']; ?>">
                               <i class="material-icons center-align">add_box</i>
                            </span>
                         </div>

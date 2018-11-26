@@ -12,14 +12,13 @@
       margin: 0 $gap/2 $gap $gap/2;
       flex: 0 0 calc(25% - #{$gap});
       align-self: flex-start;
-      position: relative;
+      // position: relative;
       .quoteTags {
          // border: 1px solid red;
          color: grey;
          line-height: 14px;
       }
       .quote {
-         // border: 1px solid green;
          line-height: 19px;
          & > p:first-child {
             margin-bottom: 5px;
@@ -46,7 +45,6 @@
                // float: right;
                padding-left: 5px;
                & > span {
-                  // border: 1px solid green;
                   cursor: pointer;
                   & > .material-icons {
                      font-size: 18px;
@@ -213,6 +211,14 @@
       display: flex;
       justify-content: space-between;
       margin-top: 0.5em;
+      & > span#make_coll_cancel_btn {
+         padding: 5px 8px;
+         border-radius: 5px;
+         cursor: pointer;
+         &:hover {
+            background-color: darken($smokewhite, 10%);
+         }
+      }
       & > button {
          border: none;
          background-color: transparent;

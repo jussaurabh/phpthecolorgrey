@@ -58,8 +58,10 @@ class InsertData extends Dbs {
          $sql = "INSERT INTO user_collection VALUES ('$usr_coll_id', '$values[coll_name]', '$values[uid]')";
          $conn->query($sql);
 
-         $sql = "INSERT INTO quote_collection VALUES ('$qt_coll_id', '$usr_coll_id', '$values[select_qt_id]')";
-         $conn->query($sql);
+         if (isset($values['select_qt_id'])) {
+            $sql = "INSERT INTO quote_collection VALUES ('$qt_coll_id', '$usr_coll_id', '$values[select_qt_id]')";
+            $conn->query($sql);
+         }
 
          $conn->close();
 

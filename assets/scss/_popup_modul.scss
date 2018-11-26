@@ -13,7 +13,7 @@
 // Comment Container Section
 
 .comment_container {
-   display: none; 
+   display: none;  
    position: absolute;
    top: 0;
    left: 50%;
@@ -51,12 +51,16 @@
    .cmnt_form {
       .comment_form_block {
          display: flex;
+         margin: 1.2em 0 0 0;
          .inputbox {
             width: 100%;
             padding: 0 15px;
             margin-right: 10px;
             height: 2em;
             display: inline-flex;
+            background-color: #fff;
+            box-shadow: $thin_boxshadow;
+            border-radius: 50px;
             & > input[type=text] {
                width: inherit;
                height: auto !important;
@@ -65,14 +69,15 @@
          }
          .inputbtn {
             width: auto;
-            margin: 1.2em 0 0 0;
             height: 2em;
-            display: inline-flex;
+            // display: inline-flex;
             & > button {
                border: none;
-               background-color: transparent;
-               color: #fff;
+               background-color: $primaryblack;
+               border-radius: 50px;
                width: 2em;
+               height: inherit;
+               color: #fff;
             }
          }
       }
@@ -80,8 +85,7 @@
 
    .user_comment_section {
       margin-top: 1.5em;
-      max-height: 70%;
-      overflow-y: scroll;
+      max-height: 70%; 
       .user_comment {
          display: flex; 
          padding-bottom: 1em;
@@ -111,6 +115,14 @@
             .cmnt_user > p {
                display: flex;
                justify-content: space-between;
+               & > span:nth-child(1) {
+                  color: grey;
+                  font-weight: 400;
+                  cursor: pointer;
+                  &:hover {
+                     color: #000;
+                  }
+               }
             }
          }     
       }

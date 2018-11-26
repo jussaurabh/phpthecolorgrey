@@ -90,12 +90,16 @@ include "./includes/header.inc.php";
                   <div class="quotedTime">
                      <?php 
                         $date = getDateDiff($data['quoted_datetime']);
-                        echo "<p class=\"no-margin\"><small>" . $date . "</small></p>"
+                        echo "<p class='no-margin'><small>" . $date . "</small></p>"
                      ?>
                   </div>
                   <div class="quoteActions valign-wrapper">
                      <div class="quoteBtns valign-wrapper">
-                        <span class="center-align valign-wrapper cmnt_open_btn">
+                        <span 
+                           class="center-align valign-wrapper cmnt_open_btn"
+                           data-cmnt-qt="<?= $data['quote']; ?>"
+                           data-cmnt-qtauthor="<?= $data['quote_author'] ?>"
+                           data-cmnt-qtdatetime="<?= $date ?>">
                            <i class="material-icons center-align">comment</i>
                         </span>
                      </div>
@@ -106,7 +110,9 @@ include "./includes/header.inc.php";
                         </span>
                      </div>
                      <div class="quoteBtns valign-wrapper">
-                        <span class="center-align valign-wrapper collection_btn" data-qtid="<?= $data['quote_id'];?>">
+                        <span 
+                           class="center-align valign-wrapper collection_btn" 
+                           data-qtid="<?= $data['quote_id'];?>">
                            <i class="material-icons center-align">add_box</i>
                         </span>
                      </div>
@@ -135,10 +141,27 @@ include "./includes/header.inc.php";
 
          <div class="collection_list_cont">
 
-            <div class="collection_list_box">
+            <div class="collection_list_box"> 
                
                <div class="collection_list_head">
                   <h5 class="no-margin">Collections</h5>
+               </div>
+
+               <div class="open_make_coll_box valign-wrapper">
+                  <span class="center-align valign-wrapper"><i class="material-icons">playlist_add</i></span>
+                  <span style="padding-left: 0.5em;">Create Collection</span>
+               </div>
+
+               <div class="make_collection_box">
+                  <form action="" method="post" name="create_coll_form" class="create_coll_form">
+                     <div class="inputbox">
+                        <input type="text" name="create_collection" placeholder="Create your Collection">
+                     </div>
+                     <div class="create_coll_btn">
+                        <span id="make_coll_cancel_btn">Cancel</span>
+                        <button type="submit" id="make_coll_add_btn">Create</button>
+                     </div>
+                  </form>
                </div>
 
                <div class="user_profile_collection_list">
@@ -154,28 +177,16 @@ include "./includes/header.inc.php";
                            "<a href='collection.php?author=" . $_SESSION['username'] . "&collection=" . $collections['collection_name'] . "'>" . $collections['collection_name'] . "</a>";
                         ?>
                      </div>
-                     <button class="valign-wrapper delete_coll_btn" data-delete-collection="<?= $collections['collection_name'] ?>" title="delete collection">
+                     <button 
+                        class="valign-wrapper delete_coll_btn" 
+                        data-delete-collection="<?= $collections['collection_name'] ?>" 
+                        title="delete collection">
                         <i class="material-icons tiny center-align">close</i>
                      </button>
                   </div>
 
                   <?php 
                      endforeach; 
-                  else:
-                  ?>
-
-                  <div class="make_collection_box">
-                     <form action="" method="post" name="create_coll_form" class="create_coll_form">
-                        <div class="inputbox">
-                           <input type="text" name="create_collection" placeholder="Create your Collection">
-                        </div>
-                        <div class="create_coll_btn">
-                           <button type="submit" id="coll_add_btn">Create</button>
-                        </div>
-                     </form>
-                  </div>
-
-                  <?php
                   endif;
                   ?> 
 

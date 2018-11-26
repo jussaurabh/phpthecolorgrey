@@ -1,7 +1,7 @@
 
 
 <!-- Collection Dropdown Section -->
-<div class="dropdown collection_dropdown">
+<div class="dropdown collection_dropdown"> 
 	<div class="dropdown_create_btn valign-wrapper">
 		<span class="center-align valign-wrapper"><i class="material-icons">playlist_add</i></span>
 		<span style="padding-left: 0.5em;">Create Collection</span>
@@ -11,7 +11,12 @@
 			<input type="text" name="collection_name" placeholder="Create Collection" id="coll_name">
 		</div>
 
-		<ul class="dropdown_list collection_dropdown_list"></ul>
+		<ul 
+			class="dropdown_list collection_dropdown_list" 
+			style="overflow-y: scroll; max-height: 150px;">
+
+				
+		</ul>
 
 		<div class="dropdown_collection_btn">
 			<span id="collection_cancel_btn">Cancel</span>
@@ -42,90 +47,99 @@
 
 
 	<!-- Comment Container Section -->
-<div class="comment_container">
+	<div class="comment_container">
 
-	<button class="close_lightbox valign-wrapper">
-		<i class="material-icons tiny center-align">close</i>
-	</button>
+		<button class="close_lightbox valign-wrapper">
+			<i class="material-icons tiny center-align">close</i>
+		</button>
 
-	<div class="cmnt_on">
-		<div class="cmnt_quote">
-			<p>You can't process me with normal brain</p>
+		<div class="cmnt_on">
+			<div class="cmnt_quote">
+				<p></p>
+			</div>
+			<div class="cmnt_author valign-wrapper">
+				<span><small><a></a></small></span>
+				<span><small></small></span>
+			</div>
+
+			<hr class="lightgrey-hr">
 		</div>
-		<div class="cmnt_author valign-wrapper">
-			<span><small>- rohan</small></span>
-			<span><small>12 days ago</small></span>
-		</div>
+		<!-- .cmnt_on -->
 
-		<hr class="lightgrey-hr">
+		<div class="cmnt_form">
+			<form action="./getComment.php" method="post" name="cmnt_form" class="comment_form_block">
+				<div class="inputbox">
+					<input type="text" name="comment" placeholder="comment">
+				</div>
+				<div class="inputbtn">
+					<button type="submit" class="valign-wrapper" id="submit_cmnt_btn">
+						<i class="material-icons tiny centr-align">send</i>
+					</button>
+					<!-- <button>Submit</button> -->
+				</div>
+			</form>
+		</div>
+		<!-- ./cmnt_form -->
+
+		<div class="user_comment_section">
+
+			<div class="user_comment">
+				<div class="user_cmnt_right">
+					<div class="user_avatar">
+						<img src="./assets/images/profile.jpg" alt="">
+					</div>
+				</div>
+				<div class="cmnt_wrapper">
+					<div class="cmnt_user">
+						<p class="no-margin">
+							<span><small>author name</small></span>
+							<span style="color: grey;"><small>Today</small></span>
+						</p>
+					</div>
+					<div class="cmnt">
+						<p class="no-margin">
+							Lorem ipsum dolor sit amet consectetur, adipisicing
+						</p>
+					</div>
+				</div>
+			</div>
+			<!-- .user_comment -->
+
+			<?php
+				for ($i=0; $i<5; $i++):
+			?>
+
+			<div class="user_comment">
+				<div class="user_cmnt_right">
+					<div class="user_avatar">
+						<img src="./assets/images/profile.jpg" alt="">
+					</div>
+				</div>
+				<div class="cmnt_wrapper">
+					<div class="cmnt_user">
+						<p class="no-margin">
+							<span><small>author name</small></span>
+							<span><small>Tue, 12 Sep</small></span>
+						</p>
+					</div>
+					<div class="cmnt">
+						<p class="no-margin">
+							Lorem ipsum dolor sit amet consectetur, adipisicing
+						</p>
+					</div>
+				</div>
+			</div>
+			<!-- .user_comment -->
+
+			<?php
+				endfor;
+			?>
+
+		</div>
+		<!-- .user_comment_section -->
+
 	</div>
-	<!-- .cmnt_on -->
-
-	<div class="cmnt_form">
-		<form action="./getComment.php" method="post" name="cmnt_form" class="comment_form_block">
-			<div class="inputbox">
-				<input type="text" name="comment" placeholder="comment">
-			</div>
-			<div class="inputbtn">
-				<button type="submit" class="valign-wrapper" id="submit_cmnt_btn">
-					<i class="material-icons tiny centr-align">send</i>
-				</button>
-			</div>
-		</form>
-	</div>
-	<!-- ./cmnt_form -->
-
-	<div class="user_comment_section">
-
-		<div class="user_comment">
-			<div class="user_cmnt_right">
-				<div class="user_avatar">
-					<img src="./assets/images/profile.jpg" alt="">
-				</div>
-			</div>
-			<div class="cmnt_wrapper">
-				<div class="cmnt_user">
-					<p class="no-margin">
-						<span><small>author name</small></span>
-						<span style="color: grey;"><small>Today</small></span>
-					</p>
-				</div>
-				<div class="cmnt">
-					<p class="no-margin">
-						Lorem ipsum dolor sit amet consectetur, adipisicing
-					</p>
-				</div>
-			</div>
-		</div>
-		<!-- .user_comment -->
-
-		<div class="user_comment">
-			<div class="user_cmnt_right">
-				<div class="user_avatar">
-					<img src="./assets/images/profile.jpg" alt="">
-				</div>
-			</div>
-			<div class="cmnt_wrapper">
-				<div class="cmnt_user">
-					<p class="no-margin">
-						<span><small>author name</small></span>
-						<span><small>Tue, 12 Sep</small></span>
-					</p>
-				</div>
-				<div class="cmnt">
-					<p class="no-margin">
-						Lorem ipsum dolor sit amet consectetur, adipisicing
-					</p>
-				</div>
-			</div>
-		</div>
-		<!-- .user_comment -->
-
-	</div>
-	<!-- .user_comment_section -->
-
-</div>
-<!-- .comment_container -->
+	<!-- .comment_container -->
 	
 
 

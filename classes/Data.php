@@ -1,7 +1,7 @@
 <?php 
 
 require "Dbs.php";
-require_once "includes/function.inc.php";
+// require_once "includes/function.inc.php";
 
 class Data extends Dbs {
 

@@ -7,30 +7,37 @@ if (isset($_SESSION['uid'])) {
    $user_collections = getAll("SELECT * FROM user_collection WHERE uid='" . $_SESSION['uid'] . "'");
 }
 
-// if(isset($_POST['quote_id'])) {
-// 	$selected_qtid = $_POST['quote_id'];
-// }
-
-
-
-if (isset($user_collections['data'])): 
+if (isset($user_collections['data'])):
 ?>
+
 
 <ul 
 	class="dropdown_list collection_dropdown_list" 
-	data-selected-qtid="<?= $_POST['quote_id'] ?>" 
-	style="overflow-y: scroll; max-height: 150px;">
+	style="overflow-y: scroll; max-height: 150px;"
+	data-selected-qtid="<?= $_POST['quote_id'] ?>">
 
-	<?php foreach ($user_collections['data'] as $user_coll): ?>
+	<?php foreach($user_collections['data'] as $colls): ?>
 
 	<li>
-		<label for="<?= $user_coll['collection_name'] ?>">
-			<input type="checkbox" name="<?= $user_coll['collection_name'] ?>" id="<?= $user_coll['collection_name'] ?>">
-			<span><?= $user_coll['collection_name'] ?></span>
+		<label for="<?= $colls['collection_name'] ?>"
+			class="dropdown_collection_list_chkbox">
+
+			<input 
+				type="checkbox" 
+				name="<?= $colls['collection_name'] ?>" 
+				id="<?= $colls['collection_name'] ?>">
+
+			<span><?= $colls['collection_name'] ?></span>
 		</label>
 	</li>
 
 	<?php endforeach; ?>
+		
 </ul>
 
-<?php endif; ?>
+
+<?php 
+
+endif;
+
+?>

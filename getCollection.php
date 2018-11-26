@@ -12,7 +12,6 @@ if (isset($_SESSION['uid'])) {
 
 <div class="user_profile_collection_list">
 
-
 	<?php
 	if (isset($user_collections['data'])):
 		foreach ($user_collections['data'] as $collections): 
@@ -31,24 +30,8 @@ if (isset($_SESSION['uid'])) {
 
 	<?php 
 		endforeach; 
-	else:
-	?>
-
-	<div class="make_collection_box">
-		<form action="" method="post" name="create_coll_form" class="create_coll_form">
-			<div class="inputbox">
-				<input type="text" name="create_collection" placeholder="Create your Collection">
-			</div>
-			<div class="create_coll_btn">
-				<button type="submit" id="coll_add_btn">Create</button>
-			</div>
-		</form>
-	</div>
-
-	<?php
 	endif;
 	?>
-
 
 
 </div>

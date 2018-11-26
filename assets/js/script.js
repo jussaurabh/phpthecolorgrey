@@ -5,7 +5,6 @@ $(document).ready(function () {
    $('.userProfileImg, .userProfileDummyImg').click(function () {
       $('#profile_dropdown').toggleClass('open-dropdown');
       $('.notify-dropdown').toggleClass('open-dropdown', false);
-      // $(this).doo();
    });
 
    $('.notifyIcon').click(function () {
@@ -25,12 +24,22 @@ $(document).ready(function () {
       $('.create_collection_form > .inputbox').fadeOut(1);
       $('.dropdown_collection_btn > #collection_add_btn').fadeOut(1);
       $('.dropdown_list input[type=checkbox]').prop("checked", false);
+      $(".collection_dropdown_list").empty();
    });
 
    $('.dropdown_create_btn').click(function () {
       $(this).fadeOut(1);
-      $('.create_collection_form > .inputbox').fadeIn(1).children().focus().val('');
+      $('.create_collection_form > .inputbox').fadeIn(1).children().focus().val("");
       $('.dropdown_collection_btn > #collection_add_btn').fadeIn(1);
+   });
+
+   $(".open_make_coll_box").click(function () {
+      $(this).hide();
+      $(".make_collection_box").show();
+   });
+   $("#make_coll_cancel_btn, #make_coll_add_btn").click(function () {
+      $(".make_collection_box").hide();
+      $('.open_make_coll_box').show();
    });
 
 
@@ -72,35 +81,14 @@ $(document).ready(function () {
    });
 
 
-
-   $('.collection_btn').click(function (e) {
-      let top = e.pageY;
-      let left = e.pageX;
-      $('.collection_dropdown').css({
-         'top': top,
-         'left': left
-      }).fadeIn(1);
-
-      let quote_id = $(this).attr('data-qtid');
-
-      // Getting the user collection from database without refreshing page
-      $.post(
-         "getPopupColl.php",
-         { quote_id: quote_id },
-         function (data) {
-            $(".collection_dropdown_list").replaceWith(data);
-         }
-      );
-   });
-
-
-
    // Add Collection
    $('form.create_collection_form, form.create_coll_form').on('submit', function (e) {
       e.preventDefault();
 
       let collection_name = $(this).find(".inputbox > input[type=text]").val();
       let sel_qt_id = $('form.create_collection_form').find(".collection_dropdown_list").attr('data-selected-qtid');
+
+      console.log("coll Nmae : " + collection_name + " selected qt id : " + sel_qt_id);
 
       $.post(
          "includes/add_collections.inc.php",
@@ -130,49 +118,65 @@ $(document).ready(function () {
          }
       );
 
-      // $.post(
-      //    "includes/add_quote_to_collection.inc.php",
-      //    // {selected_quote: }
-      // );
+      $(this).find("input[type=text]").val("");
    });
 
 
+   $('.collection_btn').click(function (e) {
+      let top = e.pageY,
+         left = e.pageX,
+         quote_id = $(this).attr('data-qtid');
 
-   // Deleting Collection
-   $('.delete_coll_btn').click(function () {
-      let coll_name = $(this).attr('data-delete-collection');
-      $('#delete_collection').attr('data-delete-collection-name', coll_name);
-   });
-
-   $('#delete_collection').click(function () {
-      let coll_name = $(this).attr('data-delete-collection-name');
-
-      // coll_name = "coll_name=" + coll_name;
+      $('.collection_dropdown').css({
+         'top': top,
+         'left': left
+      }).fadeIn(1);
 
       $.post(
-         "includes/deleteData.inc.php",
-         { coll_name: coll_name },
-         function (res) {
-            // M.toast({ html: res });
-            console.log(res);
+         "getPopupColl.php",
+         { quote_id: quote_id },
+         function (data) {
+            $(".collection_dropdown_list").replaceWith(data);
          }
       );
    });
 
 
+   $('body').on('click', '.collection_dropdown_list > li > label > input[type=checkbox]', function (e) {
 
-   // Submiting Comment Section
-   // $(".comment_form_block").on('submit', function (e) {
-   //    e.preventDefault();
+      $(this).change(function () {
+         alert("coll checkbx changed");
+      });
 
-   //    let comment = cmnt_form.comment.value;
+      console.log($(this).prop('id'));
+      console.log(e);
 
-   //    // $.post(
-   //    //    './'
-   //    // );
-   // });
+   });
 
 
+
+   // Deleting Collection
+   $('body').on('click', '.delete_coll_btn', function () {
+      let coll_name = $(this).attr('data-delete-collection');
+
+      if (confirm("The quotes inside " + coll_name + " collections will be deleted too ")) {
+
+         $.post(
+            "classes/DeleteData.php",
+            { coll_name: coll_name },
+            function (res) {
+               $.get(
+                  "getCollection.php",
+                  function (data) {
+                     $(".user_profile_collection_list").replaceWith(data);
+                  }
+               );
+               M.toast({ html: res });
+            }
+         );
+
+      }
+   });
 
 
 
@@ -191,21 +195,26 @@ $(document).ready(function () {
    $('.quoteBtns > span.cmnt_open_btn').click(function () {
       $('.lightbox').fadeIn();
       $('.comment_container').fadeIn();
+
+      let cmnt_qt = $(this).attr('data-cmnt-qt'),
+         cmnt_qtauthor = $(this).attr('data-cmnt-qtauthor'),
+         cmnt_qtdatetime = $(this).attr('data-cmnt-qtdatetime');
+
+      $(".cmnt_quote > p").text(cmnt_qt);
+      $(".cmnt_author > span:nth-child(1) > small > a")
+         .text("- " + cmnt_qtauthor)
+         .prop('href', "profile.php?author=" + cmnt_qtauthor);
+      $(".cmnt_author > span:nth-child(2) > small").text(cmnt_qtdatetime);
+
+
    });
 
-   $('.delete_coll_btn').click(function () {
-      $('.lightbox').fadeIn();
-      $('.confirmation_box').fadeIn();
-   });
-   $('.close_lightbox').click(function () {
+
+
+   $(".close_lightbox").click(function () {
       $('.lightbox').fadeOut();
-      $('.lightbox > *').fadeOut();
+      $('.comment_container').fadeOut();
    });
-   // $('.lightbox').click(function () {
-   //    $(this).fadeOut();
-   //    $('.comment_container').removeClass('open_cmnt_container');
-   // })
-
 
 
 });
