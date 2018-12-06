@@ -9309,6 +9309,22 @@ input[type]::placeholder {
   margin: 0 !important;
 }
 
+.no-margin-top {
+  margin-top: 0 !important;
+}
+
+.no-margin-bottom {
+  margin-bottom: 0 !important;
+}
+
+.no-margin-left {
+  margin-left: 0 !important;
+}
+
+.no-margin-right {
+  margin-right: 0 !important;
+}
+
 main {
   padding-top: 60px;
 }
@@ -9324,6 +9340,24 @@ main {
 
 .coll_err {
   background-color: #ff4646 !important;
+}
+
+.inputbox {
+  background-color: #fff;
+  border-radius: 50px;
+  padding: 0 1em;
+  margin-bottom: 1em;
+  -webkit-box-shadow: 0px 0px 12px -5px rgba(0, 0, 0, 0.73);
+          box-shadow: 0px 0px 12px -5px rgba(0, 0, 0, 0.73);
+}
+
+.inputbtn > input[type=button],
+.inputbtn > input[type=submit] {
+  background-color: #212121;
+  color: #fff;
+  border-radius: 50px;
+  padding: 0.5em 1em;
+  cursor: pointer;
 }
 
 .quote-block-container {
@@ -9749,6 +9783,19 @@ main {
   color: black;
 }
 
+.profile_container .left_cont .user_profile_box .user_profile_tag .follow_btn, .profile_container .left_cont .user_profile_box .user_profile_tag .following_btn {
+  border: none;
+  padding: 0.5em 1em;
+  border-radius: 5px;
+  margin: 1em 0;
+  cursor: pointer;
+}
+
+.profile_container .left_cont .user_profile_box .user_profile_tag .follow_btn:hover, .profile_container .left_cont .user_profile_box .user_profile_tag .following_btn:hover {
+  -webkit-box-shadow: 0px 0px 12px -5px rgba(0, 0, 0, 0.73);
+          box-shadow: 0px 0px 12px -5px rgba(0, 0, 0, 0.73);
+}
+
 .profile_container {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -9805,15 +9852,32 @@ main {
   line-height: 1.4em;
 }
 
+.profile_container .left_cont .user_profile_box .user_profile_tag .follow_btn {
+  background-color: #dedede;
+}
+
+.profile_container .left_cont .user_profile_box .user_profile_tag .following_btn {
+  background-color: #212121;
+  color: #fff;
+}
+
 .profile_container .left_cont .user_profile_box .user_profile_tag > p {
   padding: 0.3rem 0;
 }
 
-.profile_container .left_cont .user_profile_box .user_profile_tag > p > span {
+.profile_container .left_cont .user_profile_box .user_profile_tag > p > span#following_count,
+.profile_container .left_cont .user_profile_box .user_profile_tag > p > span#follower_count {
   border-radius: 50px;
   background-color: #dedede;
   color: grey;
   padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+.profile_container .left_cont .user_profile_box .user_profile_tag > p > span#following_count:hover,
+.profile_container .left_cont .user_profile_box .user_profile_tag > p > span#follower_count:hover {
+  -webkit-box-shadow: 0px 0px 12px -5px rgba(0, 0, 0, 0.73);
+          box-shadow: 0px 0px 12px -5px rgba(0, 0, 0, 0.73);
 }
 
 .profile_container .mid_cont {
@@ -9833,6 +9897,86 @@ main {
   -webkit-box-flex: 0;
       -ms-flex: 0 0 calc(33.33% - 15px);
           flex: 0 0 calc(33.33% - 15px);
+}
+
+.profile_container .mid_cont .follow-block-container {
+  display: none;
+  background-color: #fff;
+  padding: 1.5em;
+  position: relative;
+}
+
+.profile_container .mid_cont .follow-block-container .follow-block-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border-radius: 50px;
+  height: 20px;
+  width: 20px;
+  cursor: pointer;
+}
+
+.profile_container .mid_cont .follow-block-container .follow_tab li {
+  display: inline-block;
+}
+
+.profile_container .mid_cont .follow-block-container .follow_tab li > a {
+  display: block;
+  padding: 0.5em 1em;
+  color: #000;
+  border-radius: 5px;
+}
+
+.profile_container .mid_cont .follow-block-container #followers,
+.profile_container .mid_cont .follow-block-container #following {
+  display: none;
+}
+
+.profile_container .mid_cont .follow-block-container #followers > .follow_row,
+.profile_container .mid_cont .follow-block-container #following > .follow_row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 50px;
+  margin: 0.5em 0;
+  height: 50px;
+}
+
+.profile_container .mid_cont .follow-block-container #followers > .follow_row > .user_avatar,
+.profile_container .mid_cont .follow-block-container #following > .follow_row > .user_avatar {
+  height: 50px;
+  width: 50px;
+  border-radius: 50px;
+  overflow: hidden;
+}
+
+.profile_container .mid_cont .follow-block-container #followers > .follow_row > .user_avatar > img,
+.profile_container .mid_cont .follow-block-container #following > .follow_row > .user_avatar > img {
+  height: 100%;
+  width: 100%;
+}
+
+.profile_container .mid_cont .follow-block-container #followers > .follow_row > .user_name,
+.profile_container .mid_cont .follow-block-container #following > .follow_row > .user_name {
+  padding: 0 1em;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
+.profile_container .mid_cont .follow-block-container #followers > .follow_row > .unfollow_btn > button,
+.profile_container .mid_cont .follow-block-container #following > .follow_row > .unfollow_btn > button {
+  border: 1px solid #212121;
+  border-radius: 5px;
+  padding: 0.5em 1em;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.profile_container .mid_cont .follow-block-container #followers > .follow_row > .unfollow_btn > button:hover,
+.profile_container .mid_cont .follow-block-container #following > .follow_row > .unfollow_btn > button:hover {
+  background-color: #212121;
+  color: #fff;
 }
 
 .profile_container .right_cont {
@@ -9907,6 +10051,11 @@ main {
 
 .profile_container .right_cont .collection_list_cont .collection_list_box .collection_list > button.delete_coll_btn:hover {
   background-color: whitesmoke;
+}
+
+.active_follow_tab_btn {
+  background-color: #212121 !important;
+  color: #fff !important;
 }
 
 .lightbox {
@@ -10094,5 +10243,29 @@ main {
 
 .confirmation_box .confirmation_btns > button:hover {
   background-color: lightgrey;
+}
+
+.setting_container {
+  padding-top: 3em;
+}
+
+.setting_list li > a {
+  color: #000;
+  padding: 0.5em;
+  display: block;
+}
+
+.setting_list li > a:hover {
+  background-color: #e0e0e0;
+}
+
+#liked_quotes > .quote-block-container > .quoteBlock {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 calc(33.33% - 15px);
+          flex: 0 0 calc(33.33% - 15px);
+}
+
+#liked_quotes {
+  display: none;
 }
 /*# sourceMappingURL=style.css.map */

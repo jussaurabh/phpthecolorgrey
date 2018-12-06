@@ -10,7 +10,7 @@ if (!isset($_SESSION['username'])) {
 require_once "./classes/Validate.php";
 
 
-$authorError = $quoteError = NULL;
+$quoteError = NULL;
 $errors = array();
 
 if (isset($_POST['quote_submit'])) {
@@ -19,7 +19,6 @@ if (isset($_POST['quote_submit'])) {
 
    $errors = $validate->quoteInput($_SESSION['username'], $_POST['quote']);
 
-   $authorError = $errors['authorErr'];
    $quoteError = $errors['quoteErr'];
 
 }
@@ -53,7 +52,9 @@ include "./includes/header.inc.php";
          <?php 
             if ($quoteError)
                echo "<p class='registerError no-margin'> <small> $quoteError </small> </p>"
-         ?>                 
+         ?>  
+
+         <div class="chips chips-placeholder" style="text-align: left;"></div>               
 
          <div class="inputbtn">
             <input type="submit" name="quote_submit" value="Submit">

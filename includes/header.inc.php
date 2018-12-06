@@ -117,7 +117,7 @@
                <ul class="dropdown_list">
                   <?php 
                      if (isset($_SESSION['username'])) {
-                        echo "<li><a href=\"profile.php?author=" . $_SESSION['username'] ."\">" . $_SESSION['username'] . "</a></li>";
+                        echo "<li><a href=\"profile.php?author=" . $_SESSION['username'] . "&i=" . $_SESSION['uid'] . "\">" . $_SESSION['username'] . "</a></li>";
                         echo "<li><hr/></li>";
                      }                  
                   ?>

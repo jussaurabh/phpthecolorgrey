@@ -6,7 +6,7 @@
 		<span class="center-align valign-wrapper"><i class="material-icons">playlist_add</i></span>
 		<span style="padding-left: 0.5em;">Create Collection</span>
 	</div>
-	<form action="includes/add_collections.inc.php" method="post" class="create_collection_form" id="dropdown_coll_form">
+	<form action="" method="post" class="create_collection_form" id="dropdown_coll_form">
 		<div class="inputbox">
 			<input type="text" name="collection_name" placeholder="Create Collection" id="coll_name">
 		</div>
@@ -66,8 +66,10 @@
 		</div>
 		<!-- .cmnt_on -->
 
+		<?php if (isset($_SESSION['uid'])): ?>
+
 		<div class="cmnt_form">
-			<form action="./getComment.php" method="post" name="cmnt_form" class="comment_form_block">
+			<form action="" method="post" name="cmnt_form" class="comment_form_block">
 				<div class="inputbox">
 					<input type="text" name="comment" placeholder="comment">
 				</div>
@@ -75,15 +77,16 @@
 					<button type="submit" class="valign-wrapper" id="submit_cmnt_btn">
 						<i class="material-icons tiny centr-align">send</i>
 					</button>
-					<!-- <button>Submit</button> -->
 				</div>
 			</form>
 		</div>
 		<!-- ./cmnt_form -->
 
+		<?php endif; ?>
+
 		<div class="user_comment_section">
 
-			<div class="user_comment">
+			<!-- <div class="user_comment">
 				<div class="user_cmnt_right">
 					<div class="user_avatar">
 						<img src="./assets/images/profile.jpg" alt="">
@@ -102,38 +105,8 @@
 						</p>
 					</div>
 				</div>
-			</div>
+			</div> -->
 			<!-- .user_comment -->
-
-			<?php
-				for ($i=0; $i<5; $i++):
-			?>
-
-			<div class="user_comment">
-				<div class="user_cmnt_right">
-					<div class="user_avatar">
-						<img src="./assets/images/profile.jpg" alt="">
-					</div>
-				</div>
-				<div class="cmnt_wrapper">
-					<div class="cmnt_user">
-						<p class="no-margin">
-							<span><small>author name</small></span>
-							<span><small>Tue, 12 Sep</small></span>
-						</p>
-					</div>
-					<div class="cmnt">
-						<p class="no-margin">
-							Lorem ipsum dolor sit amet consectetur, adipisicing
-						</p>
-					</div>
-				</div>
-			</div>
-			<!-- .user_comment -->
-
-			<?php
-				endfor;
-			?>
 
 		</div>
 		<!-- .user_comment_section -->

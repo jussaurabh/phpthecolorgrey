@@ -38,6 +38,22 @@ input[type]{
    margin: 0 !important;
 }
 
+.no-margin-top {
+   margin-top: 0 !important;
+}
+
+.no-margin-bottom {
+   margin-bottom: 0 !important;
+}
+
+.no-margin-left {
+   margin-left: 0 !important;
+}
+
+.no-margin-right {
+   margin-right: 0 !important;
+}
+
 main {
    padding-top: $nav_height;
 }
@@ -54,6 +70,24 @@ main {
 
 .coll_err {
    background-color: #ff4646 !important;
+}
+
+
+.inputbox {
+   background-color: #fff;
+   border-radius: 50px;
+   padding: 0 1em;
+   margin-bottom: 1em;
+   box-shadow: $thin_boxshadow;
+}
+
+.inputbtn > input[type=button],
+.inputbtn > input[type=submit] {
+   background-color: $primaryblack;
+   color: #fff;
+   border-radius: 50px;
+   padding: 0.5em 1em;
+   cursor: pointer;
 }
 
 

@@ -95,12 +95,19 @@ class Validate extends InsertData {
    public function insertCollection($values) {
       $flag = $this->insert_to_collection($values);
 
-      if ($flag == 1)
-         return "Quote added to " . $values['coll_name'];
-      else 
-         return "Collection already exists";
-
+      return ($flag) ? "Quote added to " . $values['coll_name'] : "Collection already exists";
       
+   }
+
+   public function insertComment($comment, $comment_qtid, $username) {
+      $flag = $this->insert_to_comment($comment, $comment_qtid, $username);
+
+      return ($flag) ? "comment is : " . $comment . " \n comment quote id is : " . $comment_qtid . " \n user id is : " . $username : "some error commenting";
+   }
+
+
+   public function insertFollow($uid, $follow_uid) {
+      return $this->insert_follow($uid, $follow_uid);
    }
 
 }

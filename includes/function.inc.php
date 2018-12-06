@@ -13,6 +13,19 @@ function getAll($q) {
 }
 
 
+function getFollow($sql, $col_name) {
+   $data = new Data;
+   $rows = array();
+
+   $rows = $data->getAllData($sql);
+
+   if (isset($rows['data'])) {
+      $result = $data->getAllFollow($rows['data'], $col_name);
+      return $result;
+   }
+
+}
+
 
 
 function getDateDiff($date) {

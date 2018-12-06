@@ -50,10 +50,12 @@ include "./includes/header.inc.php";
                      <p class="no-margin"><small>Tags - tag1, tag2, tag3, tag1, tag2, tag3</small></p>
                   </div>
                   <div class="quote">
-                     <?php 
-                        echo "<p>" . $data['quote'] . "</p>";
-                        echo "<p><a href=\"profile.php?author=" . $data['quote_author'] ."\"><small>- " . $data['quote_author'] . "</small></a></p>";
-                     ?>
+                     <p> <?= $data['quote'] ?> </p>
+                     <p>
+                        <a href="profile.php?author=<?= $data['quote_author'] ?>&i=<?= $data['uid'] ?>">
+                           <small>- <?= $data['quote_author'] ?> </small>
+                        </a>
+                     </p>
                   </div>
                   <div class="quoteBlockFooter">
                      <div class="quotedTime">
@@ -68,7 +70,9 @@ include "./includes/header.inc.php";
                               class="center-align valign-wrapper cmnt_open_btn"
                               data-cmnt-qt="<?= $data['quote']; ?>"
                               data-cmnt-qtauthor="<?= $data['quote_author'] ?>"
-                              data-cmnt-qtdatetime="<?= $date ?>">
+                              data-cmnt-qtdatetime="<?= $date ?>"
+                              data-cmnt-qtid="<?= $data['quote_id'] ?>"
+                              >
                               <i class="material-icons center-align">comment</i>
                            </span>
                         </div>

@@ -68,6 +68,58 @@ class InsertData extends Dbs {
          return 1;
       }
 
+   } 
+
+
+   protected function insert_to_comment($comment, $comment_qtid, $username) {
+      $cmnt_id = rand();
+
+      $conn = $this->connect();
+
+      $sql = "INSERT INTO comment(comment_id, user_comment, user, cmnt_quote_id) VALUES('$cmnt_id', '$comment', '$username', '$comment_qtid')";
+
+      $conn->query($sql) ? $flag = 1 : $flag = 0;
+
+      $conn->close();
+
+      return $flag;
+   }
+
+
+   protected function insert_follow($uid, $follow_uid) {
+      $conn = $this->connect();
+
+      $sql = "INSERT INTO follow (followed_by_uid, followed_to_uid) VALUES ('$uid', '$follow_uid')";
+
+      $conn->query($sql);
+
+      $following = "SELECT * FROM follow WHERE followed_by_uid='" . $uid . "'";
+      $rslt = $conn->query($following);
+
+      $following_count = $rslt->num_rows;
+
+      $followers = "SELECT * FROM follow WHERE followed_to_uid='" . $follow_uid . "'";
+      $rslt = $conn->query($followers);
+
+      $followers_count = $rslt->num_rows;
+
+      $conn->close();
+
+      if (isset($following_count) && isset($followers_count)) {
+         $follow = [
+            "following" => $following_count,
+            "followers" => $followers_count
+         ];
+      }
+      else {
+         $follow = [
+            "following" => 0,
+            "followers" => 0
+         ];
+      }
+
+
+      return $follow;
    }
 
 }

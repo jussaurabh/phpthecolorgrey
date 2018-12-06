@@ -1,19 +1,23 @@
 <?php 
 
-// session_start();
 
-// if (!isset($_post['addbtn']))
-//    $_SESSION['num'] = 1;
+$arr = array();
+$smap = [
+   "name" => "some",
+   "img" => "some img"
+];
+array_push($arr, $smap);
+print_r($arr);
+$smap = [
+   "name" => "another",
+   "img" => "another img"
+];
+array_push($arr, $smap);
+print_r($arr);
 
 
-function set($table, $name=NULL) {
-   // echo "<br>table : " . var_dump($table);
-   // echo "<br>name : " . var_dump($name);
-   // echo "<br>condition : " . var_dump($condition);
-   if (isset($name))
-      get($table, $name);
-   else
-      get($table);
+foreach ($arr as $val) {
+   echo $val['name'];
 }
 
 
@@ -36,74 +40,74 @@ function set($table, $name=NULL) {
 
 
 
-function createQuery($query) {
-   $select_opts = $delete_opts = $from_tbls = $join = $where = "";
+// function createQuery($query) {
+//    $select_opts = $delete_opts = $from_tbls = $join = $where = "";
 
-   echo sizeof($query);
+//    echo sizeof($query);
 
-   if (array_key_exists('select', $query)) {
-       if (count($query['select']) > 0) {
-         foreach ($query['select'] as $cols) {
-            $select_opts .= $cols . ",";
-         }
-         $select_opts = substr($select_opts, 0, strlen($select_opts)-1);
-      }
-      else {
-         $select_opts = "*";
-      }
-   }
+//    if (array_key_exists('select', $query)) {
+//        if (count($query['select']) > 0) {
+//          foreach ($query['select'] as $cols) {
+//             $select_opts .= $cols . ",";
+//          }
+//          $select_opts = substr($select_opts, 0, strlen($select_opts)-1);
+//       }
+//       else {
+//          $select_opts = "*";
+//       }
+//    }
 
 
-   if (array_key_exists('delete', $query)) {
-      $delete_opts = $query['delete'];
-   }
+//    if (array_key_exists('delete', $query)) {
+//       $delete_opts = $query['delete'];
+//    }
    
    
-   if (array_key_exists('from', $query)) {
-      if (count($query['from']) > 0){
-         foreach ($query['from'] as $tbls) {
-            $from_tbls .= $tbls;
-         }
-      }
-   }
+//    if (array_key_exists('from', $query)) {
+//       if (count($query['from']) > 0){
+//          foreach ($query['from'] as $tbls) {
+//             $from_tbls .= $tbls;
+//          }
+//       }
+//    }
 
-   if (array_key_exists('join', $query)) {
-      if (sizeof($query['join']) > 0) {
-         foreach ($query['join'] as $join_tbl => $on_condition) {
-            $join .= " JOIN " . $join_tbl . " ON " . $on_condition;
-         }
-      }
-   }
+//    if (array_key_exists('join', $query)) {
+//       if (sizeof($query['join']) > 0) {
+//          foreach ($query['join'] as $join_tbl => $on_condition) {
+//             $join .= " JOIN " . $join_tbl . " ON " . $on_condition;
+//          }
+//       }
+//    }
 
-   if (array_key_exists('where', $query)) {
-      if (sizeof($query['where']) > 0) {
-         foreach ($query['where'] as $where_cond) {
-            $where .= $where_cond . " ";
-         }
-         $where = " WHERE " . $where;
-      }
-   }
+//    if (array_key_exists('where', $query)) {
+//       if (sizeof($query['where']) > 0) {
+//          foreach ($query['where'] as $where_cond) {
+//             $where .= $where_cond . " ";
+//          }
+//          $where = " WHERE " . $where;
+//       }
+//    }
    
 
-   if (!empty($select_opts)) {
-      if (!empty($where) && !empty($join))
-         $sql = "SELECT " . $select_opts . " FROM " . $from_tbls . $join . $where;
-      elseif (!empty($where))
-         $sql = "SELECT " . $select_opts . " FROM " . $from_tbls . $where;
-      elseif (!empty($join))
-         $sql = "SELECT " . $select_opts . " FROM " . $from_tbls . $join;
-      else 
-         $sql = "SELECT " . $select_opts . " FROM " . $from_tbls;
-   }
+//    if (!empty($select_opts)) {
+//       if (!empty($where) && !empty($join))
+//          $sql = "SELECT " . $select_opts . " FROM " . $from_tbls . $join . $where;
+//       elseif (!empty($where))
+//          $sql = "SELECT " . $select_opts . " FROM " . $from_tbls . $where;
+//       elseif (!empty($join))
+//          $sql = "SELECT " . $select_opts . " FROM " . $from_tbls . $join;
+//       else 
+//          $sql = "SELECT " . $select_opts . " FROM " . $from_tbls;
+//    }
 
-   if (!empty($delete_opts)) {
-      $sql = "DELETE FROM " . $delete_opts . $where;
-   }
+//    if (!empty($delete_opts)) {
+//       $sql = "DELETE FROM " . $delete_opts . $where;
+//    }
 
    
-   return $sql; 
+//    return $sql; 
    
-}
+// }
 
 // createQuery(array(
 //    'select' => array(
@@ -124,30 +128,7 @@ function createQuery($query) {
    
 // )); 
 
-$del = createQuery(array(
-   'delete' => 'user_collection',
-   'where' => array(
-      'coll_name="dle_id"',
-      'AND',
-      'uid="13123"'
-   )
 
-));
-
-
-echo $del;
-
-
-
-echo "<br>" . $_SERVER['REQUEST_URI'];
-
-$temp = explode('/', $_SERVER['REQUEST_URI']);
-$an = explode('?', $temp[2]);
-
-print_r($temp);
-print_r($an);
-
-echo "<br>" . $_SERVER['QUERY_STRING'];
 
 ?>
 

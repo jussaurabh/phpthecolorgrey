@@ -17,8 +17,6 @@ class DeleteData extends Dbs {
 		if ($rslt->num_rows > 0) {
 			$coll_id = $rslt->fetch_assoc();
 
-			// return $coll_id['collection_id'];
-
 			if (isset($coll_id['collection_id'])) {
 				$conn->query("DELETE FROM quote_collection WHERE collection_id='" . $coll_id['collection_id'] . "'");
 			}
@@ -33,12 +31,30 @@ class DeleteData extends Dbs {
 			return "Error in deleting " . $msg;
 	}
 
+
+	public function unFollow ($uid, $unfollow_uid) {
+		$conn = $this->connect();
+
+		$sql = "DELETE FROM follow WHERE followed_by_uid='" . $uid . "' AND followed_to_uid='" . $unfollow_uid . "'";
+
+		if ($conn->query($sql) === TRUE) 
+			return true;
+		else 
+			return false;
+	}
+
 }
 
 
 if (isset($_POST['coll_name'])) {
 	$del_coll = new DeleteData;
 	echo $del_coll->deleteCollections($_POST['coll_name']);
+}
+
+
+if (isset($_POST['unfollow_uid'])) {
+	$unfollow = new DeleteData;
+	echo $unfollow->unFollow($_SESSION['uid'], $_POST['unfollow_uid']);
 }
 
 ?>

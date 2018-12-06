@@ -6,8 +6,38 @@ require_once "./includes/function.inc.php";
 
 $user_quotes = getAll("SELECT * FROM quote WHERE quote_author='" . $_GET['author'] . "'");
 
-if (isset($_SESSION['uid'])) {
-   $user_collections = getAll("SELECT * FROM user_collection WHERE uid='" . $_SESSION['uid'] . "'");
+if (isset($_SESSION['uid']) || isset($_GET['i'])) {   
+
+   $id = isset($_SESSION['uid']) ? $_SESSION['uid'] : $_GET['i'];
+
+   // Count of User following number of authors
+   $following_count = getAll(
+      "SELECT * FROM follow WHERE followed_by_uid='" . $_GET['i'] . "'"
+   );
+
+   // Count of User Followers
+   $followers_count = getAll(
+      "SELECT * FROM follow WHERE followed_to_uid='" . $_GET['i'] . "'"
+   );
+
+   // Getting all Followers Data
+   $followers_list = getFollow(
+      "SELECT followed_by_uid FROM follow WHERE followed_to_uid='" . $_GET['i'] . "'",
+      "followed_by_uid"
+   );
+
+   // Getting all Followings Data
+   $following_list = getFollow(
+      "SELECT followed_to_uid FROM follow WHERE followed_by_uid='" . $_GET['i'] . "'",
+      "followed_to_uid"
+   );
+
+
+   if (isset($_SESSION['uid'])) {
+      $user_collections = getAll("SELECT * FROM user_collection WHERE uid='" . $_SESSION['uid'] . "'");
+
+      $isFollow = getAll("SELECT * FROM follow WHERE followed_by_uid='" . $_SESSION['uid'] . "' AND followed_to_uid='" . $_GET['i'] . "'");
+   }
 }
 
 include "./includes/header.inc.php";
@@ -36,15 +66,53 @@ include "./includes/header.inc.php";
 
             <div class="username">
                <?php  
-                  echo "<p class=\"center\">" . $_GET['author'] . "</p>";
+                  echo "<p class='center'>" . $_GET['author'] . "</p>";
                ?>
             </div>
 
             <hr class="lightgrey-hr">
 
             <div class="user_profile_tag">
-               <p class="center"><span> Followers 23 </span></p>
-               <p class="center"><span> Following 12 </span></p>
+
+               <?php if (isset($_SESSION['username']) && ($_GET['author'] != $_SESSION['username'])): ?>
+
+                  <div class="center follow_btn_wrapper" data-follow-to-id="<?= $_GET['i'] ?>">
+                     <?php if (isset($isFollow) && ($isFollow['rowcount'] > 0)): ?>
+                        
+                        <button class="following_btn" id="unfollow">Following</button>
+                     
+                     <?php else: ?>
+
+                        <button class="follow_btn" id="follow">Follow</button>
+
+                     <?php endif; ?>
+                     
+                  </div>
+
+               <?php endif; ?>
+
+               <p class="center">
+                  <span id="follower_count">
+                     <?php 
+                        if (isset($followers_count['rowcount']))
+                           echo "Followers " . $followers_count['rowcount'];
+                        else 
+                           echo "Followers 0";
+                     ?>
+                  </span>
+               </p>
+
+               <p class="center">
+                  <span id="following_count"> 
+                     <?php 
+                        if (isset($following_count['rowcount']))
+                           echo "Following " . $following_count['rowcount'];
+                        else 
+                           echo "Following 0";
+                     ?>
+                  </span>
+               </p>
+
                <p class="center">
                <span> Quotes 
                   <?php echo $user_quotes['rowcount']; ?>
@@ -81,10 +149,12 @@ include "./includes/header.inc.php";
                   <p class="no-marign"><small>Tags - tag1, tag2, tag3 ....</small></p>
                </div>
                <div class="quote">
-                  <?php 
-                     echo "<p>" . $data['quote'] . "</p>";
-                     echo "<p><a href=\"profile.php?author=" . $data['quote_author'] . "\"><small>- " . $data['quote_author'] . "</small></a></p>";
-                  ?>
+                  <p> <?= $data['quote'] ?> </p>
+                  <p>
+                     <a href="profile.php?author=<?= $data['quote_author'] ?>&i=<?= $data['uid'] ?>">
+                        <small>- <?= $data['quote_author'] ?> </small>
+                     </a>
+                  </p>
                </div>
                <div class="quoteBlockFooter">
                   <div class="quotedTime">
@@ -99,7 +169,9 @@ include "./includes/header.inc.php";
                            class="center-align valign-wrapper cmnt_open_btn"
                            data-cmnt-qt="<?= $data['quote']; ?>"
                            data-cmnt-qtauthor="<?= $data['quote_author'] ?>"
-                           data-cmnt-qtdatetime="<?= $date ?>">
+                           data-cmnt-qtdatetime="<?= $date ?>"
+                           data-cmnt-qtid="<?= $data['quote_id'] ?>"
+                           >
                            <i class="material-icons center-align">comment</i>
                         </span>
                      </div>
@@ -130,6 +202,109 @@ include "./includes/header.inc.php";
 
          </div>
          <!-- .quote-block-container -->
+
+
+         <div class="follow-block-container">
+
+            <span class="follow-block-close valign-wrapper"><i class="material-icons tiny align-center">close</i></span>
+
+            <ul class="follow_tab no-margin-top">
+               <li>
+                  <a href="#followers" class="follow_tab_followers_btn">
+                     <?php 
+                        if (isset($followers_count['rowcount']))
+                           echo "Followers " . $followers_count['rowcount'];
+                        else 
+                           echo "Followers 0";
+                     ?>
+                  </a>
+               </li>
+               <li>
+                  <a href="#following" class="follow_tab_following_btn">
+                     <?php 
+                        if (isset($following_count['rowcount']))
+                           echo "Following " . $following_count['rowcount'];
+                        else 
+                           echo "Following 0";
+                     ?>
+                  </a>
+               </li>
+            </ul>
+
+
+            <section id="follow_data_section">
+               
+               <div id="followers">
+
+                  <?php 
+                  if (isset($followers_list)):
+                     foreach ($followers_list as $value):                  
+                  ?>
+   
+                     <div class="follow_row">
+                        <div class="user_avatar">
+                           <img src="./assets/images/profile.jpg" alt="">
+                        </div>
+                        <div class="user_name">
+                           <p> <?= $value['username'] ?> </p>
+                        </div>
+                        <div class="unfollow_btn valign-wrapper">
+                           <button class="align-center">Following</button>
+                        </div>
+                     </div>
+
+                  <?php
+                     endforeach;
+                  else:
+                  ?>
+
+                     <div class="valign-wrapper" style="justify-content: center; color: grey; height: 100px;">
+                        <p>No Followers yet</p>
+                     </div>
+
+                  <?php endif; ?>
+   
+               </div>
+               <!-- #followers -->
+   
+               <div id="following">
+
+                  <?php 
+                  if (isset($following_list)):
+                     foreach ($following_list as $value):
+                  ?>
+   
+                     <div class="follow_row">
+                        <div class="user_avatar">
+                           <img src="./assets/images/profile.jpg" alt="">
+                        </div>
+                        <div class="user_name">
+                           <p> <?= $value['username'] ?> </p>
+                        </div>
+                        <div class="unfollow_btn valign-wrapper">
+                           <button class="align-center">Following</button>
+                        </div>
+                     </div>
+
+                  <?php
+                     endforeach;
+                  else:
+                  ?>
+
+                     <div class="valign-wrapper" style="justify-content: center; color: grey; height: 100px;">
+                        <p>No Followings yet</p>
+                     </div>
+
+                  <?php endif; ?>
+   
+               </div>
+               <!-- #following -->
+
+            </section>
+
+
+         </div>
+         <!-- .follow-block-container -->
 
       </div>
       <!-- .mid_cont -->

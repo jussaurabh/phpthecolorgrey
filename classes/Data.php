@@ -47,6 +47,30 @@ class Data extends Dbs {
    }
 
 
+   public function getAllFollow($data, $col_name) {
+      $conn = $this->connect();
+
+      $result = array();
+
+      foreach ($data as $value) {
+         $sql = "SELECT username FROM user WHERE uid='" . $value[$col_name] . "'";
+
+         $res = $conn->query($sql);
+         
+         if ($res->num_rows > 0) {
+            while ($row = $res->fetch_assoc()) {
+               $temp = [
+                  "username" => $row['username']
+               ];
+               array_push($result, $temp);
+            }
+         }
+      }
+
+      return $result;
+   }
+
+
 }
 
 ?>
