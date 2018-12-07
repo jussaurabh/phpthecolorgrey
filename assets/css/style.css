@@ -9783,7 +9783,7 @@ main {
   color: black;
 }
 
-.profile_container .left_cont .user_profile_box .user_profile_tag .follow_btn, .profile_container .left_cont .user_profile_box .user_profile_tag .following_btn {
+.follow_btn, .following_btn {
   border: none;
   padding: 0.5em 1em;
   border-radius: 5px;
@@ -9791,9 +9791,19 @@ main {
   cursor: pointer;
 }
 
-.profile_container .left_cont .user_profile_box .user_profile_tag .follow_btn:hover, .profile_container .left_cont .user_profile_box .user_profile_tag .following_btn:hover {
+.follow_btn:hover, .following_btn:hover {
   -webkit-box-shadow: 0px 0px 12px -5px rgba(0, 0, 0, 0.73);
           box-shadow: 0px 0px 12px -5px rgba(0, 0, 0, 0.73);
+}
+
+.follow_btn {
+  background-color: transparent;
+  border: 1px solid #212121;
+}
+
+.following_btn {
+  background-color: #212121;
+  color: #fff;
 }
 
 .profile_container {
@@ -9850,15 +9860,6 @@ main {
   margin: 1em -0.5em 0 -0.5em;
   font-size: 14px;
   line-height: 1.4em;
-}
-
-.profile_container .left_cont .user_profile_box .user_profile_tag .follow_btn {
-  background-color: #dedede;
-}
-
-.profile_container .left_cont .user_profile_box .user_profile_tag .following_btn {
-  background-color: #212121;
-  color: #fff;
 }
 
 .profile_container .left_cont .user_profile_box .user_profile_tag > p {
@@ -9938,7 +9939,7 @@ main {
   display: -ms-flexbox;
   display: flex;
   height: 50px;
-  margin: 0.5em 0;
+  margin: 1em 0;
   height: 50px;
 }
 
@@ -9962,21 +9963,6 @@ main {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
-}
-
-.profile_container .mid_cont .follow-block-container #followers > .follow_row > .unfollow_btn > button,
-.profile_container .mid_cont .follow-block-container #following > .follow_row > .unfollow_btn > button {
-  border: 1px solid #212121;
-  border-radius: 5px;
-  padding: 0.5em 1em;
-  background-color: transparent;
-  cursor: pointer;
-}
-
-.profile_container .mid_cont .follow-block-container #followers > .follow_row > .unfollow_btn > button:hover,
-.profile_container .mid_cont .follow-block-container #following > .follow_row > .unfollow_btn > button:hover {
-  background-color: #212121;
-  color: #fff;
 }
 
 .profile_container .right_cont {

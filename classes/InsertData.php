@@ -27,7 +27,7 @@ class InsertData extends Dbs {
 
       $quote_id = rand();
 
-      $sql = "INSERT INTO quote(quote_id, uid, quote_author, quote) VALUES ('$quote_id', '$uid', '$author', '$quote')";
+      $sql = "INSERT INTO quote(quote_id, uid, quote_author, quote) VALUES (\"$quote_id\", \"$uid\", \"$author\", \"$quote\")";
 
       $conn = $this->connect();
 
@@ -71,12 +71,12 @@ class InsertData extends Dbs {
    } 
 
 
-   protected function insert_to_comment($comment, $comment_qtid, $username) {
+   protected function insert_to_comment($comment, $comment_qtid, $username, $uid) {
       $cmnt_id = rand();
 
       $conn = $this->connect();
 
-      $sql = "INSERT INTO comment(comment_id, user_comment, user, cmnt_quote_id) VALUES('$cmnt_id', '$comment', '$username', '$comment_qtid')";
+      $sql = "INSERT INTO comment(comment_id, user_comment, user, uid, cmnt_quote_id) VALUES('$cmnt_id', '$comment', '$username', '$uid', '$comment_qtid')";
 
       $conn->query($sql) ? $flag = 1 : $flag = 0;
 
@@ -93,7 +93,7 @@ class InsertData extends Dbs {
 
       $conn->query($sql);
 
-      $following = "SELECT * FROM follow WHERE followed_by_uid='" . $uid . "'";
+      $following = "SELECT * FROM follow WHERE followed_by_uid='" . $follow_uid . "'";
       $rslt = $conn->query($following);
 
       $following_count = $rslt->num_rows;

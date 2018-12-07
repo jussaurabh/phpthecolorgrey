@@ -11,6 +11,18 @@
 }
 
 
+.follow_btn {
+   @extend %follow-button;
+   background-color: transparent;
+   border: 1px solid $primaryblack;
+}
+.following_btn {
+   @extend %follow-button;
+   background-color: $primaryblack;
+   color: #fff;
+}
+
+
 .profile_container {
    display: flex;
    // height: 300px;
@@ -58,15 +70,6 @@
          }
 
          .user_profile_tag {
-            .follow_btn {
-               @extend %follow-button;
-               background-color: darken($smokewhite, 10%);
-            }
-            .following_btn {
-               @extend %follow-button;
-               background-color: $primaryblack;
-               color: #fff;
-            }
 
             & > p {
                padding: 0.3rem 0;
@@ -137,7 +140,7 @@
             & > .follow_row {
                display: flex;
                height: $follow_row_height;
-               margin: 0.5em 0;
+               margin: 1em 0;
                height: $follow_row_height;
                & > .user_avatar {
                   height: $follow_row_height;
@@ -153,17 +156,13 @@
                   padding: 0 1em;
                   flex: 1;
                }
-               & > .unfollow_btn > button {
-                  border: 1px solid $primaryblack;
-                  border-radius: 5px;
-                  padding: 0.5em 1em;
-                  background-color: transparent;
-                  cursor: pointer;
-                  &:hover {
-                     background-color: $primaryblack;
-                     color: #fff;
-                  }
-               }
+               // & > .unfollow_btn > button {
+               //    border: 1px solid $primaryblack;
+               //    border-radius: 5px;
+               //    padding: 0.5em 1em;
+               //    background-color: transparent;
+               //    cursor: pointer;
+               // }
             }
          }
       }

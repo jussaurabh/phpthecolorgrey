@@ -99,8 +99,8 @@ class Validate extends InsertData {
       
    }
 
-   public function insertComment($comment, $comment_qtid, $username) {
-      $flag = $this->insert_to_comment($comment, $comment_qtid, $username);
+   public function insertComment($comment, $comment_qtid, $username, $uid) {
+      $flag = $this->insert_to_comment($comment, $comment_qtid, $username, $uid);
 
       return ($flag) ? "comment is : " . $comment . " \n comment quote id is : " . $comment_qtid . " \n user id is : " . $username : "some error commenting";
    }

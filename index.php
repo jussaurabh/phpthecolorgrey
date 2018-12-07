@@ -72,6 +72,7 @@ include "./includes/header.inc.php";
                               data-cmnt-qtauthor="<?= $data['quote_author'] ?>"
                               data-cmnt-qtdatetime="<?= $date ?>"
                               data-cmnt-qtid="<?= $data['quote_id'] ?>"
+                              data-cmnt-uid="<?= $data['uid'] ?>"
                               >
                               <i class="material-icons center-align">comment</i>
                            </span>

@@ -53,14 +53,15 @@ class Data extends Dbs {
       $result = array();
 
       foreach ($data as $value) {
-         $sql = "SELECT username FROM user WHERE uid='" . $value[$col_name] . "'";
+         $sql = "SELECT * FROM user WHERE uid='" . $value[$col_name] . "'";
 
          $res = $conn->query($sql);
          
          if ($res->num_rows > 0) {
             while ($row = $res->fetch_assoc()) {
                $temp = [
-                  "username" => $row['username']
+                  "username" => $row['username'],
+                  "uid" => $row['uid']
                ];
                array_push($result, $temp);
             }

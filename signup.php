@@ -13,7 +13,7 @@ $signupError = array();
 
 if (isset($_POST['signup_submit'])) {
 
-   $validate = new Validate;
+   $validate = new Validate; 
 
    $signupError = $validate->signupInput($_POST['username'], $_POST['email'], $_POST['password']);
 
@@ -35,8 +35,6 @@ include "./includes/header.inc.php";
       <div class="form_block center">
          <h5 class="center form_head">Signup</h5>
 
-         <p id="signup_error"><small></small></p>
-
          <form action="" method="post" name="check_user_form" class="user_signup_form">
             <div class="inputbox">
                <input type="text" name="username" placeholder="Username" id="sgn_username">
@@ -44,7 +42,8 @@ include "./includes/header.inc.php";
             <?php 
                if ($usernameError)
                   echo "<p class='registerError no-margin'> <small> $usernameError </small> </p>"
-            ?>            
+            ?>      
+            <p class="no-margin left-align" id="username_value_err"><small></small></p>      
             
             <div class="inputbox">
                <input type="email" name="email" placeholder="Email" id="sgn_email">
@@ -52,7 +51,8 @@ include "./includes/header.inc.php";
             <?php 
                if ($emailError)
                   echo "<p class='registerError no-margin'> <small> $emailError </small> </p>"
-            ?>            
+            ?>   
+            <p class="no-margin left-align" id="email_value_err"><small></small></p>               
 
             <div class="inputbox">
                <input type="text" name="password" placeholder="Password">

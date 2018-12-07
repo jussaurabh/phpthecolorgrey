@@ -6,13 +6,6 @@
 
 	if (isset($_POST['comment_qtid'])) {
 		$data = getAll("SELECT * FROM comment WHERE cmnt_quote_id='" . $_POST['comment_qtid'] . "'");
-
-		// if (isset($selected_comment_data['user']))
-		// 	echo json_encode($selected_comment_data);
-		// else
-		// 	echo "nothign found";
-
-		// echo json_encode($data['data']);
 		
 	}
 
@@ -38,7 +31,7 @@
 				<p class="no-margin">
 					<span>
 						<small>
-							<a href="profile.php?author=<?= $comments['user'] ?>"> 
+							<a href="profile.php?author=<?= $comments['user'] ?>&i=<?= $comments['uid'] ?>"> 
 								<?= $comments['user'] ?> 
 							</a>
 						</small>

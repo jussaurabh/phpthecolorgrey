@@ -86,28 +86,6 @@
 
 		<div class="user_comment_section">
 
-			<!-- <div class="user_comment">
-				<div class="user_cmnt_right">
-					<div class="user_avatar">
-						<img src="./assets/images/profile.jpg" alt="">
-					</div>
-				</div>
-				<div class="cmnt_wrapper">
-					<div class="cmnt_user">
-						<p class="no-margin">
-							<span><small>author name</small></span>
-							<span style="color: grey;"><small>Today</small></span>
-						</p>
-					</div>
-					<div class="cmnt">
-						<p class="no-margin">
-							Lorem ipsum dolor sit amet consectetur, adipisicing
-						</p>
-					</div>
-				</div>
-			</div> -->
-			<!-- .user_comment -->
-
 		</div>
 		<!-- .user_comment_section -->
 

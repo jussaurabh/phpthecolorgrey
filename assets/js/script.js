@@ -49,45 +49,54 @@ $(document).ready(function () {
 
 
 
-   //Add User
-   //    $('form.user_signup_form').on('submit', function (e) {         
-   //       e.preventDefault();
-
-   //       let username = check_user_form.username.value;
-   //       let email = check_user_form.email.value;
-
-   //       $.post(
-   //          "includes/signup_user.php",
-   //          {
-   //             username: username,
-   //             email: email
-   //          },
-   //          function (err) {
-   //             console.log(err);
-   //          }
-   //       );
-   //    });
-
-
 
    //Check User
-   $('#sgn_username, #sgn_email').on('keyup', function () {
-      let sgn_username_val = $("#sgn_username").val();
-      let sgn_email_val = $("#sgn_email").val();
+   $('#sgn_username').on('keyup', function () {
+      let sgn_username_val = $(this).val();
 
-      console.log("email : " + sgn_email_val);
-      console.log("username : " + sgn_username_val);
+      if (sgn_username_val == "") {
+         $("#username_value_err > small").text("");
+      }
+      else {
 
-      $.post(
-         'includes/check_user.inc.php',
-         {
-            username: sgn_username_val,
-            email: sgn_email_val
-         },
-         function (err) {
-            $('#signup_error > small').text(err);
-         }
-      );
+         $.post(
+            'classes/CheckValue.php',
+            { sgn_username: sgn_username_val },
+            function (res) {
+               let err = JSON.parse(res);
+
+               $("#username_value_err > small").text(
+                  (err['username_chk'] == 0) ? "Available" : "Username already exists!!"
+               );
+            }
+         );
+
+      }
+
+   });
+
+   $('#sgn_email').on('keyup', function () {
+      let sgn_email_val = $(this).val();
+
+      if (sgn_email_val == "") {
+         $("#email_value_err > small").text("");
+      }
+      else {
+
+         $.post(
+            'classes/CheckValue.php',
+            { sgn_email: sgn_email_val },
+            function (res) {
+               let err = JSON.parse(res);
+
+               $("#email_value_err > small").text(
+                  (err['email_chk'] == 0) ? "Available" : "Email already exists!!"
+               );
+            }
+         );
+
+      }
+
    });
 
 
@@ -212,13 +221,14 @@ $(document).ready(function () {
       let cmnt_qt = $(this).attr('data-cmnt-qt'),
          cmnt_qtauthor = $(this).attr('data-cmnt-qtauthor'),
          cmnt_qtdatetime = $(this).attr('data-cmnt-qtdatetime'),
-         cmnt_qtid = $(this).attr('data-cmnt-qtid');
+         cmnt_qtid = $(this).attr('data-cmnt-qtid'),
+         cmnt_uid = $(this).attr('data-cmnt-uid');
 
       $(".cmnt_quote > p").text(cmnt_qt);
 
       $(".cmnt_author > span:nth-child(1) > small > a")
          .text("- " + cmnt_qtauthor)
-         .prop('href', "profile.php?author=" + cmnt_qtauthor);
+         .prop('href', "profile.php?author=" + cmnt_qtauthor + "&i=" + cmnt_uid);
 
       $(".cmnt_author > span:nth-child(2) > small").text(cmnt_qtdatetime);
 
@@ -276,8 +286,8 @@ $(document).ready(function () {
 
 
    // Follow Section
-   $("#follow").click(function () {
-
+   $("body").on('click', '.follow_btn', function () {
+      let followBtn = $(this);
       let uid = $(this).parent('.follow_btn_wrapper').attr('data-follow-to-id');
 
       $.post(
@@ -289,11 +299,14 @@ $(document).ready(function () {
             $("#follower_count").text("Followers " + data['followers']);
             $("#following_count").text("Following " + data['following']);
 
+            $(".follow_tab_followers_btn").text("Followers " + data['followers']);
+            $(".follow_tab_following_btn").text("Following " + data['following']);
+
             $.post(
                'getFollowData.php?fun=followBtn',
                { followuid: uid },
                function (btn) {
-                  $("#follow").replaceWith(btn);
+                  $(followBtn).replaceWith(btn);
                }
             );
          }
@@ -306,7 +319,8 @@ $(document).ready(function () {
 
 
    // Unfollow Section
-   $("#unfollow").click(function () {
+   $("body").on('click', '.following_btn', function () {
+      let unfollowBtn = $(this);
 
       let uid = $(this).parent('.follow_btn_wrapper').attr('data-follow-to-id');
 
@@ -315,6 +329,35 @@ $(document).ready(function () {
          { unfollow_uid: uid },
          function (res) {
             console.log("unfollowed");
+
+            $.post(
+               'getFollowData.php?fun=followCount',
+               { followuid: uid },
+               function (data) {
+                  let count = JSON.parse(data);
+                  $("#follower_count").text("Followers " + count['followers']);
+                  $("#following_count").text("Following " + count['following']);
+
+                  $(".follow_tab_followers_btn").text("Followers " + count['followers']);
+                  $(".follow_tab_following_btn").text("Following " + count['following']);
+               }
+            );
+
+            $.post(
+               'getFollowData.php?fun=followBtn',
+               { followuid: uid },
+               function (btn) {
+                  $(unfollowBtn).replaceWith(btn);
+               }
+            );
+
+            $.post(
+               'getFollowData.php?fun=followMembers',
+               { followuid: uid },
+               function (res) {
+                  $("#follow_data_section > #followers").replaceWith(res);
+               }
+            );
          }
       );
 
@@ -332,7 +375,18 @@ $(document).ready(function () {
       $("#followers").hide();
    });
 
-   $("#follower_count").click(function () {
+   $("body").on("click", "#follower_count", function () {
+
+      let followuid = $(this).attr("data-target-uid");
+
+      $.post(
+         'getFollowData.php?fun=followMembers',
+         { followuid: followuid },
+         function (res) {
+            $("#follow_data_section > #followers").replaceWith(res);
+         }
+      );
+
       $(".quote-block-container").hide();
       $(".follow-block-container").show();
       $(".follow_tab_followers_btn").addClass("active_follow_tab_btn");
@@ -345,8 +399,8 @@ $(document).ready(function () {
       e.preventDefault();
       var tab_id = $(this).find('a').attr("href");
       var tab_btn = $(this).find('a');
-      $(tab_btn).toggleClass("active_follow_tab_btn");
-      $(this).siblings().find('a').toggleClass("active_follow_tab_btn");
+      $(tab_btn).addClass("active_follow_tab_btn");
+      $(this).siblings().find('a').removeClass("active_follow_tab_btn");
       $(tab_id).show();
       $(tab_id).siblings().hide();
    });
