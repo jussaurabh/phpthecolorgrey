@@ -25,6 +25,8 @@ foreach ($arr as $val) {
 
 
 
+
+
 // $now = strtotime('now');
 // $time = strtotime('12:2:60');
 
@@ -129,7 +131,5 @@ foreach ($arr as $val) {
 // )); 
 
 
-
 ?>
-
 

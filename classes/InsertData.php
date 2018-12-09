@@ -23,18 +23,18 @@ class InsertData extends Dbs {
 
    }
 
-   protected function insertQuote($uid, $author, $quote) {
+   protected function insertQuote($uid, $author, $quote, $quote_tag) {
 
       $quote_id = rand();
 
-      $sql = "INSERT INTO quote(quote_id, uid, quote_author, quote) VALUES (\"$quote_id\", \"$uid\", \"$author\", \"$quote\")";
+      $sql = "INSERT INTO quote(quote_id, uid, quote_author, quote, quote_tags) VALUES (\"$quote_id\", \"$uid\", \"$author\", \"$quote\", \"$quote_tag\")";
 
       $conn = $this->connect();
 
       if ($conn->query($sql) === FALSE)
          echo "Error " . $sql . " " . $conn->error;
-      else
-         header('Location: profile.php?author=' . $author);
+      else 
+         return $quote_id;
 
 
       $conn->close();

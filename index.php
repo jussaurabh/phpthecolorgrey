@@ -19,7 +19,7 @@ include "./includes/header.inc.php";
 ?>
 
 
-   <main>
+   <main id="home">
       
       <div class="container">
          <div class="row">
@@ -46,8 +46,9 @@ include "./includes/header.inc.php";
                ?>
 
                <div class="quoteBlock">
+
                   <div class="quoteTags">
-                     <p class="no-margin"><small>Tags - tag1, tag2, tag3, tag1, tag2, tag3</small></p>
+                     <p class="no-margin"><small>Tags - <?= $data['quote_tags'] ?></small></p>
                   </div>
                   <div class="quote">
                      <p> <?= $data['quote'] ?> </p>

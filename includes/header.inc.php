@@ -11,7 +11,7 @@
    <link rel="stylesheet" href="./assets/css/style.css">
    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-  
+   <!-- <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700" rel="stylesheet"> -->
 
    
 </head>
@@ -121,7 +121,6 @@
                         echo "<li><hr/></li>";
                      }                  
                   ?>
-                  <li><a href="writequote.php">Write a quote</a></li>
                   <li><a href="#">Categories</a></li>
                   <?php
                      if (!isset($_SESSION['username'])) {

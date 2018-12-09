@@ -4,7 +4,7 @@ require "./includes/session.inc.php";
 
 require_once "./includes/function.inc.php";
 
-$user_quotes = getAll("SELECT * FROM quote WHERE quote_author='" . $_GET['author'] . "'");
+$user_quotes = getAll("SELECT * FROM quote WHERE uid='" . $_GET['i'] . "' ORDER BY quoted_datetime");
 
 if (isset($_SESSION['uid']) || isset($_GET['i'])) {   
 
@@ -120,7 +120,7 @@ include "./includes/header.inc.php";
 
                <p class="center">
                <span> Quotes 
-                  <?php echo $user_quotes['rowcount']; ?>
+                  <?= $user_quotes['rowcount']; ?>
                </span>
                </p>
             </div>
@@ -136,6 +136,32 @@ include "./includes/header.inc.php";
 
       <div class="mid_cont">
 
+         <?php if (isset($_SESSION['uid']) && ($_GET['i'] == $_SESSION['uid'])): ?>
+
+         <div class="quote_form_block">
+            <form action="" method="post" class="quote_submit_form">
+
+               <p class="no-margin-top" id="quoteErr"><small></small></p>
+
+               <div class="inputbox valign-wrapper" 
+                  style="max-width: 100%; background-color: #f7f7f7;">
+
+                  <textarea id="textarea1" name="quote" placeholder="Write a quote <?= $_SESSION['username'] ?>" style="border: none;" class="materialize-textarea no-margin" data-length="300"></textarea>
+               </div>
+
+
+               <div class="chips chips-placeholder inputbox" 
+                  style="text-align: left; max-width: 100%; background-color: #f7f7f7;"></div>               
+
+               <div class="inputbtn" style="margin: auto 0px auto auto; width: 100px;">
+                  <input type="submit" name="quote_submit" value="Submit">
+               </div>
+            
+            </form>
+         </div>
+
+         <?php endif; ?>
+
          <div class="quote-block-container">
 
             <?php if (!isset($user_quotes['data'])): ?>
@@ -150,9 +176,33 @@ include "./includes/header.inc.php";
             ?>
 
             <div class="quoteBlock">
+
+               <?php if (isset($_SESSION['uid']) && ($_GET['i'] == $_SESSION['uid'])): ?>
+
+                  <button class="dropdown-trigger qtBlock-opts valign-wrapper" 
+                     data-target="<?= $data['quote_id'] ?>">
+                     <i class="material-icons tiny">create</i>
+                  </button>
+
+                  <ul class="dropdown-content" 
+                     id="<?= $data['quote_id'] ?>" 
+                     style="border-radius: 4px;">
+                     
+                     <li>
+                        <a href="" style="color: #121212;">Edit</a>
+                     </li>
+                     <li>
+                        <a href="" style="color: #121212;">Delete</a>
+                     </li>
+                  
+                  </ul>
+
+               <?php endif; ?>
+
                <div class="quoteTags">
-                  <p class="no-marign"><small>Tags - tag1, tag2, tag3 ....</small></p>
+                  <p class="no-marign"><small>Tags - <?= $data['quote_tags'] ?></small></p>
                </div>
+
                <div class="quote">
                   <p> <?= $data['quote'] ?> </p>
                   <p>
@@ -161,6 +211,7 @@ include "./includes/header.inc.php";
                      </a>
                   </p>
                </div>
+
                <div class="quoteBlockFooter">
                   <div class="quotedTime">
                      <?php 
@@ -168,6 +219,7 @@ include "./includes/header.inc.php";
                         echo "<p class='no-margin'><small>" . $date . "</small></p>"
                      ?>
                   </div>
+
                   <div class="quoteActions valign-wrapper">
                      <div class="quoteBtns valign-wrapper">
                         <span 
@@ -181,12 +233,14 @@ include "./includes/header.inc.php";
                            <i class="material-icons center-align">comment</i>
                         </span>
                      </div>
+
                      <div class="quoteBtns valign-wrapper">
                         <span class="center-align valign-wrapper">
                            <i class="material-icons center-align">favorite_border</i>
                            21
                         </span>
                      </div>
+
                      <div class="quoteBtns valign-wrapper">
                         <span 
                            class="center-align valign-wrapper collection_btn" 
@@ -196,6 +250,7 @@ include "./includes/header.inc.php";
                      </div>
                   </div>
                   <!-- .quoteActions -->
+               
                </div>
                <!-- .quoteBlockFooter -->
             </div>
@@ -264,6 +319,9 @@ include "./includes/header.inc.php";
                               </a> 
                            </p>
                         </div>
+
+                        <?php if(($value['username'] != $_SESSION['username']) && ($value['uid'] != $_SESSION['uid'])): ?>
+
                         <div class="unfollow_btn valign-wrapper follow_btn_wrapper" data-follow-to-id="<?= $value['uid'] ?>">
                            <?php 
                            $chkFollow = getAll(
@@ -281,6 +339,9 @@ include "./includes/header.inc.php";
                            endif; 
                            ?>
                         </div>
+
+                        <?php endif; ?>
+
                      </div>
 
                   <?php

@@ -90,10 +90,16 @@
    }
 
    .mid_cont {
-      // flex: 0 0 80%;
       flex: auto;
       height: inherit; 
-      padding: 0 1rem 0.5rem 1rem;
+      padding: 0 1rem 0.5rem 1rem; 
+
+      .quote_form_block {
+         padding: 2em 1.5em;
+         background-color: #fff;
+         border-radius: 5px;
+         margin-bottom: 3em;
+      }
 
       .quote-block-container {
          .default-placeholder {
@@ -156,13 +162,6 @@
                   padding: 0 1em;
                   flex: 1;
                }
-               // & > .unfollow_btn > button {
-               //    border: 1px solid $primaryblack;
-               //    border-radius: 5px;
-               //    padding: 0.5em 1em;
-               //    background-color: transparent;
-               //    cursor: pointer;
-               // }
             }
          }
       }

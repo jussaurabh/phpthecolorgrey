@@ -6,7 +6,10 @@
 		<span class="center-align valign-wrapper"><i class="material-icons">playlist_add</i></span>
 		<span style="padding-left: 0.5em;">Create Collection</span>
 	</div>
-	<form action="" method="post" class="create_collection_form" id="dropdown_coll_form">
+	<form action="" method="post" 
+		class="create_collection_form" 
+		id="dropdown_coll_form">
+
 		<div class="inputbox">
 			<input type="text" name="collection_name" placeholder="Create Collection" id="coll_name">
 		</div>
@@ -31,19 +34,6 @@
 
 
 <div class="lightbox">
-
-
-	<!-- Confirmation Container Section -->
-	<div class="confirmation_box">
-		<div class="confirmation_msg">
-			<p class="no-margin">The quote which are inside this collection will be also deleted.</p>
-		</div>
-		<div class="confirmation_btns">
-			<button class="close_lightbox">Cancel</button>
-			<button id="delete_collection">Delete</button>
-		</div>
-	</div>
-	<!-- .confirmation_box -->
 
 
 	<!-- Comment Container Section -->

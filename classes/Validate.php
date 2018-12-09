@@ -6,7 +6,7 @@ define("USERNAME_MAX_LENGTH", 15);
 define("PASSWORD_MAX_LENGTH", 15);
 define("USERNAME_MIN_LENGTH", 4);
 define("PASSWORD_MIN_LENGTH", 8);
-define("QUOTE_MAX_LENGTH", 200);
+define("QUOTE_MAX_LENGTH", 300);
 define("AUTHOR_MAX_LENGTH", 15);
 
 
@@ -58,7 +58,7 @@ class Validate extends InsertData {
    }
 
 
-   public function quoteInput($author, $quote) {
+   public function quoteInput($author, $quote, $quote_tag) {
 
       $errors = array();
    
@@ -83,7 +83,7 @@ class Validate extends InsertData {
       );
 
       if (!isset($authorError) && !isset($quoteError)) {
-         $this->insertQuote($_SESSION['uid'], $author, $quote);
+         return $this->insertQuote($_SESSION['uid'], $author, $quote, $quote_tag);
       }
       else {
          return $errors;

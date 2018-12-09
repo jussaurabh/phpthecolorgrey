@@ -9290,19 +9290,19 @@ input[type]:focus {
 }
 
 input[type]::-webkit-input-placeholder {
-  color: #9a9a9a;
+  color: grey;
 }
 
 input[type]:-ms-input-placeholder {
-  color: #9a9a9a;
+  color: grey;
 }
 
 input[type]::-ms-input-placeholder {
-  color: #9a9a9a;
+  color: grey;
 }
 
 input[type]::placeholder {
-  color: #9a9a9a;
+  color: grey;
 }
 
 .no-margin {
@@ -9358,14 +9358,41 @@ main {
   border-radius: 50px;
   padding: 0.5em 1em;
   cursor: pointer;
+  border: none !important;
+}
+
+#home .quote-block-container .wall-column {
+  width: 25%;
+}
+
+#user_profile_page .quote-block-container .wall-column {
+  width: 33.3333%;
+}
+
+.wall-column {
+  display: block;
+  position: relative;
+  float: left;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+@media (max-width: 640px) {
+  .wall-column {
+    width: 50%;
+  }
+}
+
+@media (max-width: 480px) {
+  .wall-column {
+    width: auto;
+    float: none;
+  }
 }
 
 .quote-block-container {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+  display: block;
+  position: relative;
 }
 
 .quote-block-container .quoteBlock {
@@ -9376,11 +9403,22 @@ main {
   padding: 1em;
   height: auto;
   margin: 0 7.5px 15px 7.5px;
-  -webkit-box-flex: 0;
-      -ms-flex: 0 0 calc(25% - 15px);
-          flex: 0 0 calc(25% - 15px);
-  -ms-flex-item-align: start;
-      align-self: flex-start;
+  position: relative;
+  display: block;
+}
+
+.quote-block-container .quoteBlock .qtBlock-opts {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: grey;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+}
+
+.quote-block-container .quoteBlock .qtBlock-opts:hover {
+  color: #212121;
 }
 
 .quote-block-container .quoteBlock .quoteTags {
@@ -9390,6 +9428,7 @@ main {
 
 .quote-block-container .quoteBlock .quote {
   line-height: 19px;
+  font-size: 16px;
 }
 
 .quote-block-container .quoteBlock .quote > p:first-child {
@@ -9666,31 +9705,33 @@ main {
   text-decoration: none;
 }
 
-.form_block .form_head {
+.form_head {
   margin-bottom: 2em;
 }
 
-.form_block .registerError {
+.registerError {
   text-align: left;
   color: red;
   padding: 5px 0 0 20px;
 }
 
-.form_block .inputbox {
+.inputbox {
   background-color: #fff;
   border-radius: 50px;
-  -webkit-box-shadow: 0px 0px 12px -5px black;
-          box-shadow: 0px 0px 12px -5px black;
+  -webkit-box-shadow: 0px 0px 12px -5px black !important;
+          box-shadow: 0px 0px 12px -5px black !important;
   padding: 0 20px;
   margin-top: 1.2em;
-  border: 1px solid #dedede;
+  max-width: 350px;
+  border: 1px solid #dedede !important;
+  border: none !important;
 }
 
-.form_block .inputbox > input {
-  width: 300px;
+.inputbox > input {
+  width: 100%;
 }
 
-.form_block .inputbtn {
+.inputbtn {
   background-color: #3b3b3b;
   -webkit-box-shadow: 0px 0px 12px -5px black;
           box-shadow: 0px 0px 12px -5px black;
@@ -9701,11 +9742,11 @@ main {
   overflow: hidden;
 }
 
-.form_block .inputbtn:hover {
+.inputbtn:hover {
   background-color: #212121;
 }
 
-.form_block .inputbtn > input {
+.inputbtn > input {
   padding: 10px;
   color: #fff;
   background-color: transparent;
@@ -9887,6 +9928,13 @@ main {
           flex: auto;
   height: inherit;
   padding: 0 1rem 0.5rem 1rem;
+}
+
+.profile_container .mid_cont .quote_form_block {
+  padding: 2em 1.5em;
+  background-color: #fff;
+  border-radius: 5px;
+  margin-bottom: 3em;
 }
 
 .profile_container .mid_cont .quote-block-container .default-placeholder {

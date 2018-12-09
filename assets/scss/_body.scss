@@ -1,7 +1,39 @@
 
+#home .quote-block-container .wall-column {
+   width: 25%;
+}
+
+#user_profile_page .quote-block-container .wall-column {
+   width: 33.3333%;
+}
+
+.wall-column {
+   display: block;
+   position: relative;
+   float: left;
+   //   padding: 0 $gap/2;
+   box-sizing: border-box;
+}
+
+@media (max-width: 640px) {
+   .wall-column {
+      width: 50%;
+   }
+}
+
+@media (max-width: 480px) {
+   .wall-column {
+      width: auto;
+      float: none;
+   }
+}
+
+
 .quote-block-container {
-   display: flex;
-   flex-wrap: wrap;
+   // display: flex;
+   // flex-wrap: wrap;
+   display: block;
+   position: relative;
 
    .quoteBlock {
       background-color: #fff;
@@ -10,16 +42,29 @@
       padding: 1em;
       height: auto;
       margin: 0 $gap/2 $gap $gap/2;
-      flex: 0 0 calc(25% - #{$gap});
-      align-self: flex-start;
-      // position: relative;
+      position: relative;
+      display: block;
+
+      .qtBlock-opts {
+         position: absolute;
+         top: 10px;
+         right: 10px;
+         color: grey;
+         padding: 0;
+         border: none;
+         background-color: transparent;
+         &:hover {
+            color: $primaryblack;
+         }
+      }
+
       .quoteTags {
-         // border: 1px solid red;
          color: grey;
          line-height: 14px;
       }
       .quote {
          line-height: 19px;
+         font-size: 16px;
          & > p:first-child {
             margin-bottom: 5px;
          }

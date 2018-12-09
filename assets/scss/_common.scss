@@ -1,6 +1,7 @@
 *,
 input {
    font-family: Consolas;
+   // font-family: 'Montserrat', sans-serif; 
 }
 
 body{
@@ -30,7 +31,7 @@ input[type]{
       border-bottom: none !important;
    }
    &::placeholder {
-      color: lighten(grey, 10%);
+      color: grey;
    }
 }
 
@@ -88,6 +89,7 @@ main {
    border-radius: 50px;
    padding: 0.5em 1em;
    cursor: pointer;
+   border: none !important;
 }
 
 

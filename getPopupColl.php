@@ -13,8 +13,7 @@ if (isset($user_collections['data'])):
 
 <ul 
 	class="dropdown_list collection_dropdown_list" 
-	style="overflow-y: scroll; max-height: 150px;"
-	data-selected-qtid="<?= $_POST['quote_id'] ?>">
+	style="overflow-y: scroll; max-height: 150px;">
 
 	<?php foreach($user_collections['data'] as $colls): ?>
 

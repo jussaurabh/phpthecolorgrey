@@ -1,6 +1,14 @@
 
-
 $(document).ready(function () {
+
+
+   $(".quote-block-container").jaliswall({
+      item: '.quoteBlock',
+      columnClass: '.wall-column'
+   });
+
+   $(".dropdown-trigger").dropdown();
+
 
    $('.chips-placeholder').chips({
       placeholder: 'Enter a tag',
@@ -100,12 +108,72 @@ $(document).ready(function () {
    });
 
 
+
+   // Quote Submit Form
+   $(".quote_submit_form").on('submit', function (e) {
+      e.preventDefault();
+
+
+      let quote = $(this).find(".inputbox > textarea").val(),
+         quote_tag = "",
+         random_columns = $(".quote-block-container").children().length,
+         $quoteTxt = $(this).find(".inputbox > textarea");
+
+      random_columns = 1 + Math.floor(Math.random() * random_columns);
+
+      if ($(".chips").children(".chip").length > 0) {
+
+         $('.chip').each(function () {
+            let tag = $(this).text();
+            quote_tag += tag.substring(0, tag.length - 5) + ', ';
+         });
+
+         quote_tag = quote_tag.substring(0, quote_tag.length - 2);
+
+      }
+
+      $.post(
+         'includes/add_quote.inc.php',
+         {
+            quote: quote,
+            quote_tag: quote_tag
+         },
+         function (res) {
+            if (res == "false") {
+               M.toast({ html: "Please enter a quote." });
+               $(".inputbox > textarea").focus();
+            }
+            else {
+               M.toast({ html: "Quote inserted" });
+
+               $quoteTxt.val("");
+               $(".chips").children(".chip").remove();
+
+               $.post(
+                  'getQuoteBlock.php',
+                  { getquote: res },
+                  function (quoteblock) {
+                     $(".wall-column:nth-child(" + random_columns + ")").prepend(quoteblock);
+                  }
+               );
+            }
+         }
+      );
+
+
+
+
+   });
+
+
+
+
    // Add Collection
    $('form.create_collection_form, form.create_coll_form').on('submit', function (e) {
       e.preventDefault();
 
       let collection_name = $(this).find(".inputbox > input[type=text]").val();
-      let sel_qt_id = $('form.create_collection_form').find(".collection_dropdown_list").attr('data-selected-qtid');
+      let sel_qt_id = $('form.create_collection_form').attr('data-selected-qtid');
 
       console.log("coll Nmae : " + collection_name + " selected qt id : " + sel_qt_id);
 
@@ -142,10 +210,12 @@ $(document).ready(function () {
 
 
 
-   $('.collection_btn').click(function (e) {
+   $('body').on('click', '.collection_btn', function (e) {
       let top = e.pageY,
          left = e.pageX,
          quote_id = $(this).attr('data-qtid');
+
+      $(".create_collection_form").attr("data-selected-qtid", quote_id);
 
       $('.collection_dropdown').css({
          'top': top,
@@ -157,23 +227,24 @@ $(document).ready(function () {
          { quote_id: quote_id },
          function (data) {
             $(".collection_dropdown_list").replaceWith(data);
+            $(".collection_dropdown_list").attr("data-selected-qtid", quote_id);
          }
       );
    });
 
 
-   $('body').on('click', '.collection_dropdown_list > li > label > input[type=checkbox]', function (e) {
+   // $('body').on('click', '.collection_dropdown_list > li > label > input[type=checkbox]', function (e) {
 
-      $(this).change(function () {
-         alert("coll checkbx changed");
-      });
+   //    $(this).change(function () {
+   //       alert("coll checkbx changed");
+   //    });
 
-      console.log($(this).prop('id'));
-      console.log(e);
+   //    console.log($(this).prop('id'));
+   //    console.log(e);
 
-      $(this).unbind('click');
+   //    $(this).unbind('click');
 
-   });
+   // });
 
 
 
@@ -214,7 +285,7 @@ $(document).ready(function () {
    });
 
 
-   $('.quoteBtns > span.cmnt_open_btn').click(function () {
+   $('body').on('click', '.quoteBtns > span.cmnt_open_btn', function () {
       $('.lightbox').fadeIn();
       $('.comment_container').fadeIn();
 
@@ -233,8 +304,6 @@ $(document).ready(function () {
       $(".cmnt_author > span:nth-child(2) > small").text(cmnt_qtdatetime);
 
       $(".comment_form_block").attr('data-cmnting-qtid', cmnt_qtid);
-
-      console.log("quote id: " + cmnt_qtid);
 
       $.post(
          "getComment.php",
@@ -328,7 +397,6 @@ $(document).ready(function () {
          'classes/DeleteData.php',
          { unfollow_uid: uid },
          function (res) {
-            console.log("unfollowed");
 
             $.post(
                'getFollowData.php?fun=followCount',
@@ -368,6 +436,7 @@ $(document).ready(function () {
    // Showing Followers and Following list
    $("#following_count").click(function () {
       $(".quote-block-container").hide();
+      $(".quote_form_block").hide();
       $(".follow-block-container").show();
       $(".follow_tab_following_btn").addClass("active_follow_tab_btn");
       $(".follow_tab_followers_btn").removeClass("active_follow_tab_btn");
@@ -388,6 +457,7 @@ $(document).ready(function () {
       );
 
       $(".quote-block-container").hide();
+      $(".quote_form_block").hide();
       $(".follow-block-container").show();
       $(".follow_tab_followers_btn").addClass("active_follow_tab_btn");
       $(".follow_tab_following_btn").removeClass("active_follow_tab_btn");
@@ -407,6 +477,7 @@ $(document).ready(function () {
 
    $(".follow-block-close").click(function () {
       $(".quote-block-container").show();
+      $(".quote_form_block").show();
       $(".follow-block-container").hide();
       $("#following, #followers").hide();
       $(".follow_tab_following_btn, .follow_tab_followers_btn").removeClass("active_follow_tab_btn");

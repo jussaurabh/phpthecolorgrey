@@ -10,18 +10,18 @@ if (!isset($_SESSION['username'])) {
 require_once "./classes/Validate.php";
 
 
-$quoteError = NULL;
-$errors = array();
+// $quoteError = NULL;
+// $errors = array();
 
-if (isset($_POST['quote_submit'])) {
+// if (isset($_POST['quote_submit'])) {
 
-   $validate = new Validate;
+//    $validate = new Validate;
 
-   $errors = $validate->quoteInput($_SESSION['username'], $_POST['quote']);
+//    $errors = $validate->quoteInput($_SESSION['username'], $_POST['quote']);
 
-   $quoteError = $errors['quoteErr'];
+//    $quoteError = $errors['quoteErr'];
 
-}
+// }
 
 include "./includes/header.inc.php";
 
@@ -33,28 +33,17 @@ include "./includes/header.inc.php";
 <div class="container form_container">
 
    <div class="form_block center">
-      <h5 class="center form_head">Write your quote</h5>
+      <h5 class="center form_head">Write your quote <?= $_SESSION['username'] ?></h5>
 
-      <form action="" method="post">
-         <!-- <div class="inputbox">
-            <input type="text" name="quote_author" placeholder="Author" styles="width: 400px; min-width: 300px;">
-         </div> -->
-         <?php 
-            // if ($authorError)
-            //    echo "<p class='registerError no-margin'> <small> $authorError </small> </p>"
+      <p class="registerError" id="quoteErr"><small></small></p>
 
-            echo "<h5>" . $_SESSION['username'] . "</h5>";
-         ?>     
+      <form action="" method="post" class="quote_submit_form">
 
-         <div class="inputbox">
-            <input type="text" name="quote" placeholder="Write a quote" styles="width: 400px; min-width: 300px;">
+         <div class="inputbox valign-wrapper">
+            <textarea id="textarea1" name="quote" placeholder="Write a quote" style="width:400px; min-width: 300px; border: none;" class="materialize-textarea no-margin" data-length="300"></textarea>
          </div>
-         <?php 
-            if ($quoteError)
-               echo "<p class='registerError no-margin'> <small> $quoteError </small> </p>"
-         ?>  
 
-         <div class="chips chips-placeholder" style="text-align: left;"></div>               
+         <div class="chips chips-placeholder inputbox" style="text-align: left;"></div>               
 
          <div class="inputbtn">
             <input type="submit" name="quote_submit" value="Submit">
