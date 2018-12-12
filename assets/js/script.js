@@ -2,6 +2,75 @@
 $(document).ready(function () {
 
 
+
+   // User Like Action ------------------
+   $("body").on("click", ".user_like_btn", function () {
+
+      let $this = $(this).parent();
+
+      let quote_id = $(this).parents(".quoteBtns").siblings().children(".collection_btn").attr("data-qtid");
+
+      let author = $(this).parents(".quoteBtns").siblings().children(".cmnt_open_btn").attr("data-cmnt-uid");
+
+      if ($(this).hasClass("favActive")) {
+
+         $.post(
+            'classes/DeleteData.php',
+            {
+               author: author,
+               quote_id: quote_id
+            },
+            function (res) {
+               $.post(
+                  'checkUserIsActive.php',
+                  {
+                     author: author,
+                     quote_id: quote_id
+                  },
+                  function (like) {
+                     $this.replaceWith(like);
+                     console.log(like);
+                  }
+               );
+            }
+         );
+
+      }
+      else {
+
+         $.post(
+            './includes/favorite_quote.php',
+            {
+               author: author,
+               quote_id: quote_id
+            },
+            function (res) {
+               if (res == false)
+                  window.location.replace('login.php');
+               else {
+                  $.post(
+                     'checkUserIsActive.php',
+                     {
+                        author: author,
+                        quote_id: quote_id
+                     },
+                     function (like) {
+                        $this.replaceWith(like);
+                        console.log(like);
+                     }
+                  );
+               }
+
+            }
+         );
+
+      }
+
+
+   });
+
+
+
    $(".quote-block-container").jaliswall({
       item: '.quoteBlock',
       columnClass: '.wall-column'
@@ -159,9 +228,6 @@ $(document).ready(function () {
             }
          }
       );
-
-
-
 
    });
 
@@ -485,7 +551,7 @@ $(document).ready(function () {
 
 
 
-   // User Settings Area 
+   // User Settings Area ------------------
    $(".setting_list > li > a").click(function () {
       var selected = $(this).attr('href');
       $(selected).show();
@@ -498,6 +564,5 @@ $(document).ready(function () {
       $('.lightbox').fadeOut();
       $('.comment_container').fadeOut();
    });
-
 
 });

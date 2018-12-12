@@ -43,6 +43,15 @@ class DeleteData extends Dbs {
 			return false;
 	}
 
+
+	public function dislike ($uid, $quote_id) {
+		$conn = $this->connect();
+
+		$sql = "DELETE FROM favorite WHERE author='" . $uid . "' AND quote_id='" . $quote_id . "' AND liked_by='" . $_SESSION['uid'] . "'";
+
+		return $conn->query($sql) ? true : false;
+	}
+
 }
 
 
@@ -55,6 +64,12 @@ if (isset($_POST['coll_name'])) {
 if (isset($_POST['unfollow_uid'])) {
 	$unfollow = new DeleteData;
 	echo $unfollow->unFollow($_SESSION['uid'], $_POST['unfollow_uid']);
+}
+
+
+if (isset($_POST['author']) && isset($_POST['quote_id'])) {
+	$del_fav = new DeleteData;
+	echo $del_fav->dislike($_POST['author'], $_POST['quote_id']);
 }
 
 ?>

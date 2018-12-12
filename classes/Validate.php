@@ -110,6 +110,11 @@ class Validate extends InsertData {
       return $this->insert_follow($uid, $follow_uid);
    }
 
+
+   public function insertLike($uid, $quote_id, $author) {
+      return $this->insert_like($uid, $quote_id, $author);
+   }
+
 }
 
 

@@ -2,6 +2,11 @@
 
 require "./includes/session.inc.php";
 
+require_once "./includes/function.inc.php";
+
+$result = getAll("SELECT * FROM quote");
+
+
 
 include "./includes/header.inc.php";
 
@@ -55,40 +60,88 @@ include "./includes/header.inc.php";
             <div id="liked_quotes">
 
                <div class="quote-block-container">
+                  
+                  <?php 
+                     foreach ($result['data'] as $data):        
+                  ?>
 
                   <div class="quoteBlock">
+
                      <div class="quoteTags">
-                        <p class="no-marign"><small>Tags - tag1, tag2, tag3 ....</small></p>
+                        <p class="no-margin"><small>Tags - <?= $data['quote_tags'] ?></small></p>
                      </div>
                      <div class="quote">
-                        <p> some quote liked onece </p>
+                        <p> <?= $data['quote'] ?> </p>
                         <p>
-                           <a href="profile.php?author">
-                              <small> som eauthor </small>
+                           <a href="profile.php?author=<?= $data['quote_author'] ?>&i=<?= $data['uid'] ?>">
+                              <small>- <?= $data['quote_author'] ?> </small>
                            </a>
                         </p>
                      </div>
                      <div class="quoteBlockFooter">
                         <div class="quotedTime">
-                           1 day ago
+                           <?php 
+                              $date = getDateDiff($data['quoted_datetime']);
+                              echo "<p class=\"no-margin\"><small>" . $date . "</small></p>"
+                           ?>
                         </div>
                         <div class="quoteActions valign-wrapper">
                            <div class="quoteBtns valign-wrapper">
                               <span 
                                  class="center-align valign-wrapper cmnt_open_btn"
+                                 data-cmnt-qt="<?= $data['quote']; ?>"
+                                 data-cmnt-qtauthor="<?= $data['quote_author'] ?>"
+                                 data-cmnt-qtdatetime="<?= $date ?>"
+                                 data-cmnt-qtid="<?= $data['quote_id'] ?>"
+                                 data-cmnt-uid="<?= $data['uid'] ?>"
                                  >
                                  <i class="material-icons center-align">comment</i>
                               </span>
                            </div>
                            <div class="quoteBtns valign-wrapper">
-                              <span class="center-align valign-wrapper">
-                                 <i class="material-icons center-align">favorite_border</i>
-                                 21
+                              <span class="center-align valign-wrapper fav-quote">
+
+                                 <?php 
+                                 if (isset($_SESSION['uid'])): 
+
+                                    $favCount = getAll("SELECT * FROM favorite WHERE author='" . $data['uid'] . "' AND quote_id='" . $data['quote_id'] . "'");
+
+
+                                    if ($favCount['rowcount'] > 0):
+
+                                       $index = -1;
+                                       foreach ($favCount['data'] as $favData) {
+                                          if ($favData['liked_by'] == $_SESSION['uid'])
+                                             $index = 1;
+                                       }
+
+                                       if ($index == 1):
+
+                                          echo "<i class='material-icons tiny favActive user_like_btn user_unlike_btn'>favorite</i>" . $favCount['rowcount'];
+
+                                       else:
+
+                                          echo "<i class='material-icons tiny user_like_btn'>favorite</i>" . $favCount['rowcount'];
+
+                                       endif;
+
+                                    else:
+                                       echo "<i class='material-icons tiny user_like_btn'>favorite_border</i>0";
+
+                                    endif;
+                                 
+                                 else: ?>
+
+                                    <i class="material-icons tiny user_like_btn">favorite_border</i>
+
+                                 <?php endif; ?>
+
                               </span>
                            </div>
                            <div class="quoteBtns valign-wrapper">
                               <span 
-                                 class="center-align valign-wrapper collection_btn">
+                                 class="center-align valign-wrapper collection_btn" 
+                                 data-qtid="<?= $data['quote_id']; ?>">
                                  <i class="material-icons center-align">add_box</i>
                               </span>
                            </div>
@@ -96,12 +149,17 @@ include "./includes/header.inc.php";
                         <!-- .quoteActions -->
                      </div>
                      <!-- .quoteBlockFooter -->
+
                   </div>
                   <!-- .quoteBlock -->
 
+                  <?php endforeach; ?>
+
                </div>
+               <!-- .quote-block-container -->
 
             </div>
+            <!-- #liked_quotes -->
          
          </div>
          <!-- .left_cont -->
@@ -116,6 +174,7 @@ include "./includes/header.inc.php";
 
 <?php 
 
+include "./includes/popup_module.inc.php";
 include "./includes/categories.inc.php";
 include "./includes/footer.inc.php";
 

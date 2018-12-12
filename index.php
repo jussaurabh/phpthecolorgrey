@@ -79,8 +79,43 @@ include "./includes/header.inc.php";
                            </span>
                         </div>
                         <div class="quoteBtns valign-wrapper">
-                           <span class="center-align valign-wrapper">
-                              <i class="material-icons center-align">favorite_border</i>
+                           <span class="center-align valign-wrapper fav-quote">
+
+                              <?php 
+                              if (isset($_SESSION['uid'])): 
+
+                                 $favCount = getAll("SELECT * FROM favorite WHERE author='" . $data['uid'] . "' AND quote_id='" . $data['quote_id'] . "'");
+
+
+                                 if ($favCount['rowcount'] > 0):
+
+                                    $index = -1;
+                                    foreach ($favCount['data'] as $favData) {
+                                       if ($favData['liked_by'] == $_SESSION['uid'])
+                                          $index = 1;
+                                    }
+
+                                    if ($index == 1):
+
+                                       echo "<i class='material-icons tiny favActive user_like_btn user_unlike_btn'>favorite</i>" . $favCount['rowcount'];
+
+                                    else:
+
+                                       echo "<i class='material-icons tiny user_like_btn'>favorite</i>" . $favCount['rowcount'];
+
+                                    endif;
+
+                                 else:
+                                    echo "<i class='material-icons tiny user_like_btn'>favorite_border</i>0";
+
+                                 endif;
+                              
+                              else: ?>
+
+                                 <i class="material-icons tiny user_like_btn">favorite_border</i>
+
+                              <?php endif; ?>
+
                            </span>
                         </div>
                         <div class="quoteBtns valign-wrapper">

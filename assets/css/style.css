@@ -9361,6 +9361,11 @@ main {
   border: none !important;
 }
 
+.favActive {
+  color: #e30425;
+  text-shadow: 0 0 3px black;
+}
+
 #home .quote-block-container .wall-column {
   width: 25%;
 }

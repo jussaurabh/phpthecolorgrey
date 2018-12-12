@@ -122,6 +122,18 @@ class InsertData extends Dbs {
       return $follow;
    }
 
+
+
+   protected function insert_like ($uid, $quote_id, $author) {
+
+      $conn = $this->connect();
+
+      $sql = "INSERT INTO favorite (liked_by, quote_id, author) VALUES('$uid', '$quote_id', '$author')";
+
+      return $conn->query($sql) ? true : false;
+
+   }
+
 }
 
 ?>
