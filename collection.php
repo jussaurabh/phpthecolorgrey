@@ -9,8 +9,11 @@ if (isset($_SESSION['uid'])) {
 	$user_collections = getAll("SELECT * FROM user_collection WHERE uid='" . $_SESSION['uid'] . "'");
 
 	$collection_quotes = getAll("
-		SELECT user_collection.collection_name, quote.quote, quote.quote_author, quote.quote_tags, quote.quoted_datetime FROM user_collection JOIN quote_collection ON user_collection.collection_id = quote_collection.collection_id JOIN quote ON quote_collection.quote_id = quote.quote_id WHERE user_collection.collection_name='" . $_GET['collection'] . "' AND user_collection.uid='" . $_SESSION['uid'] . "'"
+		SELECT user_collection.collection_name, quote.quote_id, quote.uid, quote.quote, quote.quote_author, quote.quote_tags, quote.quoted_datetime FROM user_collection JOIN quote_collection ON user_collection.collection_id = quote_collection.collection_id JOIN quote ON quote_collection.quote_id = quote.quote_id WHERE user_collection.collection_name='" . $_GET['collection'] . "' AND user_collection.uid='" . $_SESSION['uid'] . "'"
 	);
+
+	// Getting like counts
+   $likeCount = getAll("SELECT * FROM favorite WHERE liked_by='" . $_SESSION['uid'] . "'");
 }
 else {
 	exit(header("Location: index.php"));
@@ -68,7 +71,9 @@ include "./includes/header.inc.php";
 		</div>
 		<!-- .left_cont -->
 
-		<div class="mid_cont">			
+		<div class="mid_cont">	
+			
+			<h5> <?= $_GET['collection'] ?> </h5>
 
 			<div class="quote-block-container">
 
@@ -121,10 +126,44 @@ include "./includes/header.inc.php";
 							</div>
 
 							<div class="quoteBtns valign-wrapper">
-							<span class="center-align valign-wrapper">
-								<i class="material-icons center-align">favorite_border</i>
-								21
-							</span>
+								<span class="center-align valign-wrapper fav-quote">
+
+									<?php 
+									if (isset($_SESSION['uid'])): 
+
+										$favCount = getAll("SELECT * FROM favorite WHERE author='" . $data['uid'] . "' AND quote_id='" . $data['quote_id'] . "'");
+
+
+										if ($favCount['rowcount'] > 0):
+
+											$index = -1;
+											foreach ($favCount['data'] as $favData) {
+												if ($favData['liked_by'] == $_SESSION['uid'])
+													$index = 1;
+											}
+
+											if ($index == 1):
+
+											echo "<i class='material-icons tiny favActive user_like_btn user_unlike_btn'>favorite</i><i class='material-icons tiny' style='color:grey; font-size:5px; padding: 0 2.5px;'>fiber_manual_record</i>" . $favCount['rowcount'];
+
+											else:
+
+											echo "<i class='material-icons tiny user_like_btn'>favorite</i><i class='material-icons tiny' style='color:grey; font-size:5px; padding: 0 2.5px;'>fiber_manual_record</i>" . $favCount['rowcount'];
+
+											endif;
+
+										else:
+											echo "<i class='material-icons tiny user_like_btn'>favorite_border</i><i class='material-icons tiny' style='color:grey; font-size:5px; padding: 0 2.5px;'>fiber_manual_record</i>0";
+
+										endif;
+									
+									else: ?>
+
+										<i class="material-icons tiny user_like_btn">favorite_border</i>
+
+									<?php endif; ?>
+
+								</span>
 							</div>
 
 							<div class="quoteBtns valign-wrapper">

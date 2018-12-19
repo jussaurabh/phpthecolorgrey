@@ -106,11 +106,11 @@
 
          <div class="profilelogo valign-wrapper">
             <!-- <span class="userProfileDummyImg center-align valign-wrapper">
-                  <i class="material-icons center-align small">account_circle</i>
-                  </span> -->
+               <i class="material-icons center-align small">account_circle</i>
+            </span> -->
 
             <div class="userProfileImg center-align valign-wrapper">
-               <img src="./assets/images/profile.jpg" alt="profile image" class="center-align">
+               <img src="./assets/images/profile/profile.jpg" alt="profile image" class="center-align">
             </div>
 
             <div class="dropdown" id="profile_dropdown">

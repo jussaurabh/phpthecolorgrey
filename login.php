@@ -1,11 +1,13 @@
 <?php 
 require "./includes/session.inc.php";
+include "./classes/UserLogin.php";
+
 
 if (isset($_SESSION['username'])) {
    header("Location: index.php");
 }
 
-include "./classes/UserLogin.php";
+
 if (isset($_POST['login_submit'])) {
    $loginError = NUll;
    $userLogin = new UserLogin;

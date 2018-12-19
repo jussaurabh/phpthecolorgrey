@@ -70,13 +70,41 @@ $(document).ready(function () {
    });
 
 
+   // Delete operation for quotes
+   $("body").on("click", ".qtDeleteBtn", function (e) {
+      e.preventDefault();
+      let qtId = $(this).parent().attr("id"),
+         $this = $(this).parents('.quoteBlock');
+
+      $.post(
+         'classes/DeleteData.php',
+         { qtId: qtId },
+         function (res) {
+            console.log(res);
+            $this.remove();
+            M.toast({ html: res });
+         }
+      );
+   });
+
+
 
    $(".quote-block-container").jaliswall({
       item: '.quoteBlock',
       columnClass: '.wall-column'
    });
 
-   $(".dropdown-trigger").dropdown();
+
+   // Quote Edit options
+   $("body").on("focus", ".qtBlock-opts", function () {
+      let target = $(this).attr("data-target");
+      $("#" + target).fadeIn(1);
+   });
+
+   // $("body").on("blur", ".qtBlock-opts", function () {
+   //    $(".quote-edit-opts").fadeOut(1);
+   // });
+
 
 
    $('.chips-placeholder').chips({
@@ -351,7 +379,7 @@ $(document).ready(function () {
    });
 
 
-   $('body').on('click', '.quoteBtns > span.cmnt_open_btn', function () {
+   $('body').on('click', 'span.cmnt_open_btn', function () {
       $('.lightbox').fadeIn();
       $('.comment_container').fadeIn();
 
@@ -499,10 +527,25 @@ $(document).ready(function () {
 
 
 
+   // Showing User Liked Quotes
+   $("#user_qt_like_count").click(function () {
+      $(".quote-block-container").hide();
+      $(".quote_form_block").hide();
+
+      $(".follow-block-container").hide();
+
+      $(".liked-quote-container").show();
+   });
+
+
+
    // Showing Followers and Following list
    $("#following_count").click(function () {
       $(".quote-block-container").hide();
       $(".quote_form_block").hide();
+
+      $(".liked-quote-container").hide();
+
       $(".follow-block-container").show();
       $(".follow_tab_following_btn").addClass("active_follow_tab_btn");
       $(".follow_tab_followers_btn").removeClass("active_follow_tab_btn");
@@ -541,12 +584,15 @@ $(document).ready(function () {
       $(tab_id).siblings().hide();
    });
 
-   $(".follow-block-close").click(function () {
+   $(".block-close").click(function () {
       $(".quote-block-container").show();
       $(".quote_form_block").show();
+
       $(".follow-block-container").hide();
       $("#following, #followers").hide();
       $(".follow_tab_following_btn, .follow_tab_followers_btn").removeClass("active_follow_tab_btn");
+
+      $(".liked-quote-container").hide();
    });
 
 

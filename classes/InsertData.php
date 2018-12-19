@@ -1,6 +1,6 @@
 <?php
 
-require "Dbs.php";
+require_once "Dbs.php";
 
 class InsertData extends Dbs {
 
@@ -132,6 +132,30 @@ class InsertData extends Dbs {
 
       return $conn->query($sql) ? true : false;
 
+   }
+
+
+   protected function update_user($desc, $desig, $uid, $username, $isUpload) {
+      $conn = $this->connect();
+      $flag = 0;
+
+      if (!empty($desc)) {
+         $sql = "UPDATE user SET description='" . $desc . "' WHERE uid='" . $uid . "'";
+         $conn->query($sql);
+         $flag = 1;
+      }
+
+      if (!empty($desig)) {
+         $sql = "UPDATE user SET designation='" . $desig . "' WHERE uid='" . $uid . "'";
+         $conn->query($sql);
+         $flag = 1;
+      }
+
+      if ($isUpload) 
+         header("Location: profile.php?author=" . $username . "&i=" . $uid);
+
+      if ($flag == 1)
+         header("Location: profile.php?author=" . $username . "&i=" . $uid);
    }
 
 }

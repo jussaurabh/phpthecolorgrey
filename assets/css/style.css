@@ -9366,6 +9366,11 @@ main {
   text-shadow: 0 0 3px black;
 }
 
+.imgfitparent {
+  height: 100%;
+  width: 100%;
+}
+
 #home .quote-block-container .wall-column {
   width: 25%;
 }
@@ -9894,15 +9899,14 @@ main {
 }
 
 .profile_container .left_cont .user_profile_box .user_avatar .avatar > img {
-  height: inherit;
-  width: auto;
+  height: auto;
+  width: 100%;
 }
 
 .profile_container .left_cont .user_profile_box .about_author {
   border: 1px solid #dedede;
   border-radius: 5px;
   padding: 0.7em;
-  text-align: justify;
   margin: 1em -0.5em 0 -0.5em;
   font-size: 14px;
   line-height: 1.4em;
@@ -9927,6 +9931,16 @@ main {
           box-shadow: 0px 0px 12px -5px rgba(0, 0, 0, 0.73);
 }
 
+.profile_container .left_cont .user_profile_box .user_profile_tag > p > span#user_qt_like_count {
+  padding: 0.6em 1em;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.profile_container .left_cont .user_profile_box .user_profile_tag > p > span#user_qt_like_count:hover {
+  background-color: whitesmoke;
+}
+
 .profile_container .mid_cont {
   -webkit-box-flex: 1;
       -ms-flex: auto;
@@ -9948,9 +9962,76 @@ main {
 }
 
 .profile_container .mid_cont .quote-block-container > .quoteBlock {
-  -webkit-box-flex: 0;
-      -ms-flex: 0 0 calc(33.33% - 15px);
-          flex: 0 0 calc(33.33% - 15px);
+  position: relative;
+}
+
+.profile_container .mid_cont .liked-quote-container {
+  display: none;
+  background-color: #fff;
+  padding: 0 1.5em 1.5em 1.5em;
+  position: relative;
+}
+
+.profile_container .mid_cont .liked-quote-container .liked_qt_cont_header {
+  margin: 0 -1.5em 1.5em -1.5em;
+  padding: 1em 1.5em;
+  background-color: #ededed;
+  position: relative;
+}
+
+.profile_container .mid_cont .liked-quote-container .liked_qt_cont_header .block-close {
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+
+.profile_container .mid_cont .liked-quote-container .liked_qt_list .liked_qt_block {
+  border-bottom: 1px solid lightgrey;
+  padding-bottom: 1em;
+  margin-bottom: 1em;
+}
+
+.profile_container .mid_cont .liked-quote-container .liked_qt_list .liked_qt_block:nth-last-child(1) {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.profile_container .mid_cont .liked-quote-container .liked_qt_list .liked_qt_block .liked_qt_header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+.profile_container .mid_cont .liked-quote-container .liked_qt_list .liked_qt_block .liked_qt_header .qt_avatar {
+  height: 40px;
+  width: 40px;
+  border-radius: 50px;
+  overflow: hidden;
+}
+
+.profile_container .mid_cont .liked-quote-container .liked_qt_list .liked_qt_block .liked_qt_header .qt_username {
+  padding-left: 1em;
+}
+
+.profile_container .mid_cont .liked-quote-container .liked_qt_list .liked_qt_block .liked_qt_footer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.profile_container .mid_cont .liked-quote-container .liked_qt_list .liked_qt_block .liked_qt_footer .qt_btns > span {
+  padding-left: 5px;
+  cursor: pointer;
+}
+
+.profile_container .mid_cont .liked-quote-container .liked_qt_list .liked_qt_block .liked_qt_footer .qt_btns > span > i.material-icons {
+  font-size: 20px;
 }
 
 .profile_container .mid_cont .follow-block-container {
@@ -9958,16 +10039,6 @@ main {
   background-color: #fff;
   padding: 1.5em;
   position: relative;
-}
-
-.profile_container .mid_cont .follow-block-container .follow-block-close {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  border-radius: 50px;
-  height: 20px;
-  width: 20px;
-  cursor: pointer;
 }
 
 .profile_container .mid_cont .follow-block-container .follow_tab li {
@@ -10090,6 +10161,38 @@ main {
 
 .profile_container .right_cont .collection_list_cont .collection_list_box .collection_list > button.delete_coll_btn:hover {
   background-color: whitesmoke;
+}
+
+.quote-edit-opts {
+  position: absolute;
+  border-radius: 5px;
+  background-color: #fff;
+  -webkit-box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+  width: 85px;
+  right: -62px;
+  top: 11px;
+  z-index: 1;
+  display: none;
+}
+
+.quote-edit-opts > li > a {
+  display: block;
+  padding: 0.7em 1em;
+}
+
+.quote-edit-opts > li > a:hover {
+  background-color: #e6e6e6;
+}
+
+.block-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border-radius: 50px;
+  height: 20px;
+  width: 20px;
+  cursor: pointer;
 }
 
 .active_follow_tab_btn {

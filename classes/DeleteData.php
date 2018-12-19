@@ -52,6 +52,34 @@ class DeleteData extends Dbs {
 		return $conn->query($sql) ? true : false;
 	}
 
+
+	public function quoteDelete ($qtid) {
+		$conn = $this->connect();
+
+		$sql = "DELETE FROM comment WHERE cmnt_quote_id='" . $qtid . "'";
+		if($conn->query($sql) != true) {
+			return "Error in deleting";
+		}
+
+		$sql = "DELETE FROM favorite WHERE quote_id='" . $qtid . "'";
+		if($conn->query($sql) != true) {
+			return "Error in deleting";
+		}
+
+		$sql = "DELETE FROM quote_collection WHERE quote_id='" . $qtid . "'";
+		if($conn->query($sql) != true) {
+			return "Error in deleting";
+		}
+
+		$sql = "DELETE FROM quote WHERE quote_id='" . $qtid . "'";
+		if($conn->query($sql) != true) {
+			return "Error in deleting";
+		}
+
+		return "Quote Deleted";
+
+	}
+
 }
 
 
@@ -70,6 +98,12 @@ if (isset($_POST['unfollow_uid'])) {
 if (isset($_POST['author']) && isset($_POST['quote_id'])) {
 	$del_fav = new DeleteData;
 	echo $del_fav->dislike($_POST['author'], $_POST['quote_id']);
+}
+
+
+if (isset($_POST['qtId'])) {
+	$del_qt = new DeleteData;
+	echo $del_qt->quoteDelete($_POST['qtId']);
 }
 
 ?>

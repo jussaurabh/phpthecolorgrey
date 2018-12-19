@@ -53,8 +53,8 @@
                overflow: hidden;
                margin: auto;
                & > img {
-                  height: inherit;
-                  width: auto;
+                  height: auto;
+                  width: 100%;
                }
             }
          }
@@ -63,16 +63,15 @@
             border: 1px solid darken($smokewhite, 10%);
             border-radius: 5px;
             padding: 0.7em;
-            text-align: justify;
             margin: 1em -0.5em 0 -0.5em;
             font-size: 14px;
             line-height: 1.4em;
          }
 
          .user_profile_tag {
-
             & > p {
                padding: 0.3rem 0;
+
                & > span#following_count,
                & > span#follower_count {
                   border-radius: 50px;
@@ -82,6 +81,15 @@
                   cursor: pointer;
                   &:hover {
                      box-shadow: $thin_boxshadow;
+                  }
+               }
+
+               & > span#user_qt_like_count {
+                  padding: 0.6em 1em;
+                  border-radius: 5px;
+                  cursor: pointer;
+                  &:hover {
+                     background-color: whitesmoke;
                   }
                }
             }
@@ -101,13 +109,69 @@
          margin-bottom: 3em;
       }
 
-      .quote-block-container {
+      .quote-block-container { 
          .default-placeholder {
             height: 80vh;   
             margin: auto;         
          }
          & > .quoteBlock {
-            flex: 0 0 calc(33.33% - #{$gap});
+            // flex: 0 0 calc(33.33% - #{$gap});
+            position: relative;
+         }
+      }
+
+      .liked-quote-container {
+         display: none;
+         background-color: #fff;
+         padding: 0 1.5em 1.5em 1.5em;
+         position: relative;
+
+         .liked_qt_cont_header {
+            margin: 0 -1.5em 1.5em -1.5em;
+            padding: 1em 1.5em;
+            background-color: #ededed;
+            position: relative;
+            .block-close {
+               top: 50%;
+               transform: translateY(-50%);
+            }
+         }
+
+         .liked_qt_list {
+            .liked_qt_block {
+               border-bottom: 1px solid lightgrey;
+               padding-bottom: 1em;
+               margin-bottom: 1em;
+               &:nth-last-child(1) {
+                  border-bottom: none;
+                  margin-bottom: 0;   
+               }
+               .liked_qt_header {
+                  display: flex;
+                  justify-content: flex-start;
+                  .qt_avatar {
+                     height: 40px;
+                     width: 40px;
+                     border-radius: 50px;
+                     overflow: hidden;                     
+                  }
+                  .qt_username {
+                     padding-left: 1em;
+                  }
+               }
+
+               .liked_qt_footer {
+                  display: flex;
+                  justify-content: space-between;
+                  .qt_btns > span {
+                     padding-left: 5px;
+                     cursor: pointer;
+                     & > i.material-icons {
+                        font-size: 20px;
+                     }
+                  }
+               }
+            }
          }
       }
 
@@ -116,16 +180,6 @@
          background-color: #fff;
          padding: 1.5em;
          position: relative;
-
-         .follow-block-close {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            border-radius: 50px;
-            height: 20px;
-            width: 20px;
-            cursor: pointer;
-         }
 
          .follow_tab {
             li {
@@ -244,6 +298,35 @@
 }
 
 
+.quote-edit-opts {
+   position: absolute;
+   border-radius: 5px;
+   background-color: #fff;
+   box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);    
+   width: 85px;
+   right: -62px;
+   top: 11px;
+   z-index: 1;
+   display: none; 
+   & > li > a {
+      display: block;
+      padding: 0.7em 1em;
+      &:hover {
+         background-color: darken(whitesmoke, 6%);
+      }
+   }
+}
+
+
+.block-close {
+   position: absolute;
+   top: 10px;
+   right: 10px;
+   border-radius: 50px;
+   height: 20px;
+   width: 20px;
+   cursor: pointer;
+}
 
 
 .active_follow_tab_btn {

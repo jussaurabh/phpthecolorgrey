@@ -80,7 +80,7 @@ if (isset($_POST['getquote'])) {
 
 			<div class="quoteBtns valign-wrapper">
 				<span class="center-align valign-wrapper">
-					<i class="material-icons center-align">favorite_border</i>21
+					<i class="material-icons center-align">favorite_border</i>
 				</span>
 			</div>
 

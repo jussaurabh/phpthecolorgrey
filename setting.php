@@ -1,10 +1,41 @@
 <?php 
 
-require "./includes/session.inc.php";
+session_start();
 
 require_once "./includes/function.inc.php";
+require "./classes/Validate.php";
 
 $result = getAll("SELECT * FROM quote");
+
+if (isset($_POST['profileUpdate'])) {
+   $description = $_POST['description'];
+   $designation = $_POST['designation'];
+   $isUpload = false;
+
+
+   if (!empty($_FILES['avatar']['name'])) {
+      $target = "assets/images/profile/";
+
+      $tmp = explode('.', $_FILES['avatar']['name']);
+      $ext = end($tmp);
+
+      $newName = $_SESSION['uid'] . "." . $ext;
+      
+      $target_file = $target . $newName;
+
+      if (!move_uploaded_file($_FILES['avatar']['tmp_name'], $target_file)) {
+         echo "Error in uploading file";
+      } else {
+         $isUpload = true;
+      }
+
+   }
+
+   $validate = new Validate;
+   $validate->updateUser($description, $designation, $_SESSION['uid'], $_SESSION['username'], $isUpload);
+
+   
+}
 
 
 
@@ -27,9 +58,6 @@ include "./includes/header.inc.php";
                <li>
                   <a href="#about_author">About Author</a>
                </li>
-               <li>
-                  <a href="#liked_quotes">Liked Quotes</a>
-               </li>
             </ul>
          
          </div>
@@ -39,127 +67,36 @@ include "./includes/header.inc.php";
          
             <div id="about_author">
 
-               <form action="" style="max-width: 400px;">
-                  <div class="inputbox">
-                     <input type="text" name="author_designation" placeholder="Author Designation">
+               <form action="" method="post" style="max-width: 400px;" enctype="multipart/form-data">
+
+                  <div class="inputbox" style="margin: 1.2em auto;">
+                     <input type="text" name="designation" placeholder="Author Designation">
                   </div>
-                  <div class="inputbox">
-                     <input type="date" name="author_bdate" placeholder="Birth Date">
+
+                  <div class="inputbox" style="margin: 1.2em auto;">
+                     <input type="text" name="description" placeholder="Author Description">
                   </div>
-                  <div class="inputbox">
-                     <input type="text" name="author_description" placeholder="Author Description">
+
+                  <div class="file-field input-field inputbox valign-wrapper" style="margin: 1.2em auto;">
+                     <div class="btn" 
+                        style="background-color:#212121; border-radius:50px; height:2.5em; line-height:2.5em;">
+                        <span>File</span>
+                        <input type="file" name="avatar">
+                     </div>
+                     <div class="file-path-wrapper">
+                        <input class="file-path validate" type="text" placeholder="Upload profile image">
+                     </div>
                   </div>
+                  <!-- <input type="file" name="avatar"> -->
+
                   <div class="inputbtn">
-                     <input type="submit" value="Update" name="autho_into_update">
+                     <input type="submit" value="Update" name="profileUpdate">
                   </div>
+
                </form>
                
             </div>
-
-
-            <div id="liked_quotes">
-
-               <div class="quote-block-container">
-                  
-                  <?php 
-                     foreach ($result['data'] as $data):        
-                  ?>
-
-                  <div class="quoteBlock">
-
-                     <div class="quoteTags">
-                        <p class="no-margin"><small>Tags - <?= $data['quote_tags'] ?></small></p>
-                     </div>
-                     <div class="quote">
-                        <p> <?= $data['quote'] ?> </p>
-                        <p>
-                           <a href="profile.php?author=<?= $data['quote_author'] ?>&i=<?= $data['uid'] ?>">
-                              <small>- <?= $data['quote_author'] ?> </small>
-                           </a>
-                        </p>
-                     </div>
-                     <div class="quoteBlockFooter">
-                        <div class="quotedTime">
-                           <?php 
-                              $date = getDateDiff($data['quoted_datetime']);
-                              echo "<p class=\"no-margin\"><small>" . $date . "</small></p>"
-                           ?>
-                        </div>
-                        <div class="quoteActions valign-wrapper">
-                           <div class="quoteBtns valign-wrapper">
-                              <span 
-                                 class="center-align valign-wrapper cmnt_open_btn"
-                                 data-cmnt-qt="<?= $data['quote']; ?>"
-                                 data-cmnt-qtauthor="<?= $data['quote_author'] ?>"
-                                 data-cmnt-qtdatetime="<?= $date ?>"
-                                 data-cmnt-qtid="<?= $data['quote_id'] ?>"
-                                 data-cmnt-uid="<?= $data['uid'] ?>"
-                                 >
-                                 <i class="material-icons center-align">comment</i>
-                              </span>
-                           </div>
-                           <div class="quoteBtns valign-wrapper">
-                              <span class="center-align valign-wrapper fav-quote">
-
-                                 <?php 
-                                 if (isset($_SESSION['uid'])): 
-
-                                    $favCount = getAll("SELECT * FROM favorite WHERE author='" . $data['uid'] . "' AND quote_id='" . $data['quote_id'] . "'");
-
-
-                                    if ($favCount['rowcount'] > 0):
-
-                                       $index = -1;
-                                       foreach ($favCount['data'] as $favData) {
-                                          if ($favData['liked_by'] == $_SESSION['uid'])
-                                             $index = 1;
-                                       }
-
-                                       if ($index == 1):
-
-                                          echo "<i class='material-icons tiny favActive user_like_btn user_unlike_btn'>favorite</i>" . $favCount['rowcount'];
-
-                                       else:
-
-                                          echo "<i class='material-icons tiny user_like_btn'>favorite</i>" . $favCount['rowcount'];
-
-                                       endif;
-
-                                    else:
-                                       echo "<i class='material-icons tiny user_like_btn'>favorite_border</i>0";
-
-                                    endif;
-                                 
-                                 else: ?>
-
-                                    <i class="material-icons tiny user_like_btn">favorite_border</i>
-
-                                 <?php endif; ?>
-
-                              </span>
-                           </div>
-                           <div class="quoteBtns valign-wrapper">
-                              <span 
-                                 class="center-align valign-wrapper collection_btn" 
-                                 data-qtid="<?= $data['quote_id']; ?>">
-                                 <i class="material-icons center-align">add_box</i>
-                              </span>
-                           </div>
-                        </div>
-                        <!-- .quoteActions -->
-                     </div>
-                     <!-- .quoteBlockFooter -->
-
-                  </div>
-                  <!-- .quoteBlock -->
-
-                  <?php endforeach; ?>
-
-               </div>
-               <!-- .quote-block-container -->
-
-            </div>
-            <!-- #liked_quotes -->
+            <!-- #about_author -->
          
          </div>
          <!-- .left_cont -->

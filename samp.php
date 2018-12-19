@@ -131,5 +131,52 @@ foreach ($arr as $val) {
 // )); 
 
 
+
+if (isset($_POST['submit'])) {
+
+   $target = "assets/images/";
+
+   $origName = basename($_FILES['imgfile']['name']);
+   $tmp = explode('.', $origName);
+   $ext = end($tmp);
+
+   $newName = "some." . $ext;
+   
+   $target_file = $target . $newName;
+
+   if (move_uploaded_file($_FILES['imgfile']['tmp_name'], $target_file)) {
+      echo "\n\n file uploaded";
+   }
+   else {
+      echo "not uploaded";
+   }
+
+   // echo "<img src='assets/images/" . $newName . "'/>";
+
+   $files = glob("assets/images/*.*");
+   print_r($files);
+   
+   // foreach ($files as $file) 
+   //    if ($file == $target_file) {
+   //       echo "<img src='assets/images/" . $newName . "'/>";
+   //       break;
+   //    }
+
+   if (in_array($target_file, $files)) {
+      echo "<img src='assets/images/" . $newName . "'/>";
+   }
+   
+
+}
+
+
+
 ?>
 
+<form action="" method="post" enctype="multipart/form-data">
+   <input type="file" name="imgfile">
+   <input type="submit" name="submit" value="submit">
+</form>
+
+
+<a href="download.php">download imag</a>

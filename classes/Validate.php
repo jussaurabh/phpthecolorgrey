@@ -115,6 +115,11 @@ class Validate extends InsertData {
       return $this->insert_like($uid, $quote_id, $author);
    }
 
+
+   public function updateUser($desc, $desig, $uid, $username, $isUpload) {
+      $this->update_user($desc, $desig, $uid, $username, $isUpload);
+   }
+
 }
 
 

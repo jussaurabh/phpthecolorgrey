@@ -6,9 +6,12 @@ require_once "./includes/function.inc.php";
 
 $user_quotes = getAll("SELECT * FROM quote WHERE uid='" . $_GET['i'] . "' ORDER BY quoted_datetime");
 
+$user_profile_details_data = getAll("SELECT designation, description FROM user WHERE uid='" . $_GET['i'] . "'");
+$user_profile_details = $user_profile_details_data['data'][0];
+
+
 if (isset($_SESSION['uid']) || isset($_GET['i'])) {   
 
-   $id = isset($_SESSION['uid']) ? $_SESSION['uid'] : $_GET['i'];
 
    // Count of User following number of authors
    $following_count = getAll(
@@ -33,12 +36,36 @@ if (isset($_SESSION['uid']) || isset($_GET['i'])) {
    );
 
 
+   // Getting like counts
+   $likeCount = getAll("SELECT * FROM favorite WHERE liked_by='" . $_GET['i'] . "'");
+
+   $likedQuote = getAll("
+      SELECT quote.uid, quote.quote_id, quote.quote, quote.quote_author, quote.quoted_datetime, quote_tags FROM quote JOIN favorite ON quote.quote_id = favorite.quote_id WHERE favorite.liked_by='" . $_GET['i'] . "'
+   ");
+
+
    if (isset($_SESSION['uid'])) {
       $user_collections = getAll("SELECT * FROM user_collection WHERE uid='" . $_SESSION['uid'] . "'");
 
       $isFollow = getAll("SELECT * FROM follow WHERE followed_by_uid='" . $_SESSION['uid'] . "' AND followed_to_uid='" . $_GET['i'] . "'");
    }
 }
+
+
+// Checking if user profile exist or not
+$profile_img_target = "assets/images/profile/";
+$files = glob($profile_img_target . "*.*");
+
+if (isset($_SESSION['uid'])) {
+   foreach ($files as $file) {
+      $filename = substr($file, strlen($profile_img_target));
+      $tmp = explode('.', $filename);
+      if ($tmp[0] == $_GET['i']) {
+         $userProfile = $profile_img_target . $filename;
+      }
+   }
+}
+
 
 include "./includes/header.inc.php";
 
@@ -55,19 +82,32 @@ include "./includes/header.inc.php";
 
          <div class="user_profile_box">
             <div class="user_avatar valign-wrapper">
-               <!-- <span class="valign-wrapper center-align">
-                  <i class="material-icons center-align medium">account_circle</i>
-               </span> -->
 
-               <div class="avatar valign-wrapper">
-                  <img src="./assets/images/profile.jpg" class="center-align"/>
-               </div>
+               <?php if (!isset($userProfile)): ?>
+                  <span class="valign-wrapper center-align">
+                     <i class="material-icons center-align medium">account_circle</i>
+                  </span>
+               <?php else: ?>
+                  <div class="avatar valign-wrapper">
+                     <img src="<?= $userProfile ?>" class="center-align"/>
+                  </div>
+               <?php endif; ?>
+
             </div>
 
             <div class="username">
-               <?php  
-                  echo "<p class='center'>" . $_GET['author'] . "</p>";
+               <p class="center"> <?= $_GET['author'] ?> </p>
+
+               <?php 
+               if (!empty($user_profile_details['designation'])):
                ?>
+                  <p class="center no-margin-bottom" style="color:grey"><small>Designation</small></p>
+
+                  <p class="center no-margin-top"> <?= $user_profile_details['designation'] ?> </p>
+               <?php 
+               endif;
+               ?>
+
             </div>
 
             <hr class="lightgrey-hr">
@@ -119,15 +159,28 @@ include "./includes/header.inc.php";
                <?php endif; ?>
 
                <p class="center">
-               <span> Quotes 
-                  <?= $user_quotes['rowcount']; ?>
-               </span>
+                  <span> Quotes 
+                     <?= $user_quotes['rowcount']; ?>
+                  </span>
+               </p>
+
+               <p class="center" class="user_qt_like_count">
+                  <span id="user_qt_like_count"> Likes 
+                     <?= $likeCount['rowcount'] ?>
+                  </span>
+               </p>
+            </div>
+            <!-- .user_profile_tag -->
+
+            <?php if (!empty($user_profile_details['description'])): ?>
+
+            <div class="about_author">
+               <p class="no-margin">
+                  <?= $user_profile_details['description'] ?>
                </p>
             </div>
 
-            <div class="about_author">
-               <p class="no-margin">Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe, distinctio eos. Animi officiis ipsam sequi id, quis ipsa veniam odio ducimus aliquam dignissimos laboriosam eius at in eaque asperiores repellat!</p>
-            </div>
+            <?php endif; ?>
          </div>
          <!-- .user_profile_box -->
 
@@ -179,19 +232,19 @@ include "./includes/header.inc.php";
 
                <?php if (isset($_SESSION['uid']) && ($_GET['i'] == $_SESSION['uid'])): ?>
 
-                  <button class="dropdown-trigger qtBlock-opts valign-wrapper" 
+                  <button class="qtBlock-opts valign-wrapper" 
+                     style="cursor: pointer;"
                      data-target="<?= $data['quote_id'] ?>">
                      <i class="material-icons tiny">create</i>
                   </button>
 
-                  <ul class="dropdown-content" 
-                     id="<?= $data['quote_id'] ?>" 
-                     style="border-radius: 4px;">
+                  <ul class="quote-edit-opts no-margin" 
+                     id="<?= $data['quote_id'] ?>">
                      
-                     <li>
+                     <li class="qtEditBtn">
                         <a href="" style="color: #121212;">Edit</a>
                      </li>
-                     <li>
+                     <li class="qtDeleteBtn">
                         <a href="" style="color: #121212;">Delete</a>
                      </li>
                   
@@ -235,9 +288,43 @@ include "./includes/header.inc.php";
                      </div>
 
                      <div class="quoteBtns valign-wrapper">
-                        <span class="center-align valign-wrapper">
-                           <i class="material-icons center-align">favorite_border</i>
-                           21
+                        <span class="center-align valign-wrapper fav-quote">
+
+                           <?php 
+                           if (isset($_SESSION['uid'])): 
+
+                              $favCount = getAll("SELECT * FROM favorite WHERE author='" . $data['uid'] . "' AND quote_id='" . $data['quote_id'] . "'");
+
+
+                              if ($favCount['rowcount'] > 0):
+
+                                 $index = -1;
+                                 foreach ($favCount['data'] as $favData) {
+                                    if ($favData['liked_by'] == $_SESSION['uid'])
+                                       $index = 1;
+                                 }
+
+                                 if ($index == 1):
+
+                                    echo "<i class='material-icons tiny favActive user_like_btn user_unlike_btn'>favorite</i><i class='material-icons tiny' style='color:grey; font-size:5px; padding: 0 2.5px;'>fiber_manual_record</i>" . $favCount['rowcount'];
+
+                                 else:
+
+                                    echo "<i class='material-icons tiny user_like_btn'>favorite</i><i class='material-icons tiny' style='color:grey; font-size:5px; padding: 0 2.5px;'>fiber_manual_record</i>" . $favCount['rowcount'];
+
+                                 endif;
+
+                              else:
+                                 echo "<i class='material-icons tiny user_like_btn'>favorite_border</i>";
+
+                              endif;
+                           
+                           else: ?>
+
+                              <i class="material-icons tiny user_like_btn">favorite_border</i>
+
+                           <?php endif; ?>
+
                         </span>
                      </div>
 
@@ -265,9 +352,10 @@ include "./includes/header.inc.php";
          <!-- .quote-block-container -->
 
 
+         <!-- ------ Followers Wollowing List ----------------- -->
          <div class="follow-block-container">
 
-            <span class="follow-block-close valign-wrapper"><i class="material-icons tiny align-center">close</i></span>
+            <span class="block-close valign-wrapper"><i class="material-icons tiny align-center">close</i></span>
 
             <ul class="follow_tab no-margin-top" style="margin-bottom: 3em;">
                <li>
@@ -366,6 +454,144 @@ include "./includes/header.inc.php";
 
          </div>
          <!-- .follow-block-container -->
+
+
+         <div class="liked-quote-container">
+
+            <div class="liked_qt_cont_header">
+               <h5 class="no-margin">Likes</h5>
+               <span class="block-close valign-wrapper">
+                  <i class="material-icons tiny align-center">close</i>
+               </span>
+            </div>
+
+            <?php if ($likedQuote['rowcount'] == 0): ?>
+
+               <div style="height: 100px; text-align: center;" class="valign-wrapper">
+                  <p style="margin:auto; color: grey;">No quotes liked yet!!</p>
+               </div>
+
+            <?php else: ?>
+
+            <div class="liked_qt_list">
+
+               <?php foreach ($likedQuote['data'] as $likeqt): ?>
+
+               <div class="liked_qt_block">
+
+                  <div class="liked_qt_header">
+                     <div class="qt_avatar">
+                        <img src="./assets/images/profile.jpg" class="imgfitparent" alt="">
+                     </div>
+                     <div class="qt_username valign-wrapper">
+                        <p class="no-margin">
+                           <a href="profile.php?author=<?= $likeqt['quote_author'] ?>&i=<?= $likeqt['uid'] ?>"><?= $likeqt['quote_author'] ?></a>
+                        </p>
+                     </div>
+                  </div>
+
+                  <div class="liked_qt">
+                     <p> <?= $likeqt['quote'] ?>
+                        <br/>
+                        <a href="profile.php?author=<?= $likeqt['quote_author'] ?>&i=<?= $likeqt['uid'] ?>">- <?= $likeqt['quote_author'] ?></a>
+                     </p>
+                  </div>
+
+                  <div class="liked_qt_footer">
+
+                     <div class="qt_time">
+                        <span>
+                           <small style="color: grey;">
+                              <?php 
+                                 $date = getDateDiff($likeqt['quoted_datetime']);
+                                 echo $date;
+                              ?>
+                           </small>
+                        </span>
+                     </div>
+
+                     <div class="qt_actions valign-wrapper">
+
+                        <div class="qt_btns quoteBtns valign-wrapper">
+                           <span 
+                              class="center-align valign-wrapper cmnt_open_btn"
+                              data-cmnt-qt="<?= $likeqt['quote']; ?>"
+                              data-cmnt-qtauthor="<?= $likeqt['quote_author'] ?>"
+                              data-cmnt-qtdatetime="<?= $date ?>"
+                              data-cmnt-qtid="<?= $likeqt['quote_id'] ?>"
+                              data-cmnt-uid="<?= $likeqt['uid'] ?>"
+                              >
+                              <i class="material-icons center-align" style="font-size: 20px;">comment</i>
+                           </span>
+                        </div>
+
+                        <div class="qt_btns quoteBtns valign-wrapper">
+                           <span class="center-align valign-wrapper fav-quote">
+
+                              <?php 
+                              if (isset($_SESSION['uid'])): 
+
+                                 $favCount = getAll("SELECT * FROM favorite WHERE author='" . $likeqt['uid'] . "' AND quote_id='" . $likeqt['quote_id'] . "'");
+
+
+                                 if ($favCount['rowcount'] > 0):
+
+                                    $index = -1;
+                                    foreach ($favCount['data'] as $favData) {
+                                       if ($favData['liked_by'] == $_SESSION['uid'])
+                                          $index = 1;
+                                    }
+
+                                    if ($index == 1):
+
+                                       echo "<i class='material-icons tiny favActive user_like_btn user_unlike_btn'>favorite</i><i class='material-icons tiny' style='color:grey; font-size:5px; padding: 0 2.5px;'>fiber_manual_record</i>" . $favCount['rowcount'];
+
+                                    else:
+
+                                       echo "<i class='material-icons tiny user_like_btn'>favorite</i><i class='material-icons tiny' style='color:grey; font-size:5px; padding: 0 2.5px;'>fiber_manual_record</i>" . $favCount['rowcount'];
+
+                                    endif;
+
+                                 else:
+                                    echo "<i class='material-icons tiny user_like_btn'>favorite_border</i>";
+
+                                 endif;
+                              
+                              else: ?>
+
+                                 <i class="material-icons tiny user_like_btn">favorite_border</i>
+
+                              <?php endif; ?>
+
+                           </span>
+                        </div>
+
+                        <div class="qt_btns quoteBtns valign-wrapper">
+                           <span 
+                              class="center-align valign-wrapper collection_btn" 
+                              data-qtid="<?= $likeqt['quote_id'];?>">
+                              <i class="material-icons center-align" style="font-size: 20px;">add_box</i>
+                           </span>
+                        </div>
+
+                     </div>
+                     <!-- .qt_actions -->
+
+                  </div>
+                  <!-- .liked_qt_footer -->
+
+               </div>
+               <!-- .liked_qt_block -->
+
+               <?php endforeach; ?>
+
+            </div>
+            <!-- .liked_qt_list -->
+
+            <?php endif; ?>
+
+         </div>
+         <!-- .liked-quote-container -->
 
       </div>
       <!-- .mid_cont -->

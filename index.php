@@ -97,16 +97,16 @@ include "./includes/header.inc.php";
 
                                     if ($index == 1):
 
-                                       echo "<i class='material-icons tiny favActive user_like_btn user_unlike_btn'>favorite</i>" . $favCount['rowcount'];
+                                       echo "<i class='material-icons tiny favActive user_like_btn user_unlike_btn'>favorite</i><i class='material-icons tiny' style='color:grey; font-size:5px; padding: 0 2.5px;'>fiber_manual_record</i>" . $favCount['rowcount'];
 
                                     else:
 
-                                       echo "<i class='material-icons tiny user_like_btn'>favorite</i>" . $favCount['rowcount'];
+                                       echo "<i class='material-icons tiny user_like_btn'>favorite</i><i class='material-icons tiny' style='color:grey; font-size:5px; padding: 0 2.5px;'>fiber_manual_record</i>" . $favCount['rowcount'];
 
                                     endif;
 
                                  else:
-                                    echo "<i class='material-icons tiny user_like_btn'>favorite_border</i>0";
+                                    echo "<i class='material-icons tiny user_like_btn'>favorite_border</i>";
 
                                  endif;
                               
