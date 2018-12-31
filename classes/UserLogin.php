@@ -16,6 +16,8 @@ class UserLogin extends Dbs {
          while ($row = $result->fetch_assoc()) {
             $_SESSION['username'] = $row['username'];
             $_SESSION['uid'] = $row['uid'];
+				setcookie("username", $_SESSION['username'], time() + (86400*30), "/phpthecolorgrey");
+				setcookie("userid", $_SESSION['uid'], time() + (86400*30), "/phpthecolorgrey");
          }
       }
    

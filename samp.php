@@ -1,24 +1,24 @@
 <?php 
+session_start();
+
+// $arr = array();
+// $smap = [
+//    "name" => "some",
+//    "img" => "some img"
+// ];
+// array_push($arr, $smap);
+// print_r($arr);
+// $smap = [
+//    "name" => "another",
+//    "img" => "another img"
+// ];
+// array_push($arr, $smap);
+// print_r($arr);
 
 
-$arr = array();
-$smap = [
-   "name" => "some",
-   "img" => "some img"
-];
-array_push($arr, $smap);
-print_r($arr);
-$smap = [
-   "name" => "another",
-   "img" => "another img"
-];
-array_push($arr, $smap);
-print_r($arr);
-
-
-foreach ($arr as $val) {
-   echo $val['name'];
-}
+// foreach ($arr as $val) {
+//    echo $val['name'];
+// }
 
 
 
@@ -170,6 +170,43 @@ if (isset($_POST['submit'])) {
 }
 
 
+// $filearr = glob("assets/images/profile/*.*");
+// $n = "stan-lee.jpeg";
+// if (in_array("assets/images/profile/" . $n, $filearr))
+// 	echo "<br> found <br>";
+// else 
+// 	echo "<br> not found <br>";
+
+
+
+function getAvatar($uid) {
+	$profile_img_target = "./assets/images/profile/";
+	$files = glob($profile_img_target . "*.*");
+
+	echo "<br><br> all files are : " . print_r($files) . "<br><br>"; 
+
+	$flag = "";
+
+	foreach ($files as $file) {
+		$filename = substr($file, strlen($profile_img_target));
+		$tmp = explode('.', $filename);
+		if ($tmp[0] == $uid) {
+			$userProfile = $profile_img_target . $filename;
+			$flag = true;
+			break;
+		}
+		else {
+			$flag = false;
+			echo "<br> filename : " . $filename;
+		}
+	}
+	
+	return ($flag) ? $userProfile : "false";
+}
+
+$some = getAvatar($_GET['i']);
+echo $_GET['i'];
+echo "return from getavatar " . $some;
 
 ?>
 

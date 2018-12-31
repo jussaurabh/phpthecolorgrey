@@ -120,6 +120,11 @@ class Validate extends InsertData {
       $this->update_user($desc, $desig, $uid, $username, $isUpload);
    }
 
+
+	public function addCategory($category) {
+		$this->add_category($category);
+	}
+
 }
 
 

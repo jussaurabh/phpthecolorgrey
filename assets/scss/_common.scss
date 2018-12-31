@@ -84,7 +84,7 @@ main {
 
 .inputbtn > input[type=button],
 .inputbtn > input[type=submit] {
-   background-color: $primaryblack;
+   // background-color: $primaryblack;
    color: #fff;
    border-radius: 50px;
    padding: 0.5em 1em;
@@ -102,4 +102,32 @@ main {
    width: 100%;
 }
 
+.imgfitwithheight {
+	height: 100%;
+	width: auto;
+}
 
+.imgfitwithwidth {
+	height: auto;
+	width: 100%;
+}
+
+.displaynone {
+	display: none !important;
+}
+
+.displayblock {
+	display: block !important;
+}
+
+.colorgrey {
+	color: grey;
+}
+
+
+.otherwise_msg {
+	width: 100%;
+	height: 25px;
+	color: grey;
+	font-size: 15px;
+}

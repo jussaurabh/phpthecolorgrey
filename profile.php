@@ -44,6 +44,10 @@ if (isset($_SESSION['uid']) || isset($_GET['i'])) {
    ");
 
 
+	// Getting users profile image
+	$userAvatar = getAvatar($_GET['i']);
+
+
    if (isset($_SESSION['uid'])) {
       $user_collections = getAll("SELECT * FROM user_collection WHERE uid='" . $_SESSION['uid'] . "'");
 
@@ -51,20 +55,6 @@ if (isset($_SESSION['uid']) || isset($_GET['i'])) {
    }
 }
 
-
-// Checking if user profile exist or not
-$profile_img_target = "assets/images/profile/";
-$files = glob($profile_img_target . "*.*");
-
-if (isset($_SESSION['uid'])) {
-   foreach ($files as $file) {
-      $filename = substr($file, strlen($profile_img_target));
-      $tmp = explode('.', $filename);
-      if ($tmp[0] == $_GET['i']) {
-         $userProfile = $profile_img_target . $filename;
-      }
-   }
-}
 
 
 include "./includes/header.inc.php";
@@ -83,13 +73,14 @@ include "./includes/header.inc.php";
          <div class="user_profile_box">
             <div class="user_avatar valign-wrapper">
 
-               <?php if (!isset($userProfile)): ?>
+               <?php if ($userAvatar == "false"): ?>
                   <span class="valign-wrapper center-align">
+							<?= $userAvatar ?>
                      <i class="material-icons center-align medium">account_circle</i>
                   </span>
                <?php else: ?>
-                  <div class="avatar valign-wrapper">
-                     <img src="<?= $userProfile ?>" class="center-align"/>
+                  <div class="avatar">
+                     <img src="<?= $userAvatar ?>" class="imgfitwithheight" />
                   </div>
                <?php endif; ?>
 
@@ -102,7 +93,6 @@ include "./includes/header.inc.php";
                if (!empty($user_profile_details['designation'])):
                ?>
                   <p class="center no-margin-bottom" style="color:grey"><small>Designation</small></p>
-
                   <p class="center no-margin-top"> <?= $user_profile_details['designation'] ?> </p>
                <?php 
                endif;
@@ -175,6 +165,7 @@ include "./includes/header.inc.php";
             <?php if (!empty($user_profile_details['description'])): ?>
 
             <div class="about_author">
+					<p class="no-margin"><small style="color:grey;">Description</small></p>
                <p class="no-margin">
                   <?= $user_profile_details['description'] ?>
                </p>
@@ -205,10 +196,30 @@ include "./includes/header.inc.php";
 
                <div class="chips chips-placeholder inputbox" 
                   style="text-align: left; max-width: 100%; background-color: #f7f7f7;"></div>               
+					<div class="inputbox" style="max-width:100%; background-color:#f7f7f7; position:relative;">
+						<button type="button" class="qtcategories-trigger" id="qtCategories-trigger">
+							<span>Choose a category</span>
+							<i class="material-icons tiny">arrow_drop_down</i>
+						</button>
+						<input type="text" class="selected-qtcategory-txt" placeholder="Choose a category">
+
+						
+						<div class="qtcategories-opt-block">
+							<div class="qtcategory-wrapper">
+								<ul class="qtcategory-list no-margin">
+									<li class="qtcategory-item" data-qtcat_item="somecat1">some cat1</li>
+									<li class="qtcategory-item" data-qtcat_item="somecat2">some cat2</li>
+									<li class="qtcategory-item" data-qtcat_item="somecat3">some cat3</li>
+								</ul>
+							</div>
+						</div>
+
+					</div>
 
                <div class="inputbtn" style="margin: auto 0px auto auto; width: 100px;">
                   <input type="submit" name="quote_submit" value="Submit">
                </div>
+
             
             </form>
          </div>
@@ -352,7 +363,7 @@ include "./includes/header.inc.php";
          <!-- .quote-block-container -->
 
 
-         <!-- ------ Followers Wollowing List ----------------- -->
+         <!-- ------ Followers Following List ----------------- -->
          <div class="follow-block-container">
 
             <span class="block-close valign-wrapper"><i class="material-icons tiny align-center">close</i></span>
@@ -397,9 +408,23 @@ include "./includes/header.inc.php";
                   ?>
    
                      <div class="follow_row">
-                        <div class="user_avatar">
-                           <img src="./assets/images/profile.jpg" alt="">
-                        </div>
+
+								<div class="user_avatar valign-wrapper">
+
+									<?php if (getAvatar($value['uid']) == false): ?>
+										<span 
+											class="valign-wrapper center-align"
+											style="height: inherit; width: inherit; justify-content: center;   color: grey; ">
+											<i class="material-icons center-align medium">account_circle</i>
+										</span>
+									<?php else: ?>
+										<div class="avatar">
+											<img src="<?= getAvatar($value['uid']) ?>" class="imgfitwithheight"/>
+										</div>
+									<?php endif; ?>
+
+								</div>
+
                         <div class="user_name">
                            <p> 
                               <a href="profile.php?author=<?= $value['username'] ?>&i=<?= $value['uid'] ?>">
@@ -456,6 +481,7 @@ include "./includes/header.inc.php";
          <!-- .follow-block-container -->
 
 
+			<!-- --------- Liked Quotes ---------------- -->
          <div class="liked-quote-container">
 
             <div class="liked_qt_cont_header">
@@ -480,9 +506,16 @@ include "./includes/header.inc.php";
                <div class="liked_qt_block">
 
                   <div class="liked_qt_header">
-                     <div class="qt_avatar">
-                        <img src="./assets/images/profile.jpg" class="imgfitparent" alt="">
-                     </div>
+							<?php if (getAvatar($likeqt['uid']) == false): ?>
+								<span class="valign-wrapper center-align" style="height:40px; width:40px;">
+									<i class="material-icons center-align" style="font-size:40px; color:grey;">account_circle</i>
+								</span>
+							<?php else: ?>
+								<div class="qt_avatar">
+									<img src="<?= getAvatar($likeqt['uid']) ?>" class="imgfitwithheight"/>
+								</div>
+							<?php endif; ?>
+
                      <div class="qt_username valign-wrapper">
                         <p class="no-margin">
                            <a href="profile.php?author=<?= $likeqt['quote_author'] ?>&i=<?= $likeqt['uid'] ?>"><?= $likeqt['quote_author'] ?></a>
@@ -522,6 +555,17 @@ include "./includes/header.inc.php";
                               data-cmnt-uid="<?= $likeqt['uid'] ?>"
                               >
                               <i class="material-icons center-align" style="font-size: 20px;">comment</i>
+										<?php 
+										$cmntCount = getAll("SELECT user_comment FROM comment WHERE cmnt_quote_id='" . $likeqt['quote_id'] . "'");
+										if ($cmntCount['rowcount'] > 0):
+										?>
+
+										<span class="center-align valign-wrapper commentCount">
+											<i class='material-icons tiny' style='color:grey; font-size:5px; padding: 0 2.5px;'>fiber_manual_record</i>
+											<?= $cmntCount['rowcount'] ?>
+										</span>
+
+										<?php endif; ?>
                            </span>
                         </div>
 
@@ -636,7 +680,7 @@ include "./includes/header.inc.php";
                   <div class="collection_list">
                      <div class="user_collection">
                         <?=  
-                           "<a href='collection.php?author=" . $_SESSION['username'] . "&collection=" . $collections['collection_name'] . "'>" . $collections['collection_name'] . "</a>";
+                           "<a href='collection.php?author=" . $_SESSION['username'] . "&i=" . $_SESSION['uid'] . "&collection=" . $collections['collection_name'] . "'>" . $collections['collection_name'] . "</a>";
                         ?>
                      </div>
                      <button 

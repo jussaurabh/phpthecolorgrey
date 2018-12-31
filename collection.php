@@ -14,6 +14,9 @@ if (isset($_SESSION['uid'])) {
 
 	// Getting like counts
    $likeCount = getAll("SELECT * FROM favorite WHERE liked_by='" . $_SESSION['uid'] . "'");
+
+	$user_profile_details_data = getAll("SELECT designation, description FROM user WHERE uid='" . $_GET['i'] . "'");
+	$user_profile_details = $user_profile_details_data['data'][0];
 }
 else {
 	exit(header("Location: index.php"));
@@ -36,19 +39,31 @@ include "./includes/header.inc.php";
 
 			<div class="user_profile_box">
 				<div class="user_avatar valign-wrapper">
-					<!-- <span class="valign-wrapper center-align">
-						<i class="material-icons center-align medium">account_circle</i>
-					</span> -->
 
-					<div class="avatar valign-wrapper">
-						<img src="./assets/images/profile.jpg" class="center-align"/>
-					</div>
-				</div>
+               <?php if (getAvatar($_GET['i']) == false): ?>
+                  <span class="valign-wrapper center-align">
+                     <i class="material-icons center-align medium">account_circle</i>
+                  </span>
+               <?php else: ?>
+                  <div class="avatar">
+                     <img src="<?= getAvatar($_GET['i']) ?>"/>
+                  </div>
+               <?php endif; ?>
+
+            </div>
 
 				<div class="username">
-					<?php  
-						echo "<p class='center'>" . $_GET['author'] . "</p>";
-					?>
+               <p class="center"> <?= $_GET['author'] ?> </p>
+
+               <?php 
+               if (!empty($user_profile_details['designation'])):
+               ?>
+                  <p class="center no-margin-bottom" style="color:grey"><small>Designation</small></p>
+
+                  <p class="center no-margin-top"> <?= $user_profile_details['designation'] ?> </p>
+               <?php 
+               endif;
+               ?>
 				</div>
 
 				<hr class="lightgrey-hr">
@@ -62,9 +77,17 @@ include "./includes/header.inc.php";
 					</p>
 				</div>
 
-				<div class="about_author">
-					<p class="no-margin">Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe, distinctio eos. Animi officiis ipsam sequi id, quis ipsa veniam odio ducimus aliquam dignissimos laboriosam eius at in eaque asperiores repellat!</p>
-				</div>
+				<?php if (!empty($user_profile_details['description'])): ?>
+
+            <div class="about_author">
+					<p class="no-margin"><small style="color:grey;">Description</small></p>
+               <p class="no-margin">
+                  <?= $user_profile_details['description'] ?>
+               </p>
+            </div>
+
+            <?php endif; ?>
+
 			</div>
 			<!-- .user_profile_box -->
 

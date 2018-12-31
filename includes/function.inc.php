@@ -3,6 +3,7 @@
 require_once "./classes/Data.php";
 
 
+// To get data of any table form the database
 function getAll($q) {
    $data = new Data;
    $rows = array();
@@ -13,6 +14,7 @@ function getAll($q) {
 }
 
 
+// To get the Followers/Followings
 function getFollow($sql, $col_name) {
    $data = new Data;
    $rows = array();
@@ -27,7 +29,7 @@ function getFollow($sql, $col_name) {
 }
 
 
-
+// To get Difference between any two dates
 function getDateDiff($date) {
    $da[] = explode(' ', $date);
    
@@ -50,6 +52,28 @@ function getDateDiff($date) {
       return $years;
    }
    
+}
+
+
+// To get Users Avatar(Profile Picture)
+function getAvatar($uid) {
+	$profile_img_target = "./assets/images/profile/";
+	$files = glob($profile_img_target . "*.*");
+	$flag = "";
+
+	foreach ($files as $file) {
+		$filename = substr($file, strlen($profile_img_target));
+		$tmp = explode('.', $filename);
+		if ($tmp[0] == $uid) {
+			$userProfile = $profile_img_target . $filename;
+			$flag = true;
+			break;
+		}
+		else 
+			$flag = false;
+	}
+	
+	return ($flag) ? $userProfile : false;
 }
 
 

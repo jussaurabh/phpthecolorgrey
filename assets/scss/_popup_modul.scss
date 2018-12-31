@@ -84,13 +84,20 @@
    }
 
    .user_comment_section {
-      margin-top: 1.5em;
-      max-height: 70%; 
+		margin: 1.5em -0.5em 0 -0.5em;
+		max-height: 70%;
+		padding: 1em 0.5em;
+		background-color: #f3f3f3;
+		border-radius: 10px;
       .user_comment {
          display: flex; 
          padding-bottom: 1em;
          margin-bottom: 1em;
          border-bottom: 1px solid darken(whitesmoke, 13%);
+			&:nth-last-child(1) {
+				border-bottom: none;
+				margin-bottom: 0;
+			}
          .user_cmnt_right {
             // border: 1px solid blue;
             .user_avatar  {
@@ -105,7 +112,7 @@
             }
          }    
          .cmnt_wrapper {
-            // border: 1px solid green;
+            width: 100%;
             padding-left: 10px;
             .cmnt {
                line-height: 1.3em;

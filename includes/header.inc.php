@@ -21,29 +21,9 @@
    <header>
       <div class="logo">
          <h5>
-            <a href="index.php">thecolorgrey
-               <?php
-                  if (isset($_SESSION['username']))
-                     echo $_SESSION['username'];
-               ?>
-            </a>
+            <a href="index.php">thecolorgrey</a>
          </h5>
       </div>
-
-      <!-- <div class="searchbox_container">
-         <div class="searchbox">
-            <form>
-               <div class="search-input-box">
-                  <input type="text" placeholder="Search your favorite quote">
-               </div>
-               <div class="search-btn valign-wrapper">
-                  <span class="center-align">
-                     <i class="material-icons">search</i>
-                  </span>
-               </div>
-            </form>
-         </div>
-      </div> -->
 
       <div class="profileicon">
          <div class="headerLogo valign-wrapper">
@@ -105,21 +85,48 @@
          </div>
 
          <div class="profilelogo valign-wrapper">
-            <!-- <span class="userProfileDummyImg center-align valign-wrapper">
-               <i class="material-icons center-align small">account_circle</i>
-            </span> -->
 
-            <div class="userProfileImg center-align valign-wrapper">
-               <img src="./assets/images/profile/profile.jpg" alt="profile image" class="center-align">
+            <?php 
+				if (isset($_SESSION['uid'])):
+					if(getAvatar($_SESSION['uid']) == true): 
+				
+				?>
+
+            <div class="userProfileImg center-align">
+               <img src="<?= getAvatar($_SESSION['uid']) ?>" alt="profile image" class="imgfitwithheight">
             </div>
+
+            <?php 
+					else: 
+				?>
+
+            <span class="userProfileDummyImg center-align valign-wrapper">
+               <i class="material-icons center-align small">account_circle</i>
+            </span>
+
+            <?php 
+					endif; 
+				else:
+				?>
+
+				<span class="userProfileDummyImg center-align valign-wrapper">
+               <i class="material-icons center-align small">account_circle</i>
+            </span>
+
+				<?php endif; ?>
 
             <div class="dropdown" id="profile_dropdown">
                <ul class="dropdown_list">
                   <?php 
-                     if (isset($_SESSION['username'])) {
+                     if (isset($_SESSION['username']) && $_SESSION['username'] != "admin") {
                         echo "<li><a href=\"profile.php?author=" . $_SESSION['username'] . "&i=" . $_SESSION['uid'] . "\">" . $_SESSION['username'] . "</a></li>";
                         echo "<li><hr/></li>";
-                     }                  
+                     }   
+
+							if (isset($_SESSION['username']) && $_SESSION['username'] == "admin") {
+								echo "<li> <a href=\"adminProfile.php?author=" . $_SESSION['username'] . "&i=" . $_SESSION['uid'] . "\">" . $_SESSION['username'] . "</a></li>";
+								echo "<li><hr/></li>";
+							}
                   ?>
                   <li><a href="#">Categories</a></li>
                   <?php
@@ -145,8 +152,9 @@
 
       <div class="search_container">
          <div class="search_inputbox container">
-            <form>
-               <input type="text" placeholder="Search your favorite quote">
+            <form action="" method="POST" class="user_search_box">
+               <input type="text" name="" id="searchinputbox" placeholder="Search your favorite quote, author or tag">
+					<input type="submit" value="" hidden>
             </form>
             <div class="close_search_inputbox valign-wrapper">
                <span class="valign-wrapper center-align close_searchbox">
@@ -154,6 +162,12 @@
                </span>
             </div>
          </div>
+
+			<div class="search_opt_box container" id="search_opt_box">
+				
+			</div>
+			<!-- .search_opt_box -->
+
       </div>
       <!-- .search_container -->
    </header>

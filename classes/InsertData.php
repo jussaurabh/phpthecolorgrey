@@ -151,12 +151,25 @@ class InsertData extends Dbs {
          $flag = 1;
       }
 
-      if ($isUpload) 
-         header("Location: profile.php?author=" . $username . "&i=" . $uid);
+      // if ($isUpload) 
+      //    header("Location: profile.php?author=" . $username . "&i=" . $uid);
 
-      if ($flag == 1)
+      // if ($flag == 1)
+      //    header("Location: profile.php?author=" . $username . "&i=" . $uid);
+
+      if ($flag == 1 || $isUpload)
          header("Location: profile.php?author=" . $username . "&i=" . $uid);
    }
+
+
+
+	protected function add_category($category) {
+		$conn = $this->connect();
+
+		$conn->query("INSERT INTO category(categoryName) VALUES ('$category')");
+
+		$conn->close();
+	}
 
 }
 

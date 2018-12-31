@@ -16,9 +16,7 @@
 
 		<ul 
 			class="dropdown_list collection_dropdown_list" 
-			style="overflow-y: scroll; max-height: 150px;">
-
-				
+			style="overflow-y: scroll; max-height: 150px;">				
 		</ul>
 
 		<div class="dropdown_collection_btn">
@@ -60,10 +58,10 @@
 
 		<div class="cmnt_form">
 			<form action="" method="post" name="cmnt_form" class="comment_form_block">
-				<div class="inputbox">
+				<div class="inputbox no-margin-top no-margin-bottom">
 					<input type="text" name="comment" placeholder="comment">
 				</div>
-				<div class="inputbtn">
+				<div class="inputbtn no-margin">
 					<button type="submit" class="valign-wrapper" id="submit_cmnt_btn">
 						<i class="material-icons tiny centr-align">send</i>
 					</button>

@@ -1,17 +1,27 @@
 <?php 
 
-require "./includes/session.inc.php";
+session_start();
+
+
+if (isset($_COOKIE['userid']) && isset($_COOKIE['username'])) {
+	$_SESSION['uid'] = $_COOKIE['userid'];
+	$_SESSION['username'] = $_COOKIE['username'];
+}
+
 
 require_once "./includes/function.inc.php";
 
-$result = getAll("SELECT * FROM quote");
+if (isset($_GET['search']))
+	$result = getAll("SELECT * FROM quote WHERE uid='" . $_GET['search'] . "'");
+else 
+	$result = getAll("SELECT * FROM quote");
 
 if (isset($_SESSION['uid'])) {
    $user_collections = getAll("SELECT * FROM user_collection WHERE uid='" . $_SESSION['uid'] . "'");
 }
 
 
-
+$categories = getAll("SELECT * FROM category LIMIT 10");
 
 
 include "./includes/header.inc.php";
@@ -19,7 +29,7 @@ include "./includes/header.inc.php";
 ?>
 
 
-   <main id="home">
+   <main id="home"> 
       
       <div class="container">
          <div class="row">
@@ -31,10 +41,20 @@ include "./includes/header.inc.php";
                   <span class="quoteChip chipChecked">All</span>
                </label>
 
-               <label for="cat">
-                  <input type="radio" name="radio" id="cat">
-                  <span class="quoteChip">Category</span>
-               </label>
+					<?php 
+					if (isset($categories['data'])): 
+						foreach ($categories['data'] as $category):
+					?>
+
+						<label for="<?= $category['categoryName'] ?>">
+							<input type="radio" name="radio" id="<?= $category['categoryName'] ?>">
+							<span class="quoteChip"> <?= $category['categoryName'] ?> </span>
+						</label>
+
+					<?php 
+						endforeach;
+					endif;
+					?>
 
             </div>
             <!-- .quoteCategoryOptions -->
@@ -76,6 +96,18 @@ include "./includes/header.inc.php";
                               data-cmnt-uid="<?= $data['uid'] ?>"
                               >
                               <i class="material-icons center-align">comment</i>
+
+										<?php 
+										$cmntCount = getAll("SELECT user_comment FROM comment WHERE cmnt_quote_id='" . $data['quote_id'] . "'");
+										if ($cmntCount['rowcount'] > 0):
+										?>
+
+										<span class="center-align valign-wrapper commentCount">
+											<i class='material-icons tiny' style='color:grey; font-size:5px; padding: 0 2.5px;'>fiber_manual_record</i>
+											<?= $cmntCount['rowcount'] ?>
+										</span>
+
+										<?php endif; ?>
                            </span>
                         </div>
                         <div class="quoteBtns valign-wrapper">

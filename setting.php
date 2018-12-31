@@ -15,6 +15,9 @@ if (isset($_POST['profileUpdate'])) {
 
    if (!empty($_FILES['avatar']['name'])) {
       $target = "assets/images/profile/";
+		$allfiles = glob("assets/images/profile/*.*");
+
+		$exchangeFile = getAvatar($_SESSION['uid']);
 
       $tmp = explode('.', $_FILES['avatar']['name']);
       $ext = end($tmp);
@@ -23,11 +26,16 @@ if (isset($_POST['profileUpdate'])) {
       
       $target_file = $target . $newName;
 
-      if (!move_uploaded_file($_FILES['avatar']['tmp_name'], $target_file)) {
-         echo "Error in uploading file";
-      } else {
-         $isUpload = true;
-      }
+		
+		if ($exchangeFile != false)
+			unlink($exchangeFile);
+		
+
+		if (!move_uploaded_file($_FILES['avatar']['tmp_name'], $target_file)) {
+			echo "Error in uploading file";
+		} else {
+			$isUpload = true;
+		}
 
    }
 
@@ -58,6 +66,9 @@ include "./includes/header.inc.php";
                <li>
                   <a href="#about_author">About Author</a>
                </li>
+               <li>
+                  <a href="#privacy">Privacy</a>
+               </li>
             </ul>
          
          </div>
@@ -65,7 +76,7 @@ include "./includes/header.inc.php";
 
          <div class="col m9 left_cont">
          
-            <div id="about_author">
+            <div class="settingblocks" id="about_author">
 
                <form action="" method="post" style="max-width: 400px;" enctype="multipart/form-data">
 
@@ -97,6 +108,39 @@ include "./includes/header.inc.php";
                
             </div>
             <!-- #about_author -->
+
+				<div class="settingblocks active" id="privacy">
+
+					<form action="#">
+
+						<div class="row">
+							<div class="p-label">
+								<p class="no-margin">If your account is Private only your followers can see your Quotes.</p>
+							</div>
+							<div class="p-opts">
+								<p>
+									<label>
+										<input name="p-yes" type="radio" />
+										<span>Yes</span>
+									</label>
+								</p>
+								<p>
+									<label>
+										<input name="p-no" type="radio" />
+										<span>No</span>
+									</label>
+								</p>
+							</div>
+						</div>
+
+						<div class="row">
+							<input type="button" class="">
+						</div>
+
+					</form>
+
+				</div>
+				<!-- #privacy -->
          
          </div>
          <!-- .left_cont -->
