@@ -1,0 +1,26 @@
+ 
+.categoryAddBox {
+	width: 400px;
+	margin: 25px auto auto auto;
+	display: flex;
+	align-items: center;
+	height: 4em;
+}
+
+.categoryHeading {
+	padding: 0 10px;
+}
+
+.categoriesOf {
+	display: flex;
+	flex-wrap: wrap;
+	width: 100%;
+	& > span {
+		padding: 2.5px 10px;
+		width: calc(100% / 5);
+		cursor: pointer;
+		&:hover {
+			background-color: lightgrey;
+		}
+	}
+}
