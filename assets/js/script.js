@@ -99,9 +99,9 @@ $(document).ready(function () {
 		$("#" + target).fadeIn(1);
 	});
 
-	// $("body").on("blur", ".qtBlock-opts", function () {
-	//    $(".quote-edit-opts").fadeOut(1);
-	// });
+	$("body").click(".qtBlock-opts", function () {
+		$(".quote-edit-opts").fadeOut(1);
+	});
 
 
 
@@ -377,7 +377,7 @@ $(document).ready(function () {
 		$('.search_opt_box').removeClass('displayblock');
 	});
 
-	$("#searchinputbox").on("keyup", () => {
+	$("#searchinputbox").on("keyup", function () {
 		var search_data = $(this).val();
 
 		$('.search_opt_box').addClass('displayblock');

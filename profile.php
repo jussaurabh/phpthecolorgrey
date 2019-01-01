@@ -73,9 +73,8 @@ include "./includes/header.inc.php";
          <div class="user_profile_box">
             <div class="user_avatar valign-wrapper">
 
-               <?php if ($userAvatar == "false"): ?>
+               <?php if ($userAvatar == false): ?>
                   <span class="valign-wrapper center-align">
-							<?= $userAvatar ?>
                      <i class="material-icons center-align medium">account_circle</i>
                   </span>
                <?php else: ?>
@@ -196,7 +195,7 @@ include "./includes/header.inc.php";
 
                <div class="chips chips-placeholder inputbox" 
                   style="text-align: left; max-width: 100%; background-color: #f7f7f7;"></div>               
-					<div class="inputbox" style="max-width:100%; background-color:#f7f7f7; position:relative;">
+					<!-- <div class="inputbox" style="max-width:100%; background-color:#f7f7f7; position:relative;">
 						<button type="button" class="qtcategories-trigger" id="qtCategories-trigger">
 							<span>Choose a category</span>
 							<i class="material-icons tiny">arrow_drop_down</i>
@@ -214,7 +213,7 @@ include "./includes/header.inc.php";
 							</div>
 						</div>
 
-					</div>
+					</div> -->
 
                <div class="inputbtn" style="margin: auto 0px auto auto; width: 100px;">
                   <input type="submit" name="quote_submit" value="Submit">
@@ -723,7 +722,7 @@ include "./includes/header.inc.php";
 <?php 
 
 include "./includes/popup_module.inc.php";
-include "./includes/categories.inc.php";
+// include "./includes/categories.inc.php";
 include "./includes/footer.inc.php";
 
 ?>

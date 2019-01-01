@@ -76,7 +76,7 @@ include "./includes/header.inc.php";
 
          <div class="col m9 left_cont">
          
-            <div class="settingblocks" id="about_author">
+            <div class="settingblocks active" id="about_author">
 
                <form action="" method="post" style="max-width: 400px;" enctype="multipart/form-data">
 
@@ -109,7 +109,7 @@ include "./includes/header.inc.php";
             </div>
             <!-- #about_author -->
 
-				<div class="settingblocks active" id="privacy">
+				<div class="settingblocks" id="privacy">
 
 					<form action="#">
 
@@ -156,7 +156,6 @@ include "./includes/header.inc.php";
 <?php 
 
 include "./includes/popup_module.inc.php";
-include "./includes/categories.inc.php";
 include "./includes/footer.inc.php";
 
 ?>

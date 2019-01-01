@@ -9212,8 +9212,6 @@ header .search_container .search_opt_box {
   z-index: 1;
   padding: 1.5em;
   display: none;
-  max-height: 300px;
-  overflow-y: scroll;
 }
 
 header .search_container .search_opt_box .search_opt_row {
@@ -9335,10 +9333,12 @@ body {
 
 *::-webkit-scrollbar-track {
   background-color: white;
+  border-radius: 20px;
 }
 
 *::-webkit-scrollbar-thumb {
   background-color: grey;
+  border-radius: 20px;
 }
 
 input[type] {
@@ -9981,6 +9981,11 @@ main {
 .profile_container .left_cont .user_profile_box .user_avatar > span {
   color: grey;
   margin: auto;
+  height: inherit;
+  width: inherit;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .profile_container .left_cont .user_profile_box .user_avatar .avatar {

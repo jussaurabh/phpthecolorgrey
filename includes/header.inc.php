@@ -34,7 +34,7 @@
             </span>
          </div>  
 
-         <div class="notifylogo valign-wrapper">
+         <!-- <div class="notifylogo valign-wrapper">
             <span class="notifyIcon center-align valign-wrapper">
                <i class="material-icons center-align small">notifications</i>
             </span>
@@ -46,17 +46,10 @@
                <div class="notify-body">
                   <ul class="no-margin"> 
 
-                     <?php if (!isset($_SESSION['username'])): ?>
-
                      <div class="default-placeholder valign-wrapper">
                         <span>No new notifications</span>
                      </div>
-                     
 
-                     <?php 
-                        else:
-                           for ($i=0; $i < 6; $i++):
-                     ?>
                      <li class="notify-li">
                         <a href="#">
                            <div class="notify-row">
@@ -75,14 +68,11 @@
                            </div>
                         </a>
                      </li>
-                     <?php
-                           endfor;
-                        endif;
-                     ?>
                   </ul>
                </div>
             </div>
-         </div>
+         </div> -->
+			<!-- .notifylogo -->
 
          <div class="profilelogo valign-wrapper">
 
@@ -128,7 +118,7 @@
 								echo "<li><hr/></li>";
 							}
                   ?>
-                  <li><a href="#">Categories</a></li>
+                  <!-- <li><a href="#">Categories</a></li> -->
                   <?php
                      if (!isset($_SESSION['username'])) {
                         echo "<li><a href=\"login.php\">Login</a></li>";

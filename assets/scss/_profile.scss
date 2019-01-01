@@ -50,6 +50,9 @@
             & > span {
                color: grey;
                margin: auto;
+					height: inherit;
+					width: inherit;
+					justify-content: center;
             }
             .avatar {
                height: inherit;

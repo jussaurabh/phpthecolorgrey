@@ -34,7 +34,7 @@ include "./includes/header.inc.php";
       <div class="container">
          <div class="row">
 
-            <div class="quoteCategoryOption">
+            <!-- <div class="quoteCategoryOption">
 
                <label for="all">
                   <input type="radio" checked name="radio" id="all">
@@ -56,10 +56,10 @@ include "./includes/header.inc.php";
 					endif;
 					?>
 
-            </div>
+            </div> -->
             <!-- .quoteCategoryOptions -->
 
-            <div class="quote-block-container">
+            <div class="quote-block-container" style="margin-top:4em;">
 
                <?php 
                   foreach ($result['data'] as $data):        
@@ -181,7 +181,7 @@ include "./includes/header.inc.php";
 <?php 
 
    include "./includes/popup_module.inc.php";
-   include "./includes/categories.inc.php";
+   // include "./includes/categories.inc.php";
    include "./includes/footer.inc.php";
 
 ?>
