@@ -171,6 +171,25 @@ class InsertData extends Dbs {
 		$conn->close();
 	}
 
+
+	protected function edit_quote($edited_quote, $edited_quote_id) {
+
+		$conn = $this->connect();
+
+		$conn->query("UPDATE quote SET quote='" . $edited_quote . "' WHERE quote_id=" . $edited_quote_id);
+
+		// $rslt = $conn->query("SELECT quote FROM quote WHERE quote_id=" . $edited_quote_id);
+
+		// while ($row = $rslt->fetch_assoc()) {
+		// 	$new_quote = $row['quote'];
+		// }
+
+
+		$conn->close();
+
+		// return $new_quote;
+	}
+
 }
 
 ?>

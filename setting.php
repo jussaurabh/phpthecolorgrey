@@ -66,9 +66,9 @@ include "./includes/header.inc.php";
                <li>
                   <a href="#about_author">About Author</a>
                </li>
-               <li>
+               <!-- <li>
                   <a href="#privacy">Privacy</a>
-               </li>
+               </li> -->
             </ul>
          
          </div>
@@ -109,7 +109,7 @@ include "./includes/header.inc.php";
             </div>
             <!-- #about_author -->
 
-				<div class="settingblocks" id="privacy">
+				<!-- <div class="settingblocks" id="privacy">
 
 					<form action="#">
 
@@ -139,7 +139,7 @@ include "./includes/header.inc.php";
 
 					</form>
 
-				</div>
+				</div> -->
 				<!-- #privacy -->
          
          </div>

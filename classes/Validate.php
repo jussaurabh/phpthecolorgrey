@@ -125,6 +125,10 @@ class Validate extends InsertData {
 		$this->add_category($category);
 	}
 
+	public function editQuote($edited_quote, $edited_quote_id) {
+		$this->edit_quote($edited_quote, $edited_quote_id);
+	}
+
 }
 
 

@@ -46,7 +46,7 @@ include "./includes/header.inc.php";
                   </span>
                <?php else: ?>
                   <div class="avatar">
-                     <img src="<?= getAvatar($_GET['i']) ?>"/>
+                     <img src="<?= getAvatar($_GET['i']) ?>" class="imgfitwithheight"/>
                   </div>
                <?php endif; ?>
 
@@ -256,7 +256,7 @@ include "./includes/header.inc.php";
 					<div class="collection_list">
 						<div class="user_collection">
 						<?=  
-							"<a href='collection.php?author=" . $_SESSION['username'] . "&collection=" . $collections['collection_name'] . "'>" . $collections['collection_name'] . "</a>";
+							"<a href='collection.php?author=" . $_SESSION['username'] . "&i=" . $_SESSION['uid'] . "&collection=" . $collections['collection_name'] . "'>" . $collections['collection_name'] . "</a>";
 						?>
 						</div>
 						<button 

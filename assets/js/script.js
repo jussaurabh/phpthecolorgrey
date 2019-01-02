@@ -86,6 +86,60 @@ $(document).ready(function () {
 	});
 
 
+	// Open Edit form for a quote
+	$("body").on("click", ".qtEditBtn", function (e) {
+		e.preventDefault();
+		var $this_quoteBlock = $(this).parents('.quoteBlock');
+		var quote = $this_quoteBlock.find("#quote_para").html();
+
+		$this_quoteBlock.find('#quote_para').hide();
+
+		$this_quoteBlock.find("#quoteEditForm").removeClass("displaynone");
+		$this_quoteBlock.find("#edit-textbox").val(quote);
+	});
+
+
+	$("body").on("click", "#edit_form_cancel_btn", function (e) {
+		e.preventDefault();
+		$(this).parents("#quoteEditForm").hide();
+		$(this).parents('.quoteBlock').find('#quote_para').show();
+	});
+
+	// Editing a quote
+	$("body").on("submit", "#quoteEditForm", function (e) {
+		e.preventDefault();
+
+		let $this_quoteBlock = $(this).parents(".quoteBlock");
+
+		let edited_quote = $(this).find("#edit-textbox").val();
+		let edited_quote_id = $(this).attr('data-edit-quote-id');
+
+		console.log(edited_quote + edited_quote_id);
+
+		$.post(
+			'includes/edit_quote.php',
+			{
+				edited_quote: edited_quote,
+				edited_quote_id: edited_quote_id
+			}
+		);
+
+		$.post(
+			'getEditedQuote.php',
+			{
+				edited_quote_id: edited_quote_id
+			},
+			(res) => {
+				$(this).hide();
+				// $this_quoteBlock.find("#quote_para").replace(res);
+				$this_quoteBlock.find("#quote_para").html(res).show();
+				console.log("edited quote " + res);
+			}
+		);
+	});
+
+
+
 
 	$(".quote-block-container").jaliswall({
 		item: '.quoteBlock',

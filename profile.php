@@ -267,7 +267,17 @@ include "./includes/header.inc.php";
                </div>
 
                <div class="quote">
-                  <p> <?= $data['quote'] ?> </p>
+                  <p id="quote_para"> <?= $data['quote'] ?> </p>
+
+						<form action="" id="quoteEditForm" class="displaynone" data-edit-quote-id="<?= $data['quote_id'] ?>">
+							<textarea id="edit-textbox" class="materialize-textarea" style="border: 1px solid grey !important; border-radius: 5px; padding:0 2px;"></textarea>
+
+							<div style="display:flex; justify-content:space-between; margin:10px 0 10px 0;">
+								<button id="edit_form_cancel_btn" style="border:none; padding:5px 10px; border-radius:5px;">Cancel</button>
+								<button id="edit_form_edit_btn" type="submit" style="border:none; padding:5px 10px; border-radius:5px;" >Edit</button>
+							</div>
+						</form>
+
                   <p>
                      <a href="profile.php?author=<?= $data['quote_author'] ?>&i=<?= $data['uid'] ?>">
                         <small>- <?= $data['quote_author'] ?> </small>
