@@ -146,7 +146,7 @@
 
    label {
       margin-right: 10px;
-      & > input[type=radio]:checked ~ .quoteChip {
+      & > input[type=checkbox]:checked ~ .quoteChip {
          background-color: $primaryblack;
          color: $smokewhite;
       }   

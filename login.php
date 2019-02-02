@@ -40,7 +40,7 @@ include "./includes/header.inc.php";
             </div>
 
             <div class="inputbox">
-               <input type="text" name="password" placeholder="Password">
+               <input type="password" name="password" placeholder="Password">
             </div>
 
             <div class="inputbtn">

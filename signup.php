@@ -55,7 +55,7 @@ include "./includes/header.inc.php";
             <p class="no-margin left-align" id="email_value_err"><small></small></p>               
 
             <div class="inputbox">
-               <input type="text" name="password" placeholder="Password">
+               <input type="password" name="password" placeholder="Password">
             </div>
             <?php 
                if ($passwordError)
